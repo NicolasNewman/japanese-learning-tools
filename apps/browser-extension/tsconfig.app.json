@@ -3,7 +3,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "types": [
-      "node"
+      "chrome"
+    ],
+    "lib": [
+      "es2022",
+      "dom"
     ],
     "rootDir": "src",
     "module": "esnext",
