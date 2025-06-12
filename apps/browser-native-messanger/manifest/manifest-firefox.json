@@ -1,0 +1,9 @@
+{
+  "name": "browser-native-messanger",
+  "description": "Native messaging host for copying text to clipboard",
+  "path": "PATH_TO_EXECUTABLE",
+  "type": "stdio",
+  "allowed_extensions": [
+    "YOUR_FIREFOX_EXTENSION_ID@mozilla.org"
+  ]
+}

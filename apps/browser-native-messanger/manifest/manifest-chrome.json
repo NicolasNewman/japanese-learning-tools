@@ -1,0 +1,10 @@
+{
+  "name": "browser-native-messanger",
+  "description": "Native messaging host for copying text to clipboard",
+  "path": "PATH_TO_EXECUTABLE",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://YOUR_CHROME_EXTENSION_ID/",
+    "firefox-extension://YOUR_FIREFOX_EXTENSION_ID/"
+  ]
+}

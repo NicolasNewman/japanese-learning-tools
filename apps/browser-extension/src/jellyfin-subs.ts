@@ -22,7 +22,7 @@ if (document.querySelector('body.libraryDocument')) {
         if (observer) return;
         waitForSubtitlesElement('.videoSubtitles', (subEl: Node) => {
             observer = new MutationObserver((mutationsList) => {
-                const subs = mutationsList[0].target.innerText!;
+                const subs = (mutationsList[0].target as HTMLElement).innerText;
                 if (subs !== lastSubs) {
                     navigator.clipboard.writeText(subs);
                     lastSubs = subs;
