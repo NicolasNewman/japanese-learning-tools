@@ -2,9 +2,33 @@
 name = "gd-tools"
 version = "0.1.0"
 edition = "2021"
-
+authors = ["Ajatt-Tools"]
+description = "A set of programs to enhance GoldenDict for immersion learning"
+license = "GPL-3.0"
 
 [dependencies]
+clap = { version = "4.5.0", features = ["derive"] }
+reqwest = { version = "0.12", features = ["json", "blocking", "rustls-tls"], default-features = false }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+anyhow = "1.0"
+html-escape = "0.2"
+url = "2.5"
+regex = "1.9"
+image = "0.25"
+chrono = "0.4"
+lazy_static = "1.4"
+base64 = "0.21"
+dirs = "5.0"
 
+# Optional dependencies for specific features
+lindera = { version = "0.29", optional = true } # For mecab functionality
+trie-rs = { version = "0.4.2", optional = true } # For trie-based word segmentation
+
+[features]
+default = ["mecab", "marisa"]
+mecab = ["dep:lindera"]
+marisa = ["dep:trie-rs"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
