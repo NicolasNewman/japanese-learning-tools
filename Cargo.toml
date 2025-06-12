@@ -3,6 +3,8 @@
 resolver = '2'
 members = [
 	'apps/src-tauri',
+	'apps/gd_tools',
+	'apps/browser_native_messanger',
 ]
 
 [profile.release]
