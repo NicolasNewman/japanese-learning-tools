@@ -37,7 +37,7 @@ A set of helpful programs to enhance GoldenDict for immersion learning.
 ACTIONS
   ankisearch  Search word in Anki.
   massif      Search word on Massif.
-  images      Search images on Bing.
+  images      Get images from Bing.
   translate   Translate text using argostranslate.
   marisa      Split search string using MARISA.
   mecab       Split search string using Mecab.
@@ -77,7 +77,7 @@ fn main() {
         },
         "images" => {
             let cmd_args = args[2..].to_vec();
-            images::search_images(&cmd_args);
+            images::images(&cmd_args);
         },
         "translate" => {
             let cmd_args = args[2..].to_vec();

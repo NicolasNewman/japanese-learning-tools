@@ -16,147 +16,127 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-use crate::util::{GdToolsError, Result, parse_args, html_wrapper};
+use crate::util::{GdToolsError, Result, parse_args};
+use regex::Regex;
 use reqwest::blocking::Client;
 use std::time::Duration;
 
-const TIMEOUT_SECONDS: u64 = 5;
-const MAX_IMAGES: usize = 15;
+const MAX_TIME_SECONDS: u64 = 6;
+const MAX_IMAGES: usize = 5;
 const HELP_TEXT: &str = r#"usage: gd-images [OPTIONS]
 
-Search for images on Bing and display them in an HTML grid.
+Get images from Bing.
 
 OPTIONS
-  --query STRING   The search query (required)
-  --count NUMBER   Maximum number of images to display (default: 15)
-  --market STRING  Market code for Bing API (default: "ja-JP")
-  -h, --help       Print this help screen
+  --max-time SECONDS  maximum time in seconds to wait for response.
+  --word WORD         search term.
 
 EXAMPLES
-gd-images --query "猫"
-gd-images --query "東京" --count 10 --market "en-US"
+  gd-images --max-time 6 --word "犬"
+  gd-images --word 猫
 "#;
 
-const CSS_STYLE: &str = r#"
-.image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-  padding: 10px;
-}
-.image-item {
-  overflow: hidden;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.image-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.2s;
-}
-.image-item:hover img {
-  transform: scale(1.05);
-}
-"#;
+const CSS_STYLE: &str = r#"<style>
+    .gallery {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        justify-items: center;
+        align-items: start;
+        align-content: start;
+        justify-content: space-between;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .gallery img {
+        margin: 0 auto;
+        max-width: 100%;
+        width: 100%;
+        border-radius: 5px;
+        display: block;
+        max-height: 95vh;
+        object-fit: contain;
+    }
+</style>"#;
 
-fn search_bing_images(query: &str, count: usize, market: &str) -> Result<Vec<String>> {
+struct ImagesParams {
+    max_time: u64,
+    word: String,
+}
+
+fn fetch_images(params: &ImagesParams) -> Result<()> {
     let client = Client::builder()
-        .timeout(Duration::from_secs(TIMEOUT_SECONDS))
+        .timeout(Duration::from_secs(params.max_time))
+        .danger_accept_invalid_certs(true)
         .build()?;
     
-    let search_url = format!(
-        "https://www.bing.com/images/search?q={}&form=HDRSC2&first=1",
-        url_encode(query)
-    );
-    
-    let response = client.get(&search_url)
-        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-        .header("Accept-Language", market)
+    let response = client.get("https://www.bing.com/images/search")
+        .query(&[("q", &params.word), ("mkt", &String::from("ja-JP"))])
+        .header("User-Agent", "Mozilla/5.0")
         .send()?
         .text()?;
     
-    let image_urls = extract_image_urls(&response, count)?;
-    Ok(image_urls)
-}
-
-fn url_encode(s: &str) -> String {
-    url::form_urlencoded::byte_serialize(s.as_bytes()).collect()
-}
-
-fn extract_image_urls(html: &str, count: usize) -> Result<Vec<String>> {
-    // In a real implementation, this would use a proper HTML parser
-    // or regex to extract image URLs from Bing's search results.
-    // This is a simplified version that would need to be enhanced.
+    let img_re = Regex::new(r#"<img[^<>]*class="mimg[^<>]*>"#).map_err(|_| {
+        GdToolsError::ServiceUnavailable("Failed to compile regex".into())
+    })?;
     
-    let mut urls = Vec::new();
-    let re = regex::Regex::new(r#""murl":"([^"]*)""#).unwrap();
+    println!("<div class=\"gallery\">");
     
-    for cap in re.captures_iter(html).take(count) {
-        if let Some(url) = cap.get(1) {
-            urls.push(url.as_str().to_string());
+    let mut count = 0;
+    for cap in img_re.find_iter(&response) {
+        if count >= MAX_IMAGES {
+            break;
         }
+        println!("{}", cap.as_str());
+        count += 1;
     }
     
-    if urls.is_empty() {
-        return Err(GdToolsError::ServiceUnavailable("No images found".into()));
-    }
+    println!("</div>");
+    println!("{}", CSS_STYLE);
     
-    Ok(urls)
+    Ok(())
 }
 
-fn generate_image_html(image_urls: &[String]) -> String {
-    let mut html = String::from("<div class=\"image-grid\">");
-    
-    for url in image_urls {
-        html.push_str(&format!(
-            r#"<div class="image-item"><a href="{url}" target="_blank"><img src="{url}" alt="Search result"></a></div>"#,
-            url = url
-        ));
-    }
-    
-    html.push_str("</div>");
-    html_wrapper(&html, Some(CSS_STYLE))
-}
-
-fn print_help() {
-    println!("{}", HELP_TEXT);
-}
-
-pub fn search_images(args: &[String]) {
-    if args.is_empty() || args.contains(&String::from("--help")) || args.contains(&String::from("-h")) {
-        print_help();
-        return;
-    }
+fn parse_images_params(args: &[String]) -> Result<ImagesParams> {
+    let mut params = ImagesParams {
+        max_time: MAX_TIME_SECONDS,
+        word: String::new(),
+    };
     
     let parsed_args = parse_args(args);
     
-    // Get search query
-    let query = match parsed_args.get("query") {
-        Some(q) => q,
-        None => {
-            eprintln!("Error: Missing required argument --query");
-            print_help();
-            return;
+    // Parse max_time parameter
+    if let Some(max_time_str) = parsed_args.get("max-time") {
+        if let Ok(max_time) = max_time_str.parse::<u64>() {
+            params.max_time = max_time;
         }
-    };
+    }
     
-    // Get optional parameters
-    let count = parsed_args.get("count")
-        .and_then(|c| c.parse::<usize>().ok())
-        .unwrap_or(MAX_IMAGES);
+    // Parse word parameter
+    if let Some(word) = parsed_args.get("word") {
+        params.word = word.clone();
+    } else {
+        // Word is required
+        return Err(GdToolsError::MissingArgument("--word".into()));
+    }
     
-    let market = parsed_args.get("market")
-        .cloned()
-        .unwrap_or_else(|| String::from("ja-JP"));
+    Ok(params)
+}
+
+pub fn images(args: &[String]) {
+    if args.is_empty() || args.contains(&String::from("--help")) || args.contains(&String::from("-h")) {
+        println!("{}", HELP_TEXT);
+        return;
+    }
     
-    match search_bing_images(query, count, &market) {
-        Ok(image_urls) => {
-            let html = generate_image_html(&image_urls);
-            println!("{}", html);
+    match parse_images_params(args) {
+        Ok(params) => {
+            if let Err(err) = fetch_images(&params) {
+                eprintln!("{}", err);
+            }
         },
-        Err(e) => {
-            eprintln!("Error searching images: {}", e);
+        Err(err) => {
+            eprintln!("{}", err);
+            println!("{}", HELP_TEXT);
         }
     }
 }
