@@ -5,3 +5,6 @@ vitest.config.*.timestamp*
 dist/
 .cargo/
 .svelte-kit/
+apps/gd-tools/gd-tools/
+apps/gd-tools/res/
+.venv/

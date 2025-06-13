@@ -1353,7 +1353,6 @@ dependencies = [
  "html-escape",
  "image",
  "lazy_static",
- "lindera",
  "regex",
  "reqwest",
  "serde",
@@ -2332,12 +2331,6 @@ dependencies = [
  "bitflags 2.9.1",
  "libc",
 ]
-
-[[package]]
-name = "lindera"
-version = "0.29.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0d580c8cfa90fd2edeb45f2a44b6c5845466dc60c4462dd96be69b066131efe7"
 
 [[package]]
 name = "linux-raw-sys"

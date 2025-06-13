@@ -21,14 +21,32 @@ chrono = "0.4"
 lazy_static = "1.4"
 base64 = "0.21"
 dirs = "5.0"
-
-# Optional dependencies for specific features
-lindera = { version = "0.29", optional = true } # For mecab functionality
 trie-rs = { version = "0.4.2", optional = true } # For trie-based word segmentation
 
 [features]
-default = ["mecab", "marisa"]
-mecab = ["dep:lindera"]
+default = ["marisa"]
 marisa = ["dep:trie-rs"]
+
+[package.metadata.bundle]
+name = "gd-tools"
+identifier = "com.example.gd-tools"
+resources = ["path/to/mecab-ipadic-neologd"]
+
+[package.metadata.deb]
+maintainer = "Your Name <your.email@example.com>"
+depends = ["mecab", "libmecab-dev"]
+assets = [
+    ["path/to/mecab-ipadic-neologd", "/usr/lib/mecab/dic/mecab-ipadic-neologd"],
+    ["target/release/gd-tools", "/usr/bin/gd-tools"]
+]
+
+[package.metadata.wix]
+license = "path/to/LICENSE"
+binaries = [
+    { path = "target/release/gd-tools.exe", name = "gd-tools" }
+]
+assets = [
+    { path = "path/to/mecab-ipadic-neologd", destination = "C:\\Program Files\\gd-tools\\mecab-ipadic-neologd" }
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
