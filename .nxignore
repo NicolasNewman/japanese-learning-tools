@@ -16,5 +16,3 @@ __pycache__/
 dist/
 node_modules/
 .nx/cache/
-desktop-frontend/
-desktop-backend/

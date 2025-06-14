@@ -16,7 +16,7 @@
         "dev": {
             "executor": "nx:run-commands",
             "options": {
-                "command": "pnpm tauri dev",
+                "command": "cd {projectRoot} && pnpm tauri dev",
                 "cwd": "{workspaceRoot}"
             }
         }

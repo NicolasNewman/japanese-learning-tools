@@ -8,8 +8,6 @@
         "**/.cache/**": true,
         "**/.git/**": true,
         "**/.vscode/**": true,
-        "desktop-frontend/*/**": true,
-        "desktop-backend/*/**": true,
         "apps/gd-tools/gd-tools/*/**": true
     },
     "svelte.enable-ts-plugin": true
