@@ -5,18 +5,13 @@
   "sourceRoot": "apps/gd-tools/src",
   "targets": {
     "build": {
-      "cache": true,
-      "executor": "@monodon/rust:build",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "executor": "nx:run-commands",
       "options": {
-        "target-dir": "dist/target/gd-tools"
-      },
-      "configurations": {
-        "production": {
-          "release": true
-        }
+        "commands": [
+          "nx run gd-tools:build:linux",
+          "nx run gd-tools:build:windows"
+        ],
+        "parallel": false
       }
     },
     "build:linux": {
@@ -25,7 +20,8 @@
         "commands": [
           "nx run gd-tools:_build:linux",
           "nx run gd-tools:rename-binary --target=x86_64-unknown-linux-gnu"
-        ]
+        ],
+        "parallel": false
       }
     },
     "_build:linux": {
@@ -45,7 +41,8 @@
         "commands": [
           "nx run gd-tools:_build:windows",
           "nx run gd-tools:rename-binary --target=x86_64-pc-windows-gnu"
-        ]
+        ],
+        "parallel": false
       }
     },
     "_build:windows": {
@@ -65,7 +62,8 @@
         "commands": [
           "nx run gd-tools:_build:macos",
           "nx run gd-tools:rename-binary --target=x86_64-apple-darwin"
-        ]
+        ],
+        "parallel": false
       }
     },
     "_build:macos": {

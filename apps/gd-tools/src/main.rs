@@ -23,8 +23,6 @@ mod anki_search;
 mod echo;
 mod images;
 mod kana_conv;
-mod marisa_split;
-mod massif;
 mod mecab_split;
 mod translate;
 mod util;
@@ -36,10 +34,8 @@ A set of helpful programs to enhance GoldenDict for immersion learning.
 
 ACTIONS
   ankisearch  Search word in Anki.
-  massif      Search word on Massif.
   images      Get images from Bing.
   translate   Translate text using argostranslate.
-  marisa      Split search string using MARISA.
   mecab       Split search string using Mecab.
   strokeorder Show stroke order of a word.
   handwritten Display the handwritten form of a word.
@@ -54,13 +50,15 @@ gd-ankisearch --deck-name Mining %GDWORD%
 "#;
 
 fn print_help() {
-    let program_name = env::args().next().unwrap_or_else(|| String::from("gd-tools"));
+    let program_name = env::args()
+        .next()
+        .unwrap_or_else(|| String::from("gd-tools"));
     println!("{}", HELP_TEXT.replace("{}", &program_name));
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    
+
     if args.len() <= 1 || args[1] == "-h" || args[1] == "--help" {
         print_help();
         return;
@@ -70,39 +68,30 @@ fn main() {
         "ankisearch" => {
             let cmd_args = args[2..].to_vec();
             anki_search::search_anki_cards(&cmd_args);
-        },
-        "massif" => {
-            let cmd_args = args[2..].to_vec();
-            massif::search_massif(&cmd_args);
-        },
+        }
         "images" => {
             let cmd_args = args[2..].to_vec();
             images::images(&cmd_args);
-        },
+        }
         "translate" => {
             let cmd_args = args[2..].to_vec();
             translate::translate_text(&cmd_args);
-        },
-        "marisa" => {
-            let cmd_args = args[2..].to_vec();
-            marisa_split::split_marisa(&cmd_args);
-        },
+        }
         "mecab" => {
             let cmd_args = args[2..].to_vec();
             mecab_split::split_mecab(&cmd_args);
-        },
+        }
         "strokeorder" => {
             let cmd_args = args[2..].to_vec();
             echo::show_stroke_order(&cmd_args);
-        },
+        }
         "handwritten" => {
             let cmd_args = args[2..].to_vec();
             echo::show_handwritten(&cmd_args);
-        },
+        }
         _ => {
             println!("Unknown command: {}", args[1]);
             print_help();
         }
     }
 }
-

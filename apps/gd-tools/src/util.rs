@@ -17,7 +17,6 @@
  */
 
 use std::collections::HashMap;
-use std::path::PathBuf;
 use thiserror::Error;
 
 /// Custom error type for gd-tools operations
@@ -25,19 +24,19 @@ use thiserror::Error;
 pub enum GdToolsError {
     #[error("HTTP request error: {0}")]
     RequestError(#[from] reqwest::Error),
-    
+
     #[error("IO error: {0}")]
     IoError(#[from] std::io::Error),
-    
+
     #[error("JSON parsing error: {0}")]
     JsonError(#[from] serde_json::Error),
-    
+
     #[error("Missing required argument: {0}")]
     MissingArgument(String),
-    
+
     #[error("Invalid argument: {0}")]
     InvalidArgument(String),
-    
+
     #[error("Service unavailable: {0}")]
     ServiceUnavailable(String),
 }
@@ -48,13 +47,13 @@ pub type Result<T> = std::result::Result<T, GdToolsError>;
 pub fn parse_args(args: &[String]) -> HashMap<String, String> {
     let mut result = HashMap::new();
     let mut i = 0;
-    
+
     while i < args.len() {
         let arg = &args[i];
-        
+
         if arg.starts_with("--") {
             let key = arg.trim_start_matches("--").to_string();
-            
+
             if i + 1 < args.len() && !args[i + 1].starts_with("--") {
                 result.insert(key, args[i + 1].clone());
                 i += 2;
@@ -68,13 +67,8 @@ pub fn parse_args(args: &[String]) -> HashMap<String, String> {
             i += 1;
         }
     }
-    
-    result
-}
 
-/// Get the user's home directory
-pub fn get_home_dir() -> Option<PathBuf> {
-    dirs::home_dir()
+    result
 }
 
 /// Helper function to escape HTML content
