@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "main",
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
@@ -12,12 +13,8 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/src/test-setup.[jt]s"
-    ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml"
     ]
   },
-  "nxCloudId": "684adbc9a0522036e18753c7",
   "plugins": [
     {
       "plugin": "@nxlv/python"

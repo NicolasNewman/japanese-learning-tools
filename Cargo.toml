@@ -2,7 +2,7 @@
 [workspace]
 resolver = '2'
 members = [
-	'apps/desktop-backend',
+	'apps/desktop-app/src-tauri',
 	'apps/gd-tools',
 	'apps/browser-native-messanger',
 ]

@@ -1,0 +1,16 @@
+{
+    "files.watcherExclude": {
+        "**/node_modules/*/**": true,
+        "**/dist/**": true,
+        "**/build/**": true,
+        "**/.next/**": true,
+        "**/.nuxt/**": true,
+        "**/.cache/**": true,
+        "**/.git/**": true,
+        "**/.vscode/**": true,
+        "desktop-frontend/*/**": true,
+        "desktop-backend/*/**": true,
+        "apps/gd-tools/gd-tools/*/**": true
+    },
+    "svelte.enable-ts-plugin": true
+}

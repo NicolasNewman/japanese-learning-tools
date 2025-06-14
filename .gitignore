@@ -6,5 +6,8 @@ dist/
 .cargo/
 .svelte-kit/
 apps/gd-tools/gd-tools/
-apps/gd-tools/res/
 .venv/
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+desktop-backend/
+desktop-frontend/
