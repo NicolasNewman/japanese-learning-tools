@@ -1,6 +1,11 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
-  import { appDataDir, dataDir, resourceDir } from "@tauri-apps/api/path";
+  import {
+    appDataDir,
+    dataDir,
+    resourceDir,
+    executableDir,
+  } from "@tauri-apps/api/path";
 
   let name = $state("");
   let greetMsg = $state("");
@@ -46,6 +51,20 @@
     <p>Resource directory: {dir}</p>
   {:catch error}
     <p>Error loading resource directory: {error.message}</p>
+  {/await}
+  {#await appDataDir()}
+    <p>Loading appData directory...</p>
+  {:then dir}
+    <p>appData directory: {dir}</p>
+  {:catch error}
+    <p>Error loading appData directory: {error.message}</p>
+  {/await}
+  {#await executableDir()}
+    <p>Loading executable directory...</p>
+  {:then dir}
+    <p>executable directory: {dir}</p>
+  {:catch error}
+    <p>Error loading executable directory: {error.message}</p>
   {/await}
 </main>
 

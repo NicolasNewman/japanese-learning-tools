@@ -7,8 +7,10 @@
     "commitlint": "commitlint --edit",
     "prepare": "husky install",
     "dev:tauri": "nx run desktop-app:dev",
+    "build:ext": "nx run browser-native-messenger:build",
     "build:tauri": "nx run desktop-app:build",
-    "build:gd-tools": "nx run gd-tools:build"
+    "build:gd-tools": "nx run gd-tools:build",
+    "build:dic": "nx run mecab-ipadic-neologd:build"
   },
   "private": true,
   "devDependencies": {

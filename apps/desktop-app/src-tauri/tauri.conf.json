@@ -31,11 +31,13 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "resources": [
-      "../../gd-tools/resources/**/*"
-    ],
+    "resources": {
+      "../../gd-tools/resources/**/*": "resources/",
+      "../../../dist/target/mecab-ipadic-neologd/**/*": "resources/mecab-ipadic-neologd"
+    },
     "externalBin": [
-      "../../../dist/target/gd-tools/gd-tools"
+      "../../../dist/target/gd-tools/gd-tools",
+      "../../../dist/target/browser-native-messenger/browser-native-messenger"
     ]
   }
 }
