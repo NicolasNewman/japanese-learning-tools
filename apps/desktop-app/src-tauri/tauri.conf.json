@@ -33,12 +33,12 @@
     ],
     "resources": {
       "../../gd-tools/resources/**/*": "resources/",
-      "../../browser-native-messenger/manifest/**/*": "resources/manifest",
+      "../../subs2clipboard-native-messenger/manifest/**/*": "resources/manifest",
       "../../../dist/target/mecab-ipadic-neologd/**/*": "resources/mecab-ipadic-neologd"
     },
     "externalBin": [
       "../../../dist/target/gd-tools/gd-tools",
-      "../../../dist/target/browser-native-messenger/browser-native-messenger"
+      "../../../dist/target/subs2clipboard-native-messenger/subs2clipboard-native-messenger"
     ],
     "linux": {
       "rpm": {

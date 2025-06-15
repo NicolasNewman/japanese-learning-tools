@@ -5,7 +5,7 @@ import path from 'path';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/apps/browser-extension',
+  cacheDir: '../../node_modules/.vite/apps/subs2clipboard',
   server: {
     port: 4200,
     host: 'localhost',
@@ -24,7 +24,7 @@ export default defineConfig(() => ({
     })
   ],
   build: {
-    outDir: '../../dist/browser-extension',
+    outDir: '../../dist/subs2clipboard',
     emptyOutDir: true,
     reportCompressedSize: true,
     rollupOptions: {

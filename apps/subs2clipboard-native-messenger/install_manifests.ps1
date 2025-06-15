@@ -5,7 +5,7 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ManifestDir = "$ScriptDir\manifest"
 
 # Path to the executable - determine the release binary path
-$ExecutablePath = "$ScriptDir\..\..\target\release\browser-native-messenger.exe"
+$ExecutablePath = "$ScriptDir\..\..\target\release\subs2clipboard-native-messenger.exe"
 
 # Replace backslashes with forward slashes (JSON format)
 $ExecutablePath = $ExecutablePath -replace "\\", "/"
@@ -48,8 +48,8 @@ $ChromeManifestContent = Get-Content -Raw "$ManifestDir\manifest-chrome.json" |
            -replace "YOUR_FIREFOX_EXTENSION_ID", $FirefoxExtensionId
     }
 
-$ChromeManifestContent | Set-Content -Path "$ChromeTargetDir\browser-native-messanger.json" -Encoding UTF8
-$ChromeManifestContent | Set-Content -Path "$EdgeTargetDir\browser-native-messanger.json" -Encoding UTF8
+$ChromeManifestContent | Set-Content -Path "$ChromeTargetDir\subs2clipboard-native-messenger.json" -Encoding UTF8
+$ChromeManifestContent | Set-Content -Path "$EdgeTargetDir\subs2clipboard-native-messenger.json" -Encoding UTF8
 
 # Install Firefox manifest
 Write-Host "Installing Firefox manifest..."
@@ -59,12 +59,12 @@ $FirefoxManifestContent = Get-Content -Raw "$ManifestDir\manifest-firefox.json" 
            -replace "YOUR_FIREFOX_EXTENSION_ID", $FirefoxExtensionId
     }
 
-$FirefoxManifestContent | Set-Content -Path "$FirefoxTargetDir\browser-native-messanger.json" -Encoding UTF8
+$FirefoxManifestContent | Set-Content -Path "$FirefoxTargetDir\subs2clipboard-native-messenger.json" -Encoding UTF8
 
 Write-Host "Installation complete."
 Write-Host ""
-Write-Host "Chrome manifest installed at: $ChromeTargetDir\browser-native-messanger.json"
-Write-Host "Edge manifest installed at: $EdgeTargetDir\browser-native-messanger.json"
-Write-Host "Firefox manifest installed at: $FirefoxTargetDir\browser-native-messanger.json"
+Write-Host "Chrome manifest installed at: $ChromeTargetDir\subs2clipboard-native-messenger.json"
+Write-Host "Edge manifest installed at: $EdgeTargetDir\subs2clipboard-native-messenger.json"
+Write-Host "Firefox manifest installed at: $FirefoxTargetDir\subs2clipboard-native-messenger.json"
 Write-Host ""
 Write-Host "Don't forget to update the extension IDs in this script before running it."

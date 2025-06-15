@@ -1,12 +1,12 @@
 {
-    "name": "browser-extension",
+    "name": "subs2clipboard",
     "projectType": "application",
-    "sourceRoot": "apps/browser-extension/src",
+    "sourceRoot": "apps/subs2clipboard/src",
     "targets": {
         "build": {
             "executor": "nx:run-commands",
             "outputs": [
-                "{projectRoot}/dist/browser-extension"
+                "{projectRoot}/dist/subs2clipboard"
             ],
             "options": {
                 "command": "cd {projectRoot} && pnpm vite build",

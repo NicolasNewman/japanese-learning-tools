@@ -8,7 +8,7 @@
     "prepare": "husky install",
     "dev:tauri": "nx run desktop-app:dev",
     "build": "pnpm run build:ext && pnpm run build:gd-tools && pnpm run build:dic && pnpm run build:tauri",
-    "build:ext": "nx run browser-native-messenger:build",
+    "build:ext": "nx run subs2clipboard-native-messenger:build",
     "build:tauri": "nx run desktop-app:build",
     "build:gd-tools": "nx run gd-tools:build",
     "build:dic": "nx run mecab-ipadic-neologd:build"

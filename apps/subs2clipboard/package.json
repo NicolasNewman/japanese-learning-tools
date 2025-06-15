@@ -1,5 +1,5 @@
 {
-  "name": "@org/browser-extension",
+  "name": "@org/subs2clipboard",
   "version": "0.0.1",
   "private": true,
   "devDependencies": {

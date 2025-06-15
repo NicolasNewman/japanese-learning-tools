@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MANIFEST_DIR="$SCRIPT_DIR/manifest"
 
 # Path to the executable - determine the release binary path
-EXECUTABLE_PATH="$SCRIPT_DIR/../../target/release/browser-native-messenger"
+EXECUTABLE_PATH="$SCRIPT_DIR/../../target/release/subs2clipboard-native-messenger"
 
 # Chrome/Chromium extension ID
 CHROME_EXTENSION_ID="YOUR_CHROME_EXTENSION_ID"
@@ -66,8 +66,8 @@ cat "$MANIFEST_DIR/manifest-chrome.json" | \
   sed "s|YOUR_FIREFOX_EXTENSION_ID|$FIREFOX_EXTENSION_ID|g" \
   > "$TEMP_CHROME_MANIFEST"
 
-cp "$TEMP_CHROME_MANIFEST" "$CHROME_TARGET_DIR/browser-native-messanger.json"
-cp "$TEMP_CHROME_MANIFEST" "$CHROMIUM_TARGET_DIR/browser-native-messanger.json"
+cp "$TEMP_CHROME_MANIFEST" "$CHROME_TARGET_DIR/subs2clipboard-native-messenger.json"
+cp "$TEMP_CHROME_MANIFEST" "$CHROMIUM_TARGET_DIR/subs2clipboard-native-messenger.json"
 rm "$TEMP_CHROME_MANIFEST"
 
 # Install Firefox manifest
@@ -78,12 +78,12 @@ cat "$MANIFEST_DIR/manifest-firefox.json" | \
   sed "s|YOUR_FIREFOX_EXTENSION_ID|$FIREFOX_EXTENSION_ID|g" \
   > "$TEMP_FIREFOX_MANIFEST"
 
-cp "$TEMP_FIREFOX_MANIFEST" "$FIREFOX_TARGET_DIR/browser-native-messanger.json"
+cp "$TEMP_FIREFOX_MANIFEST" "$FIREFOX_TARGET_DIR/subs2clipboard-native-messenger.json"
 rm "$TEMP_FIREFOX_MANIFEST"
 
 echo "Installation complete."
 echo ""
-echo "Chrome/Chromium manifest installed at: $CHROME_TARGET_DIR/browser-native-messanger.json"
-echo "Firefox manifest installed at: $FIREFOX_TARGET_DIR/browser-native-messanger.json"
+echo "Chrome/Chromium manifest installed at: $CHROME_TARGET_DIR/subs2clipboard-native-messenger.json"
+echo "Firefox manifest installed at: $FIREFOX_TARGET_DIR/subs2clipboard-native-messenger.json"
 echo ""
 echo "Don't forget to update the extension IDs in this script before running it."

@@ -61,7 +61,7 @@ Your browser extension needs to connect to the native application:
 ### Chrome/Edge
 
 ```javascript
-const port = chrome.runtime.connectNative('browser-native-messanger');
+const port = chrome.runtime.connectNative('subs2clipboard-native-messenger');
 
 port.onMessage.addListener((message) => {
   console.log('Received:', message);
@@ -78,7 +78,7 @@ port.postMessage({ text: 'Text to copy to clipboard' });
 ### Firefox
 
 ```javascript
-const port = browser.runtime.connectNative('browser-native-messanger');
+const port = browser.runtime.connectNative('subs2clipboard-native-messenger');
 
 port.onMessage.addListener((message) => {
   console.log('Received:', message);
@@ -100,6 +100,6 @@ If you encounter issues:
 2. Check the log file located at:
    - Linux/macOS: `/tmp/browser_native_messenger.log`
    - Windows: `%TEMP%\browser_native_messenger.log`
-3. Run the host manually with `./browser-native-messenger` for detailed output
+3. Run the host manually with `./subs2clipboard-native-messenger` for detailed output
 4. Verify that the manifest paths are correct and the extension IDs match
 4. Ensure the executable has proper permissions (especially on Linux/macOS)

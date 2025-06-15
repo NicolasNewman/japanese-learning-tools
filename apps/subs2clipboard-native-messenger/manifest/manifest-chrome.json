@@ -1,5 +1,5 @@
 {
-  "name": "browser-native-messanger",
+  "name": "subs2clipboard-native-messenger",
   "description": "Native messaging host for copying text to clipboard",
   "path": "PATH_TO_EXECUTABLE",
   "type": "stdio",
