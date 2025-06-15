@@ -24,7 +24,7 @@ export default defineConfig(() => ({
     })
   ],
   build: {
-    outDir: './dist',
+    outDir: '../../dist/browser-extension',
     emptyOutDir: true,
     reportCompressedSize: true,
     rollupOptions: {
