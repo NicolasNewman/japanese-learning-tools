@@ -9,7 +9,7 @@
                 "{projectRoot}/build"
             ],
             "options": {
-                "command": "cd {projectRoot} && pnpm tauri build",
+                "command": "cd {projectRoot} && pnpm tauri build -b deb",
                 "cwd": "{workspaceRoot}"
             }
         },

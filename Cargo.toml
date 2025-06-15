@@ -4,7 +4,7 @@ resolver = '2'
 members = [
 	'apps/desktop-app/src-tauri',
 	'apps/gd-tools',
-	'apps/browser-native-messanger',
+	'apps/browser-native-messenger',
 ]
 
 [profile.release]
