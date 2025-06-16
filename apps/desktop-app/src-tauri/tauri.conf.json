@@ -38,6 +38,7 @@
     },
     "externalBin": [
       "../../../dist/target/gd-tools/gd-tools",
+      "../../../dist/target/gd-sudachi/gd-sudachi",
       "../../../dist/target/browser-native-messenger/browser-native-messenger"
     ],
     "linux": {
