@@ -1,0 +1,84 @@
+{
+  "name": "gd-sudachi",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/gd-sudachi/gd-sudachi",
+  "targets": {
+    "lock": {
+      "executor": "@nxlv/python:lock",
+      "options": {
+        "update": false
+      }
+    },
+    "sync": {
+      "executor": "@nxlv/python:sync",
+      "options": {}
+    },
+    "add": {
+      "executor": "@nxlv/python:add",
+      "options": {}
+    },
+    "update": {
+      "executor": "@nxlv/python:update",
+      "options": {}
+    },
+    "remove": {
+      "executor": "@nxlv/python:remove",
+      "options": {}
+    },
+    "build:linux": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=dist/ --output-filename=gd-sudachi-$(rustc -Vv | grep host | cut -f2 -d' ') --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
+      }
+    },
+    "build:macos": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=dist/ --output-filename=gd-sudachi-$(rustc -Vv | grep host | cut -f2 -d' ') --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
+      }
+    },
+    "build:windows": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=dist/ --output-filename=gd-sudachi-$(rustc -Vv | Select-String \"host:\" | ForEach-Object {$_.Line.split(\" \")[1]}) --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
+      }
+    },
+    "lint": {
+      "executor": "@nxlv/python:ruff-check",
+      "outputs": [],
+      "options": {
+        "lintFilePatterns": [
+          "sentence_parser"
+        ]
+      },
+      "cache": true
+    },
+    "format": {
+      "executor": "@nxlv/python:ruff-format",
+      "outputs": [],
+      "options": {
+        "filePatterns": [
+          "sentence_parser"
+        ]
+      },
+      "cache": true
+    },
+    "install": {
+      "executor": "@nxlv/python:install",
+      "options": {
+        "silent": false,
+        "args": "",
+        "cacheDir": ".cache/pypoetry",
+        "verbose": false,
+        "debug": false
+      }
+    }
+  },
+  "tags": [],
+  "release": {
+    "version": {
+      "generator": "@nxlv/python:release-version"
+    }
+  }
+}
