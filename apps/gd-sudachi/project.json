@@ -29,19 +29,19 @@
     "build:linux": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=dist/ --output-filename=gd-sudachi-$(rustc -Vv | grep host | cut -f2 -d' ') --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
+        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=../../dist/target/gd-sudachi/ --output-filename=gd-sudachi-$(rustc -Vv | grep host | cut -f2 -d' ') --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
       }
     },
     "build:macos": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=dist/ --output-filename=gd-sudachi-$(rustc -Vv | grep host | cut -f2 -d' ') --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
+        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=../../dist/target/gd-sudachi/ --output-filename=gd-sudachi-$(rustc -Vv | grep host | cut -f2 -d' ') --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
       }
     },
     "build:windows": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=dist/ --output-filename=gd-sudachi-$(rustc -Vv | Select-String \"host:\" | ForEach-Object {$_.Line.split(\" \")[1]}) --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
+        "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=../../dist/target/gd-sudachi/ --output-filename=gd-sudachi-$(rustc -Vv | Select-String \"host:\" | ForEach-Object {$_.Line.split(\" \")[1]}) --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
       }
     },
     "lint": {
