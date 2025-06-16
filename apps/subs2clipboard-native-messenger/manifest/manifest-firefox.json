@@ -4,6 +4,6 @@
   "path": "PATH_TO_EXECUTABLE",
   "type": "stdio",
   "allowed_extensions": [
-    "YOUR_FIREFOX_EXTENSION_ID@mozilla.org"
+    "subs2clipboard@nicolasnewman.com"
   ]
 }

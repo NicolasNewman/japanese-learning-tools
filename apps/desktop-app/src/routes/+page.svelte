@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { installManifest } from "$lib/manifest-installer";
   import { invoke } from "@tauri-apps/api/core";
   import {
     appDataDir,
@@ -6,6 +7,8 @@
     resourceDir,
     executableDir,
   } from "@tauri-apps/api/path";
+
+  const result = installManifest();
 
   let name = $state("");
   let greetMsg = $state("");
@@ -38,6 +41,13 @@
     <button type="submit">Greet</button>
   </form>
   <p>{greetMsg}</p>
+  {#await result}
+    <p>Loading manifest...</p>
+  {:then manifest}
+    <p>Manifest installed: {JSON.stringify(manifest)}</p>
+  {:catch error}
+    <p>Error installing manifest: {error}</p>
+  {/await}
   {#await dataDir()}
     <p>Loading data directory...</p>
   {:then dir}

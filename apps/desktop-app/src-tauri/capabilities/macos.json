@@ -1,0 +1,21 @@
+{
+    "$schema": "../gen/schemas/desktop-schema.json",
+    "identifier": "macos",
+    "platforms": [
+        "macOS"
+    ],
+    "description": "Capability for the main window on macos",
+    "windows": [
+        "main"
+    ],
+    "permissions": [
+        {
+            "identifier": "fs:scope",
+            "allow": [
+                {
+                    "path": "/Library/Application Support/Mozilla/NativeMessagingHosts/*"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "$schema": "../gen/schemas/desktop-schema.json",
+    "identifier": "linux",
+    "platforms": [
+        "linux"
+    ],
+    "description": "Capability for the main window on Linux",
+    "windows": [
+        "main"
+    ],
+    "permissions": [
+        {
+            "identifier": "fs:scope",
+            "allow": [
+                {
+                    "path": "/usr/lib/mozilla/native-messaging-hosts/*"
+                }
+            ]
+        }
+    ]
+}
