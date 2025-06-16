@@ -1,0 +1,35 @@
+{
+    "name": "browser-extension",
+    "projectType": "application",
+    "sourceRoot": "apps/browser-extension/src",
+    "targets": {
+        "build": {
+            "executor": "nx:run-commands",
+            "outputs": [
+                "{projectRoot}/dist/browser-extension"
+            ],
+            "options": {
+                "command": "cd {projectRoot} && pnpm vite build",
+                "cwd": "{workspaceRoot}"
+            }
+        },
+        "dev": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "cd {projectRoot} && pnpm vite dev",
+                "cwd": "{workspaceRoot}"
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "options": {
+                "lintFilePatterns": [
+                    "{projectRoot}/src/**/*.ts",
+                    "{projectRoot}/src/**/*.tsx",
+                    "{projectRoot}/src/**/*.js",
+                    "{projectRoot}/src/**/*.jsx"
+                ]
+            }
+        }
+    }
+}

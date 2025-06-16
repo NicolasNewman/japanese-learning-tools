@@ -30,6 +30,23 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "resources": {
+      "../../gd-tools/resources/**/*": "resources/",
+      "../../browser-native-messenger/manifest/**/*": "resources/manifest",
+      "../../../dist/target/mecab-ipadic-neologd/**/*": "resources/mecab-ipadic-neologd"
+    },
+    "externalBin": [
+      "../../../dist/target/gd-tools/gd-tools",
+      "../../../dist/target/browser-native-messenger/browser-native-messenger"
+    ],
+    "linux": {
+      "rpm": {
+        "compression": {
+          "type": "xz",
+          "level": 9
+        }
+      }
+    }
   }
 }

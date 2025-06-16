@@ -1,15 +1,15 @@
 {
-  "name": "gd-tools",
+  "name": "browser-native-messenger",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/gd-tools/src",
+  "sourceRoot": "apps/browser-native-messenger/src",
   "targets": {
     "build": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run gd-tools:build:linux",
-          "nx run gd-tools:build:windows"
+          "nx run browser-native-messenger:build:linux",
+          "nx run browser-native-messenger:build:windows"
         ],
         "parallel": false
       }
@@ -18,8 +18,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run gd-tools:_build:linux",
-          "nx run gd-tools:rename-binary --target=x86_64-unknown-linux-gnu"
+          "nx run browser-native-messenger:_build:linux",
+          "nx run browser-native-messenger:rename-binary --target=x86_64-unknown-linux-gnu"
         ],
         "parallel": false
       }
@@ -31,7 +31,7 @@
       ],
       "options": {
         "target": "x86_64-unknown-linux-gnu",
-        "target-dir": "dist/target/gd-tools",
+        "target-dir": "dist/target/browser-native-messenger",
         "release": true
       }
     },
@@ -39,8 +39,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run gd-tools:_build:windows",
-          "nx run gd-tools:rename-binary --target=x86_64-pc-windows-gnu"
+          "nx run browser-native-messenger:_build:windows",
+          "nx run browser-native-messenger:rename-binary --target=x86_64-pc-windows-gnu"
         ],
         "parallel": false
       }
@@ -52,7 +52,7 @@
       ],
       "options": {
         "target": "x86_64-pc-windows-gnu",
-        "target-dir": "dist/target/gd-tools",
+        "target-dir": "dist/target/browser-native-messenger",
         "release": true
       }
     },
@@ -60,8 +60,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run gd-tools:_build:macos",
-          "nx run gd-tools:rename-binary --target=x86_64-apple-darwin"
+          "nx run browser-native-messenger:_build:macos",
+          "nx run browser-native-messenger:rename-binary --target=x86_64-apple-darwin"
         ],
         "parallel": false
       }
@@ -73,14 +73,14 @@
       ],
       "options": {
         "target": "x86_64-apple-darwin",
-        "target-dir": "dist/target/gd-tools",
+        "target-dir": "dist/target/browser-native-messenger",
         "release": true
       }
     },
     "rename-binary": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx tsx scripts/rename-binary.ts dist/target/gd-tools {args.target}"
+        "command": "npx tsx scripts/rename-binary.ts dist/target/browser-native-messenger {args.target}"
       }
     },
     "test": {
@@ -90,7 +90,7 @@
         "{options.target-dir}"
       ],
       "options": {
-        "target-dir": "dist/target/gd-tools"
+        "target-dir": "dist/target/browser-native-messenger"
       },
       "configurations": {
         "production": {
@@ -105,7 +105,7 @@
         "{options.target-dir}"
       ],
       "options": {
-        "target-dir": "dist/target/gd-tools"
+        "target-dir": "dist/target/browser-native-messenger"
       }
     },
     "run": {
@@ -114,7 +114,7 @@
         "{options.target-dir}"
       ],
       "options": {
-        "target-dir": "dist/target/gd-tools"
+        "target-dir": "dist/target/browser-native-messenger"
       },
       "configurations": {
         "production": {

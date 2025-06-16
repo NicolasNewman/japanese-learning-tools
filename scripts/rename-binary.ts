@@ -3,11 +3,12 @@ import * as path from 'path';
 
 const targetDir = process.argv[2];
 const target = process.argv[3];
-const originalName = 'gd-tools';
+const originalName = targetDir.split(path.sep).pop() || 'binary';
 
 console.log('📦 Rename Binary Script');
 console.log(`Target Directory: ${targetDir}`);
 console.log(`Target Platform: ${target}`);
+console.log(`Original Name: ${originalName}`);
 
 const isWindows = target.includes('windows');
 const originalExt = isWindows ? '.exe' : '';

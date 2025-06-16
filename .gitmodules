@@ -1,0 +1,3 @@
+[submodule "packages/mecab-ipadic-neologd/mecab-ipadic-neologd"]
+	path = packages/mecab-ipadic-neologd/mecab-ipadic-neologd
+	url = https://github.com/neologd/mecab-ipadic-neologd.git
