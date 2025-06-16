@@ -9,6 +9,7 @@
     "core:default",
     "opener:default",
     "os:default",
+    "store:default",
     "fs:default",
     {
       "identifier": "fs:scope",

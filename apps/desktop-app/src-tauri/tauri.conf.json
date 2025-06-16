@@ -44,7 +44,8 @@
     },
     "externalBin": [
       "../../../dist/target/gd-tools/gd-tools",
-      "../../../dist/target/subs2clipboard-native-messenger/subs2clipboard-native-messenger"
+      "../../../dist/target/subs2clipboard-native-messenger/subs2clipboard-native-messenger",
+      "../../../dist/target/gd-sudachi/gd-sudachi"
     ],
     "linux": {
       "rpm": {
