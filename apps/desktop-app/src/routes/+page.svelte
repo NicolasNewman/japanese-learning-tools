@@ -1,4 +1,5 @@
 <script lang="ts">
+  import KanjiBank from "$lib/kanji-bank";
   import { installManifest } from "$lib/manifest-installer";
   import { invoke } from "@tauri-apps/api/core";
   import {
@@ -9,6 +10,7 @@
   } from "@tauri-apps/api/path";
 
   const result = installManifest();
+  KanjiBank.setKanji("a", 2, "wanikani");
 
   let name = $state("");
   let greetMsg = $state("");

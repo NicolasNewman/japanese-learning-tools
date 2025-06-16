@@ -4638,7 +4638,8 @@ dependencies = [
  "tauri",
  "tauri-plugin",
  "thiserror 2.0.12",
- 
+]
+
 [[package]]
 name = "tauri-plugin-store"
 version = "2.2.0"
