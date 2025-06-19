@@ -1,59 +1,88 @@
-use anyhow::{Context, Result};
+use anyhow::{anyhow, Context, Result};
 use arboard::Clipboard;
 use chrono::Local;
-use env_logger::Builder;
-use log::{error, info, LevelFilter};
+use log::{error, info};
 use serde::{Deserialize, Serialize};
-use std::fs::File;
-use std::io::{self, BufWriter, Read, stdin, stdout, Write};
-use std::path::PathBuf;
+use std::fs::OpenOptions;
+use std::io::{self, Read, Write};
+use std::process::{Command, Stdio};
+use std::str;
 
-#[derive(Deserialize, Debug)]
-struct IncomingMessage {
+#[derive(Debug, Deserialize)]
+struct BrowserMessage {
+    event: String,
     text: String,
+    #[serde(default)]
+    id: String,
 }
 
-#[derive(Serialize, Debug)]
-struct OutgoingMessage {
-    success: bool,
-    message: String,
+#[derive(Debug, Serialize)]
+struct ResponseMessage {
+    #[serde(rename = "type")]
+    response_type: String,
+    text: String,
+    id: String,
 }
 
-fn read_message() -> Result<IncomingMessage> {
-    // Native messaging protocol uses a 4-byte length prefix (u32, native endian)
+fn setup_logger() -> Result<()> {
+    let log_file = std::env::temp_dir().join("subs2clipboard-log");
+    let file = OpenOptions::new()
+        .create(true)
+        .write(true)
+        .truncate(true)
+        .open(&log_file)
+        .context("Failed to open log file")?;
+
+    env_logger::builder()
+        .target(env_logger::Target::Pipe(Box::new(file)))
+        .format(|buf, record| {
+            writeln!(
+                buf,
+                "{} [{}] - {}",
+                Local::now().format("%Y-%m-%d %H:%M:%S"),
+                record.level(),
+                record.args()
+            )
+        })
+        .init();
+
+    info!("Logger initialized");
+    Ok(())
+}
+
+fn read_message_from_stdin() -> Result<BrowserMessage> {
+    // Native messaging protocol: first 4 bytes indicate message length
     let mut length_bytes = [0u8; 4];
-    stdin().read_exact(&mut length_bytes)
+    io::stdin()
+        .read_exact(&mut length_bytes)
         .context("Failed to read message length")?;
     
-    let length = u32::from_ne_bytes(length_bytes) as usize;
+    let message_length = u32::from_ne_bytes(length_bytes) as usize;
     
-    // Read the JSON message of the specified length
-    let mut buffer = vec![0u8; length];
-    stdin().read_exact(&mut buffer)
-        .context("Failed to read message content")?;
+    // Read the actual message
+    let mut input = vec![0; message_length];
+    io::stdin()
+        .read_exact(&mut input)
+        .context("Failed to read message")?;
     
-    let message: IncomingMessage = serde_json::from_slice(&buffer)
-        .context("Failed to parse message as JSON")?;
+    // Parse the JSON message
+    let message: BrowserMessage = serde_json::from_slice(&input)
+        .context("Failed to parse JSON message")?;
     
     Ok(message)
 }
 
-fn write_message(message: &OutgoingMessage) -> Result<()> {
+fn write_message_to_stdout(message: &ResponseMessage) -> Result<()> {
     let json = serde_json::to_vec(message)
-        .context("Failed to serialize response")?;
+        .context("Failed to serialize response to JSON")?;
     
-    // Write message length as 4-byte prefix
-    let length_bytes = (json.len() as u32).to_ne_bytes();
-    stdout().write_all(&length_bytes)
-        .context("Failed to write message length")?;
+    let message_length = json.len() as u32;
+    let length_bytes = message_length.to_ne_bytes();
     
-    // Write the JSON message
-    stdout().write_all(&json)
-        .context("Failed to write message content")?;
-    
-    // Flush to ensure message is sent immediately
-    stdout().flush()
-        .context("Failed to flush stdout")?;
+    // Write the message length followed by the message
+    io::stdout().write_all(&length_bytes).context("Failed to write message length")?;
+    io::stdout().write_all(&json).context("Failed to write response")?;
+    io::stdout().flush().context("Failed to flush stdout")?;
     
     Ok(())
 }
@@ -62,109 +91,81 @@ fn copy_to_clipboard(text: &str) -> Result<()> {
     let mut clipboard = Clipboard::new()
         .context("Failed to initialize clipboard")?;
     
-    clipboard.set_text(text)
-        .context("Failed to set clipboard text")?;
+    clipboard
+        .set_text(text)
+        .context("Failed to set text to clipboard")?;
     
+    info!("Copied text to clipboard: {}", text);
     Ok(())
 }
 
-fn get_log_file_path() -> Result<PathBuf> {
-    let log_filename = "browser_native_messenger.log";
+fn run_sudachi(text: &str, id: &str) -> Result<()> {
+    // Run the gd-sudachi command with the provided text
+    let output = Command::new("gd-sudachi")
+        .arg(text)
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .output()
+        .context("Failed to execute gd-sudachi command")?;
     
-    // Get the temp directory (platform specific)
-    let temp_dir = std::env::temp_dir();
-    let log_path = temp_dir.join(log_filename);
-    
-    // Make sure parent directory exists
-    if let Some(parent) = log_path.parent() {
-        std::fs::create_dir_all(parent)
-            .context("Failed to create parent directories for log file")?;
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        error!("gd-sudachi command failed: {}", stderr);
+        return Err(anyhow!("gd-sudachi command failed: {}", stderr));
     }
     
-    Ok(log_path)
-}
-
-fn process_message(message: IncomingMessage) -> Result<()> {
-    info!("Received message: {}", message.text);
+    let output_text = String::from_utf8_lossy(&output.stdout).to_string();
+    info!("Sudachi output: {}", output_text);
     
-    // Copy the text to clipboard
-    copy_to_clipboard(&message.text)?;
-    
-    // Send success response
-    let response = OutgoingMessage {
-        success: true,
-        message: format!("Copied {} characters to clipboard", message.text.len()),
+    // Send the output back to the browser
+    let response = ResponseMessage {
+        response_type: "SUDACHI".to_string(),
+        text: output_text,
+        id: id.to_string(),
     };
     
-    write_message(&response)?;
+    write_message_to_stdout(&response)?;
     
     Ok(())
 }
 
 fn main() -> Result<()> {
-    // Initialize logger to write to a file
-    let log_path = get_log_file_path()?;
+    // Initialize the logger
+    if let Err(e) = setup_logger() {
+        eprintln!("Failed to set up logger: {}", e);
+    }
     
-    // Create a file logger that overwrites the file each time
-    let file = File::create(&log_path).context("Failed to create log file")?;
-    let buf_writer = BufWriter::new(file);
+    info!("Native messenger started");
     
-    // Build a custom logger
-    let mut builder = Builder::new();
-    builder.target(env_logger::Target::Pipe(Box::new(buf_writer)))
-           .filter_level(LevelFilter::Info)
-           .format(|buf, record| {
-               writeln!(buf, 
-                       "{} [{}] - {}", 
-                       Local::now().format("%Y-%m-%d %H:%M:%S"),
-                       record.level(),
-                       record.args())
-           })
-           .init();
-    
-    info!("Native messaging host started (logging to {})", log_path.display());
-    
-    // Process messages in a loop
     loop {
-        match read_message() {
+        match read_message_from_stdin() {
             Ok(message) => {
-                if let Err(e) = process_message(message) {
-                    error!("Error processing message: {:#}", e);
-                    
-                    // Send error response
-                    let error_response = OutgoingMessage {
-                        success: false,
-                        message: format!("Error: {}", e),
-                    };
-                    
-                    if let Err(e) = write_message(&error_response) {
-                        error!("Failed to send error response: {:#}", e);
+                info!("Received message: {:?}", message);
+                
+                match message.event.as_str() {
+                    "COPY_TO_CLIPBOARD" => {
+                        if let Err(e) = copy_to_clipboard(&message.text) {
+                            error!("Failed to copy to clipboard: {}", e);
+                        }
+                    },
+                    "SUDACHI" => {
+                        if let Err(e) = run_sudachi(&message.text, &message.id) {
+                            error!("Failed to run sudachi: {}", e);
+                        }
+                    },
+                    _ => {
+                        error!("Unknown event type: {}", message.event);
                     }
                 }
             },
             Err(e) => {
-                // If stdin is closed, this likely means the browser disconnected
-                if e.root_cause().downcast_ref::<io::Error>()
-                   .map_or(false, |io_err| io_err.kind() == io::ErrorKind::UnexpectedEof) {
-                    info!("Browser disconnected, exiting");
-                    break;
-                }
-                
-                error!("Error reading message: {:#}", e);
-                
-                // Try to send error response
-                let error_response = OutgoingMessage {
-                    success: false,
-                    message: format!("Error: {}", e),
-                };
-                
-                if let Err(e) = write_message(&error_response) {
-                    error!("Failed to send error response: {:#}", e);
-                }
+                // If we can't read from stdin (e.g., browser closed connection), exit
+                error!("Error reading message: {}", e);
+                break;
             }
         }
     }
     
+    info!("Native messenger shutting down");
     Ok(())
 }
-
