@@ -1,7 +1,4 @@
 <script lang="ts">
-  import KanjiBank from "$lib/kanji-bank";
-  import { installManifest } from "$lib/manifest-installer";
-  import { invoke } from "@tauri-apps/api/core";
   import {
     appDataDir,
     dataDir,
@@ -9,48 +6,11 @@
     executableDir,
     appLocalDataDir
   } from "@tauri-apps/api/path";
-
-  const result = installManifest();
-  KanjiBank.setKanji("a", 2, "wanikani");
-
-  let name = $state("");
-  let greetMsg = $state("");
-
-  async function greet(event: Event) {
-    event.preventDefault();
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    greetMsg = await invoke("greet", { name });
-  }
 </script>
 
 <main class="container">
   <h1>Welcome to Tauri + Svelte</h1>
 
-  <div class="row">
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo vite" alt="Vite Logo" />
-    </a>
-    <a href="https://tauri.app" target="_blank">
-      <img src="/tauri.svg" class="logo tauri" alt="Tauri Logo" />
-    </a>
-    <a href="https://kit.svelte.dev" target="_blank">
-      <img src="/svelte.svg" class="logo svelte-kit" alt="SvelteKit Logo" />
-    </a>
-  </div>
-  <p>Click on the Tauri, Vite, and SvelteKit logos to learn more.</p>
-
-  <form class="row" onsubmit={greet}>
-    <input id="greet-input" placeholder="Enter a name..." bind:value={name} />
-    <button type="submit">Greet</button>
-  </form>
-  <p>{greetMsg}</p>
-  {#await result}
-    <p>Loading manifest...</p>
-  {:then manifest}
-    <p>Manifest installed: {JSON.stringify(manifest)}</p>
-  {:catch error}
-    <p>Error installing manifest: {error}</p>
-  {/await}
   {#await dataDir()}
     <p>Loading data directory...</p>
   {:then dir}

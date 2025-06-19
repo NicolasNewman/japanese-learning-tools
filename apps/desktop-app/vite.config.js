@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import { sveltekit } from "@sveltejs/kit/vite";
+import tailwindcss from '@tailwindcss/vite'
 
 const host = process.env.TAURI_DEV_HOST;
 
@@ -14,7 +15,7 @@ const sveltekitFix = async () => {
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [sveltekitFix()],
+  plugins: [tailwindcss(), sveltekitFix()],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
