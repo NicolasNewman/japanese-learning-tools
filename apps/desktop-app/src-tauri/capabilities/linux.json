@@ -20,6 +20,18 @@
                 },
                 {
                     "path": "$HOME/.mozilla/native-messaging-hosts/*"
+                },
+                {
+                    "path": "$HOME/.config"
+                },
+                {
+                    "path": "$HOME/.config/google-chrome"
+                },
+                {
+                    "path": "$HOME/.config/google-chrome/NativeMessagingHosts"
+                },
+                {
+                    "path": "$HOME/.config/google-chrome/NativeMessagingHosts/*"
                 }
             ]
         },
@@ -28,6 +40,9 @@
             "allow": [
                 {
                     "path": "$HOME/.mozilla/native-messaging-hosts/*"
+                },
+                {
+                    "path": "$HOME/.config/google-chrome/NativeMessagingHosts/*"
                 }
             ]
         },
@@ -36,6 +51,9 @@
             "allow": [
                 {
                     "path": "$HOME/.mozilla/native-messaging-hosts/*"
+                },
+                {
+                    "path": "$HOME/.config/google-chrome/NativeMessagingHosts/*"
                 }
             ]
         },
@@ -47,14 +65,15 @@
                 },
                 {
                     "path": "$HOME/.mozilla/native-messaging-hosts"
-                }
-            ]
-        },
-        {
-            "identifier": "fs:allow-copy-file",
-            "allow": [
+                },
                 {
-                    "path": "$HOME/.mozilla/native-messaging-hosts/*"
+                    "path": "$HOME/.config"
+                },
+                {
+                    "path": "$HOME/.config/google-chrome"
+                },
+                {
+                    "path": "$HOME/.config/google-chrome/NativeMessagingHosts"
                 }
             ]
         }

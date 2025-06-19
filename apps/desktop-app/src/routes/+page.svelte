@@ -7,6 +7,7 @@
     dataDir,
     resourceDir,
     executableDir,
+    appLocalDataDir
   } from "@tauri-apps/api/path";
 
   const result = installManifest();
@@ -70,6 +71,13 @@
     <p>appData directory: {dir}</p>
   {:catch error}
     <p>Error loading appData directory: {error.message}</p>
+  {/await}
+  {#await appLocalDataDir()}
+    <p>Loading appLocalDataDir directory...</p>
+  {:then dir}
+    <p>appLocalDataDir directory: {dir}</p>
+  {:catch error}
+    <p>Error loading appLocalDataDir directory: {error.message}</p>
   {/await}
   {#await executableDir()}
     <p>Loading executable directory...</p>

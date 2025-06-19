@@ -1,66 +1,89 @@
 import {
     resourceDir,
     appDataDir,
-    homeDir
+    homeDir,
+    appLocalDataDir
 } from "@tauri-apps/api/path";
 import {
     type
 } from "@tauri-apps/plugin-os";
 import {
     exists,
-    copyFile,
-    mkdir
+    mkdir,
+    readTextFile,
+    writeFile
 } from "@tauri-apps/plugin-fs";
 
-const getManifestPath = async () => {
+interface Manifest {
+    name: string;
+    description: string;
+    path: string;
+    type: string;
+    allowed_origins: string[];
+}
+
+type BrowserData<T> = {
+    chrome: T;
+    firefox: T;
+}
+
+const getManifestPath = async (): Promise<BrowserData<string> | null> => {
     const os = type();
     const manifestName = "subs2srs";
+    const home = await homeDir();
+    const appData = await appDataDir();
     switch (os) {
         case "windows":
-            return ``;
+            return {
+                chrome: `${appData}/Google/Chrome/User Data/NativeMessagingHosts/${manifestName}.json`,
+                firefox: `${appData}/Mozilla/NativeMessagingHosts/${manifestName}.json`
+            };
         case 'linux':
-            const home = await homeDir();
-            return `${home}/.mozilla/native-messaging-hosts/${manifestName}.json`;
+            return {
+                chrome: `${home}/.config/google-chrome/NativeMessagingHosts/${manifestName}.json`,
+                firefox: `${home}/.mozilla/native-messaging-hosts/${manifestName}.json` 
+            }
         case 'macos':
-            return `/Library/Application Support/Mozilla/NativeMessagingHosts/${manifestName}.json`;
+            return {
+                chrome: `${home}/Library/Application Support/Google/Chrome/NativeMessagingHosts/${manifestName}.json`,
+                firefox: `${home}/Library/Application Support/Mozilla/NativeMessagingHosts/${manifestName}.json`
+            }
         default:
             return null;
     }
 }
 
-const isManifestInstalled = async () => {
+const isManifestInstalled = async (browser: keyof BrowserData<any>) => {
     const manifestPath = await getManifestPath();
     if (!manifestPath) {
         return false;
     }
-    if (!await exists(manifestPath)) {
+    if (!await exists(manifestPath[browser])) {
         return false;
     }
     return true;
 }
 
 enum InstallManifestStatusCode {
-    SUCCESS = 0,
-    ALREADY_INSTALLED = 1,
-    NOT_SUPPORTED_OS = 2,
-    MANIFEST_FILE_NOT_FOUND = 3,
+    SUCCESS = "SUCCESS",
+    ALREADY_INSTALLED = "ALREADY_INSTALLED",
+    NOT_SUPPORTED_OS = "NOT_SUPPORTED_OS",
+    MANIFEST_FILE_NOT_FOUND = "MANIFEST_FILE_NOT_FOUND",
 }
 
 const installManifest = async (): Promise<InstallManifestStatusCode> => {
-    if (!await isManifestInstalled()) {
+    if (!await isManifestInstalled("firefox")) {
         const resourcePath = await resourceDir();
         const manifestPath = await getManifestPath();
         if (!manifestPath) {
             console.error("Unsupported OS for manifest installation");
-            throw new Error("Unsupported OS for manifest installation");
+            throw new Error(InstallManifestStatusCode.NOT_SUPPORTED_OS, { cause: "Unsupported OS for manifest installation"});
         }
-        if (await exists(manifestPath)) {
+        if (await exists(manifestPath["firefox"])) {
             return InstallManifestStatusCode.ALREADY_INSTALLED;
         }
         
-        // Create the directory if it doesn't exist
-        const home = await homeDir();
-        const manifestDir = `${home}/.mozilla/native-messaging-hosts`;
+        const manifestDir = manifestPath["firefox"].substring(0, manifestPath["firefox"].lastIndexOf('/'));
         if (!await exists(manifestDir)) {
             await mkdir(manifestDir, { recursive: true });
         }
@@ -68,9 +91,14 @@ const installManifest = async (): Promise<InstallManifestStatusCode> => {
         const manifestFile = `${resourcePath}/resources/manifest/manifest-firefox.json`;
         if (!await exists(manifestFile)) {
             console.error("Manifest file not found in resources");
-            throw new Error(`Manifest file not found in resources: ${manifestFile}`);
+            throw new Error(InstallManifestStatusCode.MANIFEST_FILE_NOT_FOUND, { cause: `Manifest file not found in resources: ${manifestFile}`});
         }
-        await copyFile(manifestFile, manifestPath);
+
+        const manifestJson = JSON.parse(await readTextFile(manifestFile)) as Manifest;
+        manifestJson.path = `${await appLocalDataDir()}/subs2clipboard-native-messenger`;
+
+        const encoder = new TextEncoder();
+        await writeFile(manifestPath["firefox"], encoder.encode(JSON.stringify(manifestJson, null, 4)));
     }
 
     return InstallManifestStatusCode.SUCCESS;
