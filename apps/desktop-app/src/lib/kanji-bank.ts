@@ -1,10 +1,11 @@
 import { load, Store } from '@tauri-apps/plugin-store';
 
 export type KanjiBankSource = 'wanikani' | 'anki';
-export type KanjiBankData = {
+export type KanjiBankData = Record<string, {
     level: number;
+    type: 'kanji' | 'vocabulary';
     source: KanjiBankSource;
-}
+}>
 
 export default class KanjiBank {
     private static instance: KanjiBank | null = null;
