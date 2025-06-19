@@ -9,3 +9,4 @@ apps/gd-tools/gd-tools/
 .venv/
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+.cache

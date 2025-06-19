@@ -10,10 +10,51 @@
     ],
     "permissions": [
         {
-            "identifier": "fs:scope",
+            "identifier": "fs:allow-exists",
             "allow": [
                 {
-                    "path": "/usr/lib/mozilla/native-messaging-hosts/*"
+                    "path": "$HOME/.mozilla"
+                },
+                {
+                    "path": "$HOME/.mozilla/native-messaging-hosts"
+                },
+                {
+                    "path": "$HOME/.mozilla/native-messaging-hosts/*"
+                }
+            ]
+        },
+        {
+            "identifier": "fs:read-files",
+            "allow": [
+                {
+                    "path": "$HOME/.mozilla/native-messaging-hosts/*"
+                }
+            ]
+        },
+        {
+            "identifier": "fs:write-files",
+            "allow": [
+                {
+                    "path": "$HOME/.mozilla/native-messaging-hosts/*"
+                }
+            ]
+        },
+        {
+            "identifier": "fs:allow-mkdir",
+            "allow": [
+                {
+                    "path": "$HOME/.mozilla"
+                },
+                {
+                    "path": "$HOME/.mozilla/native-messaging-hosts"
+                }
+            ]
+        },
+        {
+            "identifier": "fs:allow-copy-file",
+            "allow": [
+                {
+                    "path": "$HOME/.mozilla/native-messaging-hosts/*"
                 }
             ]
         }
