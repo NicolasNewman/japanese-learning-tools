@@ -2,8 +2,12 @@
   "name": "@org/subs2clipboard",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build"
+  },
   "devDependencies": {
-    "@types/chrome": "^0.0.326",
     "@types/webextension-polyfill": "^0.12.3",
     "vite-plugin-web-extension": "^4.4.4",
     "webextension-polyfill": "^0.12.0"

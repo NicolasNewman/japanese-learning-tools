@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import webExtension from 'vite-plugin-web-extension';
 import path from 'path';
 
-export default defineConfig(() => ({
+export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/subs2clipboard',
   server: {
@@ -26,9 +26,9 @@ export default defineConfig(() => ({
   build: {
     outDir: '../../dist/subs2clipboard',
     emptyOutDir: true,
-    reportCompressedSize: true,
-    rollupOptions: {
-      input: path.resolve(__dirname, 'manifest.json'),
-    },
+    // reportCompressedSize: true,
+    // rollupOptions: {
+    //   input: path.resolve(__dirname, 'manifest.json'),
+    // },
   },
-}));
+});

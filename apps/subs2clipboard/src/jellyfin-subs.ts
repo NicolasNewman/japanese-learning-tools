@@ -2,6 +2,16 @@ import browser from "webextension-polyfill";
 
 /* eslint-disable no-inner-declarations */
 if (document.querySelector('body.libraryDocument')) {
+    let observer: MutationObserver | null = null;
+    let lastSubs = "";
+
+    function sendToClipboard(text: string) {
+        browser.runtime.sendMessage({
+            type: "COPY_TO_CLIPBOARD",
+            text: text
+        });
+    }
+ 
     function waitForSubtitlesElement(selector: string, callback: (el: Node) => void) {
         const el = document.querySelector(selector);
         if (el) {
@@ -24,7 +34,9 @@ if (document.querySelector('body.libraryDocument')) {
             observer = new MutationObserver((mutationsList) => {
                 const subs = (mutationsList[0].target as HTMLElement).innerText;
                 if (subs !== lastSubs) {
-                    navigator.clipboard.writeText(subs);
+                    console.log("Subtitles changed:", subs);
+                    sendToClipboard(subs);
+                    // navigator.clipboard.writeText(subs);
                     lastSubs = subs;
                 }
             });
@@ -38,9 +50,6 @@ if (document.querySelector('body.libraryDocument')) {
             observer = null;
         }
     }
-    let observer: MutationObserver | null = null;
-    let lastSubs = "";
-
 
     browser.runtime.onMessage.addListener((msg) => {
         if (msg.type === "TOGGLE_SUBS") {

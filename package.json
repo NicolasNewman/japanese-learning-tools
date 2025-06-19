@@ -41,6 +41,7 @@
     "prettier": "^2.6.2",
     "swc-loader": "0.1.15",
     "tslib": "^2.3.0",
+    "tsx": "^4.20.3",
     "typescript": "~5.7.2",
     "vite": "^6.0.0",
     "vitest": "^3.0.0"
