@@ -1,4 +1,5 @@
-import browser from "webextension-polyfill";
+import browser, { Browser } from "webextension-polyfill";
+import { OnBrowserMessageListener, OnPortMessageListener } from "./types";
 
 console.log("Background script loaded!");
 
@@ -11,25 +12,41 @@ const updateIcon = (tabId: number | undefined) => {
     browser.browserAction.setIcon({ path: iconPath, tabId });
 }
 
+const initializePort = () => {
+    if (!port) {
+        port = browser.runtime.connectNative("subs2clipboard");
+        port.onDisconnect.addListener(() => {
+            console.log("Native port disconnected");
+            port = null;
+        });
+        (port.onMessage as OnPortMessageListener).addListener((response) => {
+            console.log("Received response from native app:", response);
+            if (response.type === 'SUDACHI') {
+                console.log("SUDACHI response received:", response);
+            }
+        });
+    }
+}
+
 browser.runtime.onInstalled.addListener(() => {
   console.log("Installed!");
 });
 
-browser.runtime.onMessage.addListener((msg: any) => {
-    if (msg.type === "COPY_TO_CLIPBOARD") {
-        if (!port) {
-            port = browser.runtime.connectNative("subs2clipboard");
-            port.onDisconnect.addListener(() => {
-                console.log("Native port disconnected");
-                port = null;
+(browser.runtime.onMessage as OnBrowserMessageListener).addListener((msg) => {
+    initializePort();
+    if (port) {
+        if (msg.type === "COPY_TO_CLIPBOARD") {
+            port.postMessage({
+                event: msg.type,
+                text: msg.text
             });
-            port.onMessage.addListener((response) => {
-                console.log("Received response from native app:", response);
+        } else if (msg.type === "SUDACHI") {
+            port.postMessage({
+                event: msg.type,
+                text: msg.text,
+                id: msg.id
             });
         }
-        port.postMessage({
-            text: msg.text
-        });
     }
 });
 
@@ -40,7 +57,7 @@ browser.browserAction.onClicked.addListener((tab) => {
     enabled = !enabled;
     console.log("New enabled state:", enabled);
     updateIcon(tab.id);
-    browser.tabs.sendMessage(tab.id ?? chrome.tabs.TAB_ID_NONE, { type: "TOGGLE_SUBS", enabled });
+    browser.tabs.sendMessage(tab.id ?? browser.tabs.TAB_ID_NONE, { type: "TOGGLE_SUBS", enabled });
 });
 
 browser.tabs.onActivated.addListener((activeInfo) => {
