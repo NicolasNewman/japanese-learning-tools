@@ -1,5 +1,5 @@
 import { isAssignmentCollection, isSubjectCollection } from "@bachman-dev/wanikani-api-types";
-import { Importer } from ".";
+import { Importer } from "../";
 import type { KanjiBankData } from "../kanji-bank";
 
 export default class WaniKaniImporter extends Importer {

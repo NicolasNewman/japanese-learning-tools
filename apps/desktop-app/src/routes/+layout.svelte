@@ -1,5 +1,5 @@
 <script>
-    import KanjiBank from "$lib/kanji-bank";
+    import KanjiBank from "$lib/importer/kanji-bank";
     import { installManifest } from "$lib/manifest-installer";
   let { children } = $props();
   import "../app.css";

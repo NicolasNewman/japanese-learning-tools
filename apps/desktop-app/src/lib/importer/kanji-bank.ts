@@ -1,10 +1,10 @@
 import { load, Store } from '@tauri-apps/plugin-store';
+import type { KanjiSource } from '.';
 
-export type KanjiBankSource = 'wanikani' | 'anki';
 export type KanjiBankData = Record<string, {
     level: number;
     type: 'kanji' | 'vocabulary';
-    source: KanjiBankSource;
+    source: KanjiSource;
 }>
 
 export default class KanjiBank {
@@ -13,7 +13,7 @@ export default class KanjiBank {
     private store: Store | null = null;
     private initialized: boolean = false;
     
-    public static async setKanji(kanji: string, level: number, source: KanjiBankSource): Promise<void> {
+    public static async setKanji(kanji: string, level: number, source: KanjiSource): Promise<void> {
         (await KanjiBank.getInstance()).set(kanji, { level, source });
     }
     
