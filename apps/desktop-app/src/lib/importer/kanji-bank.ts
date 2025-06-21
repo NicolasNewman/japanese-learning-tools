@@ -1,13 +1,17 @@
 import { load, Store } from "@tauri-apps/plugin-store";
 import type { KanjiSource } from ".";
 
+
+export type Level = "Apprentice" | "Guru" | "Master" | "Enlightened" | "Burned";
+
+export type KanjiBankEntry = {
+  level: Level;
+  type: "kanji" | "vocabulary";
+  source: KanjiSource;
+}
 export type KanjiBankData = Record<
   string,
-  {
-    level: number;
-    type: "kanji" | "vocabulary";
-    source: KanjiSource;
-  }
+  KanjiBankEntry
 >;
 
 export default class KanjiBank {
@@ -18,10 +22,9 @@ export default class KanjiBank {
 
   public static async setKanji(
     kanji: string,
-    level: number,
-    source: KanjiSource
+    data: KanjiBankEntry
   ): Promise<void> {
-    (await KanjiBank.getInstance()).set(kanji, { level, source });
+    (await KanjiBank.getInstance()).set(kanji, data);
   }
 
   public static async batchKanji(kanjiData: KanjiBankData): Promise<KanjiBankData> {
@@ -37,7 +40,7 @@ export default class KanjiBank {
         const storedVersion = storedKanji[kanji];
         if (!storedVersion || (storedVersion.source === data.source && storedVersion.level < data.level)) {
             changelog[kanji] = data;
-            updatePromises.push(KanjiBank.setKanji(kanji, data.level, data.source));
+            updatePromises.push(KanjiBank.setKanji(kanji, data));
             storedKanji[kanji] = data
         }
     });

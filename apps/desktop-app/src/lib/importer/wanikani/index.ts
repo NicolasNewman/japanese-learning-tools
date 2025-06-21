@@ -1,6 +1,6 @@
 import { isAssignmentCollection, isSubjectCollection } from "@bachman-dev/wanikani-api-types";
 import { Importer } from "../";
-import type { KanjiBankData } from "../kanji-bank";
+import type { KanjiBankData, Level } from "../kanji-bank";
 
 export default class WaniKaniImporter extends Importer {
   private headers;
@@ -10,6 +10,20 @@ export default class WaniKaniImporter extends Importer {
     this.headers = {
         'Wanikani-Revision': '20170710',
         'Authorization': `Bearer ${apiKey}`,
+    }
+  }
+
+  serviceLevelToStage(level: number): Level {
+    if (level <= 4) {
+      return 'Apprentice'
+    } else if (level <= 6) {
+      return 'Guru'
+    } else if (level <= 7) {
+      return 'Master'
+    } else if (level <= 8) {
+      return 'Enlightened'
+    } else {
+      return 'Burned'
     }
   }
 
@@ -28,6 +42,10 @@ export default class WaniKaniImporter extends Importer {
       const assignments = await assignmentsResp.json();
       if (isAssignmentCollection(assignments)) {
         const subjectIds = assignments.data.map(({ data }) => data.subject_id);
+        const assignmentToSrsStage = assignments.data.reduce((prev, { data }) => {
+          prev[data.subject_id] = this.serviceLevelToStage(data.srs_stage);
+          return prev;
+        }, {} as Record<number, Level>);
         const subjectsResp = await fetch(`https://api.wanikani.com/v2/subjects?ids=${subjectIds.join(',')}`, {
           method: 'GET',
           headers: this.headers
@@ -39,10 +57,10 @@ export default class WaniKaniImporter extends Importer {
         if (isSubjectCollection(subjects)) {
           kanjiBankData = {
             ...kanjiBankData,
-            ...subjects.data.reduce((prev, { data, object }) => {
+            ...subjects.data.reduce((prev, { data, object, id }) => {
               if (object === 'kanji' || object === 'vocabulary') {
                 prev[data.characters] = {
-                  level: data.level,
+                  level: assignmentToSrsStage[id],
                   source: 'wanikani',
                   type: object,
                 }

@@ -1,10 +1,11 @@
-import type { KanjiBankData } from "./kanji-bank";
+import type { KanjiBankData, Level } from "./kanji-bank";
 import type { Component } from 'svelte';
 import WaniKaniSettings from './wanikani/settings.svelte';
 const WaniKaniImporter = import("./wanikani/index");
 
 abstract class Importer{
   abstract load(): Promise<KanjiBankData>;
+  abstract serviceLevelToStage(level: number): Level;
 }
 
 const importerSettingsPage: Record<KanjiSource, Component> = {
