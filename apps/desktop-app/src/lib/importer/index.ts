@@ -1,23 +1,20 @@
 import type { KanjiBankData } from "./kanji-bank";
 import type { Component } from 'svelte';
 import WaniKaniSettings from './wanikani/settings.svelte';
+const WaniKaniImporter = import("./wanikani/index");
 
 abstract class Importer{
   abstract load(): Promise<KanjiBankData>;
-}
-
-const importKanji = async (): Promise<KanjiBankData> => {
-    const WaniKaniImporter = (await import("./wanikani/index")).default;
-
-    return {
-        ...(await new WaniKaniImporter().load()),
-    }
 }
 
 const importerSettingsPage: Record<KanjiSource, Component> = {
   'wanikani': WaniKaniSettings
 }
 
+const kanjiImporter: Record<KanjiSource, (...params: any) => Promise<Importer>> = {
+  'wanikani': async (apiKey: string) => new ((await WaniKaniImporter).default)(apiKey)
+}
+
 export { Importer }
 export type KanjiSource = 'wanikani';
-export {importKanji, importerSettingsPage};
+export {kanjiImporter, importerSettingsPage};

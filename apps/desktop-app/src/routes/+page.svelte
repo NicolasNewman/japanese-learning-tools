@@ -12,7 +12,7 @@ import {
 
 <main class="container">
   <h1>Welcome to Tauri + Svelte</h1>
-  <Button color="primary" onclick={() => goto('/settings')}>
+  <Button color="primary" onclick={async () => await goto('/settings')}>
     Click Me
   </Button>
 
