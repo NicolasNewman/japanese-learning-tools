@@ -44,6 +44,12 @@
         "command": "cd {projectRoot} && poetry run nuitka --onefile gd-sudachi/gd-sudachi.py --output-dir=../../dist/target/gd-sudachi/ --output-filename=gd-sudachi-$(rustc -Vv | Select-String \"host:\" | ForEach-Object {$_.Line.split(\" \")[1]}) --include-data-dir=$(poetry run python -c \"import sudachipy, os; print(os.path.join(sudachipy.__path__[0], 'resources'))\")=sudachipy/resources --include-data-dir=$(poetry run python -c \"import sudachidict_core, os; print(os.path.join(sudachidict_core.__path__[0], 'resources'))\")=sudachidict_core/resources"
       }
     },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd {projectRoot} && poetry run python gd-sudachi/gd-sudachi.py"
+      }
+    },
     "lint": {
       "executor": "@nxlv/python:ruff-check",
       "outputs": [],
