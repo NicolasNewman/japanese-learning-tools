@@ -1,5 +1,5 @@
 {
-  "name": "subs2clipboard-native-messenger",
+  "name": "subs2clipboard_native_messenger",
   "description": "Native messaging host for copying text to clipboard",
   "path": "PATH_TO_EXECUTABLE",
   "type": "stdio",
