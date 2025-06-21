@@ -1,15 +1,20 @@
 <script lang="ts">
-  import {
+  import { goto } from "$app/navigation";
+import {
     appDataDir,
     dataDir,
     resourceDir,
     executableDir,
     appLocalDataDir
   } from "@tauri-apps/api/path";
+    import { Button } from "flowbite-svelte";
 </script>
 
 <main class="container">
   <h1>Welcome to Tauri + Svelte</h1>
+  <Button color="primary" onclick={() => goto('/settings')}>
+    Click Me
+  </Button>
 
   {#await dataDir()}
     <p>Loading data directory...</p>

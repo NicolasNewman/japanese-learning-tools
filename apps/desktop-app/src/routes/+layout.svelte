@@ -1,6 +1,7 @@
 <script>
     import KanjiBank from "$lib/importer/kanji-bank";
     import { installManifest } from "$lib/manifest-installer";
+    import initMenu from "$lib/menu";
   let { children } = $props();
   import "../app.css";
 
@@ -14,4 +15,5 @@
 {:catch error}
   <p>Error installing manifest: {error}</p>
 {/await}
+
 {@render children()}

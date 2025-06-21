@@ -1,12 +1,14 @@
 import { isAssignmentCollection, isSubjectCollection } from "@bachman-dev/wanikani-api-types";
 import { Importer } from "../";
 import type { KanjiBankData } from "../kanji-bank";
+import { get } from "./store";
 
 export default class WaniKaniImporter extends Importer {
-  readonly headers = {
-    'Wanikani-Revision': '20170710',
-    // 'Authorization': `Bearer ${this.options.apiKey}`,
-  };
+  private headers = null;
+  // {
+  //   'Wanikani-Revision': '20170710',
+  //   'Authorization': `Bearer ${this.options.apiKey}`,
+  // };
 
   async load(): Promise<KanjiBankData> {
     let kanjiBankData: KanjiBankData = {};

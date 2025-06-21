@@ -4,11 +4,14 @@
 </script>
 
 <form
-    on:submit={(event) => {
+    on:submit={async (event) => {
         event.preventDefault();
         console.log(event);
         const formData = new FormData(event.target as HTMLFormElement);
-        console.log(formData);
+        console.log(formData.get("api-key"));
+
+        await set("apiKey", formData.get("api-key") as string);
+        await save()
     }}
 >
     {#await get("apiKey")}
@@ -19,6 +22,7 @@
             <Input
                 type="text"
                 id="api-key"
+                name="api-key"
                 required
                 clearable
                 defaultValue={apiKey || ""}
@@ -31,7 +35,7 @@
                 >.
             </Helper>
         </div>
-        <Button type="submit">Submit</Button>
+        <Button class="mt-4" type="submit">Submit</Button>
     {:catch error}
         <p>Error: {error}</p>
     {/await}
