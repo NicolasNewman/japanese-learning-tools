@@ -8,15 +8,15 @@ let port: browser.Runtime.Port | null = null;
 
 const updateIcon = (tabId: number | undefined) => {
     const iconPath = enabled ? "icon-32.png" : "icon-gray-32.png";
-    console.log(`Updating icon to: ${iconPath} for tab: ${tabId}`);
     browser.browserAction.setIcon({ path: iconPath, tabId });
 }
 
 const initializePort = () => {
     if (!port) {
-        port = browser.runtime.connectNative("subs2clipboard");
+        port = browser.runtime.connectNative("subs2clipboard_native_messenger");
         port.onDisconnect.addListener(() => {
             console.log("Native port disconnected");
+            console.log(port?.error);
             port = null;
         });
         (port.onMessage as OnPortMessageListener).addListener((response) => {
@@ -51,9 +51,6 @@ browser.runtime.onInstalled.addListener(() => {
 });
 
 browser.browserAction.onClicked.addListener((tab) => {
-    console.log("Browser action clicked", tab);
-    console.log("Extension background script is working!");
-    console.log("Current enabled state:", enabled);
     enabled = !enabled;
     console.log("New enabled state:", enabled);
     updateIcon(tab.id);
