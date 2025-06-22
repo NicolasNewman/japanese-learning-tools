@@ -1,15 +1,9 @@
-import browser, { Browser } from "webextension-polyfill";
+import browser from "webextension-polyfill";
 import { OnBrowserMessageListener, OnPortMessageListener } from "./types";
 
 console.log("Background script loaded!");
 
-let enabled = false;
 let port: browser.Runtime.Port | null = null;
-
-const updateIcon = (tabId: number | undefined) => {
-    const iconPath = enabled ? "icon-32.png" : "icon-gray-32.png";
-    browser.browserAction.setIcon({ path: iconPath, tabId });
-}
 
 const initializePort = () => {
     if (!port) {
@@ -48,15 +42,4 @@ browser.runtime.onInstalled.addListener(() => {
             });
         }
     }
-});
-
-browser.browserAction.onClicked.addListener((tab) => {
-    enabled = !enabled;
-    console.log("New enabled state:", enabled);
-    updateIcon(tab.id);
-    browser.tabs.sendMessage(tab.id ?? browser.tabs.TAB_ID_NONE, { type: "TOGGLE_SUBS", enabled });
-});
-
-browser.tabs.onActivated.addListener((activeInfo) => {
-    updateIcon(activeInfo.tabId);
 });

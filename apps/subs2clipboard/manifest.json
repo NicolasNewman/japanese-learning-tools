@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "JellyfinSubs2Clipboard",
+  "name": "Subs2Clipboard",
   "version": "1.0",
   "description": "Automatically copies subtitles from Jellyfin to the clipboard",
   "icons": {
@@ -9,7 +9,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"] ,
-      "js": ["src/jellyfin-subs.ts"]
+      "js": ["src/jellyfin-subs.ts", "src/sudachi.ts"]
     }
   ],
   "browser_specific_settings": {
@@ -24,12 +24,14 @@
   "permissions": [
     "activeTab",
     "tabs",
-    "nativeMessaging"
+    "nativeMessaging",
+    "storage"
   ],
   "browser_action": {
     "default_icon": {
       "32": "icon-32.png"
     },
-    "default_title": "JellyfinSubs2Clipboard"
+    "default_title": "Subs2Clipboard",
+    "default_popup": "src/menu/index.html"
   }
 }
