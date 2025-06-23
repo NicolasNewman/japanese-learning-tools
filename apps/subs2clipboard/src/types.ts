@@ -1,7 +1,7 @@
 import browser from "webextension-polyfill";
 
 type PortEventPayload = 
-  | { type: "SUDACHI"; text: string, id: string };
+  | { type: "RECEIVE_SUDACHI"; text: string, id: string, tabId: number };
 
 type MessageEventPayload = 
   | { type: "COPY_TO_CLIPBOARD"; text: string }

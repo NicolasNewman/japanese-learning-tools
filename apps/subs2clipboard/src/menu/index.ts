@@ -1,5 +1,5 @@
 import browser from "webextension-polyfill";
-import { sendMessageToTab } from "../lib/index";
+import { sendMessageToTab } from "../lib/background-helper";
 
 // ===== copySubsCheckbox =====
 const copySubsCheckbox = document.getElementById("copyOnClick") as HTMLInputElement;
@@ -27,6 +27,6 @@ browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 const sudachiButton = document.getElementById("sudachi") as HTMLButtonElement;
 sudachiButton.addEventListener("click", () => {
     browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-        sendMessageToTab(tabs[0].id ?? browser.tabs.TAB_ID_NONE, { type: "RUN_SUDACHI"});
+        sendMessageToTab(tabs[0].id ?? browser.tabs.TAB_ID_NONE, { type: "RUN_SUDACHI", tabId: tabs[0].id ?? browser.tabs.TAB_ID_NONE })
     });
 });

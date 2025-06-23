@@ -23,6 +23,7 @@ export default defineConfig({
       },
       additionalInputs: [
         'src/menu/index.ts',
+        'src/lib/index.ts',
       ]
     })
   ],

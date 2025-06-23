@@ -1,5 +1,6 @@
 import browser from "webextension-polyfill";
-import { getSupportedSubtitleSelector, onTabMessage } from "./lib/index";
+import { getSupportedSubtitleSelector } from "./lib/index";
+import { onRuntimeMessage } from "./lib/content-helper";
 
 const subtitleSelector = getSupportedSubtitleSelector();
 if (subtitleSelector) {
@@ -58,7 +59,7 @@ if (subtitleSelector) {
     }
   };
   
-  onTabMessage((msg, _sender, sendResponse) => {
+  onRuntimeMessage((msg, _sender, sendResponse) => {
     if (msg.type === "TOGGLE_SUBS") {
       if (msg.enabled) {
         startSubsCopy();
