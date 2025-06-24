@@ -1,0 +1,57 @@
+name: "Build CLI Tooling"
+description: "Builds the CLI tooling for the project."
+
+inputs:
+  os:
+    description: "The operating system to build for."
+    required: true
+  shell:
+    description: "The shell to use for running commands."
+    required: true
+    default: "bash"
+
+runs:
+  using: composite
+  steps:
+    - name: Install dependencies (ubuntu only)
+      if: ${{ input.os == 'linux' }} # This must match the platform value defined above.
+      shell: ${{ inputs.shell }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf python3-dev
+        git submodule init
+        git submodule update
+    - name: Install dependencies
+      shell: ${{ inputs.shell }}
+      run: pnpm install --frozen-lockfile
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
+    - name: Run image
+      uses: abatilo/actions-poetry@v3
+      with:
+        poetry-version: "main"
+    - name: Install the project dependencies
+      shell: ${{ inputs.shell }}
+      run: nx run gd-sudachi:install
+    - name: Install Rust stable
+      uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+      with:
+        # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+        targets: ${{ inputs.os == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+    - name: Build sudachi
+      shell: ${{ inputs.shell }}
+      run: |
+        nx run gd-sudachi:build:${{ inputs.os }}
+    - name: Build mecab-ipadic-neologd
+      shell: ${{ inputs.shell }}
+      run: |
+        nx run gd-tools:mecab-ipadic-neologd
+    - name: Build gd-tools
+      shell: ${{ inputs.shell }}
+      run: |
+        nx run gd-tools:build:${{ inputs.os }}
+    - name: Build subs2clipboard-native-messenger
+      shell: ${{ inputs.shell }}
+      run: |
+        nx run subs2clipboard-native-messenger:build:${{ inputs.os }}
