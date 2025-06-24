@@ -1,11 +1,21 @@
-from sudachi_mapping import (
-    conj_form_mapping,
-    conj_type_mapping,
-    pos1_mapping,
-    pos2_mapping,
-    pos3_mapping,
-    pos4_mapping,
-)
+try:
+    from .sudachi_mapping import (
+        conj_form_mapping,
+        conj_type_mapping,
+        pos1_mapping,
+        pos2_mapping,
+        pos3_mapping,
+        pos4_mapping,
+    )
+except ImportError:
+    from sudachi_mapping import (
+        conj_form_mapping,
+        conj_type_mapping,
+        pos1_mapping,
+        pos2_mapping,
+        pos3_mapping,
+        pos4_mapping,
+    )
 
 
 def get_english_pos(token):

@@ -18,6 +18,20 @@ class KanjiBankEntry(TypedDict):
 
 KanjiBankData = dict[str, KanjiBankEntry]
 
+def is_kanji(char):
+    code = ord(char)
+    return (
+        (0x3400 <= code <= 0x4DBF) or    # Extension A
+        (0x4E00 <= code <= 0x9FFF) or    # Unified Ideographs
+        (0xF900 <= code <= 0xFAFF) or    # Compatibility Ideographs
+        (0x20000 <= code <= 0x2A6DF) or  # Extension B
+        (0x2A700 <= code <= 0x2B73F) or  # Extension C
+        (0x2B740 <= code <= 0x2B81F) or  # Extension D
+        (0x2B820 <= code <= 0x2CEAF) or  # Extension E
+        (0x2CEB0 <= code <= 0x2EBEF) or  # Extension F
+        (0x30000 <= code <= 0x3134F)     # Extension G
+    )
+
 def get_app_data_dir(bundle_identifier: str) -> str:
     home = os.path.expanduser("~")
     system = platform.system()
