@@ -10,5 +10,8 @@
         "**/.vscode/**": true,
         "apps/gd-tools/gd-tools/*/**": true
     },
-    "svelte.enable-ts-plugin": true
+    "svelte.enable-ts-plugin": true,
+    "python.analysis.extraPaths": [
+        "apps/gd-sudachi/gd_sudachi"
+    ]
 }

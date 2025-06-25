@@ -14,6 +14,7 @@ struct BrowserMessage {
     text: String,
     #[serde(default)]
     id: String,
+    tabId: isize
 }
 
 #[derive(Debug, Serialize)]
@@ -22,6 +23,7 @@ struct ResponseMessage {
     response_type: String,
     text: String,
     id: String,
+    tabId: isize
 }
 
 fn setup_logger() -> Result<()> {
@@ -32,7 +34,11 @@ fn setup_logger() -> Result<()> {
         .truncate(true)
         .open(&log_file)
         .context("Failed to open log file")?;
-
+    
+    if std::env::var("RUST_LOG").is_err() {
+        std::env::set_var("RUST_LOG", "info");
+    }
+    
     env_logger::builder()
         .target(env_logger::Target::Pipe(Box::new(file)))
         .format(|buf, record| {
@@ -99,7 +105,7 @@ fn copy_to_clipboard(text: &str) -> Result<()> {
     Ok(())
 }
 
-fn run_sudachi(text: &str, id: &str) -> Result<()> {
+fn run_sudachi(text: &str, id: &str, tabId: isize) -> Result<()> {
     // Run the gd-sudachi command with the provided text
     let output = Command::new("gd-sudachi")
         .arg(text)
@@ -119,9 +125,10 @@ fn run_sudachi(text: &str, id: &str) -> Result<()> {
     
     // Send the output back to the browser
     let response = ResponseMessage {
-        response_type: "SUDACHI".to_string(),
+        response_type: "RECEIVE_SUDACHI".to_string(),
         text: output_text,
         id: id.to_string(),
+        tabId
     };
     
     write_message_to_stdout(&response)?;
@@ -148,8 +155,8 @@ fn main() -> Result<()> {
                             error!("Failed to copy to clipboard: {}", e);
                         }
                     },
-                    "SUDACHI" => {
-                        if let Err(e) = run_sudachi(&message.text, &message.id) {
+                    "SEND_SUDACHI" => {
+                        if let Err(e) = run_sudachi(&message.text, &message.id, message.tabId) {
                             error!("Failed to run sudachi: {}", e);
                         }
                     },

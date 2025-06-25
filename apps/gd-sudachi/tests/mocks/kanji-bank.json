@@ -1,0 +1,6406 @@
+{
+  "内ポケット": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "聞": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "発見": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "投": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "国王": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "小学校": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "フランス人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "五百": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "気を付けて": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "必勝": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "作文": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "住": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "病院": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "広がる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "言語": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "口": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大学": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "対": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "強": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "下手": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "不自由": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "元パートナー": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "止": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "地理": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "手作り": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "平和": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "思う": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "活気": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "地下鉄": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "私生活": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "算": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "本": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "屋": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "少し": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "映る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "美": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "南": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "年": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "運転する": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "弱": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜県": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "千": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "船体": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "高度": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "読": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "斤": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "位": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "最近": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "配": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "三角形": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "体内": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "雨": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "近く": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "東北": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "字": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "下": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "方言": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "前": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "線": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "名人": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二台": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人形": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "不足": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "算数": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人間": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "家具": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "曲がる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "学者": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "投げ付ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "近日": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "豚肉": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "主に": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "十分": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "運ぶ": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "午前": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "度": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "曲げる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "州": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "水": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "集": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "立つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "小皿": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電気": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "習う": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "下る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一ヶ所": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "川": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "元": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "平日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "海魚": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "正月": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "長さ": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "失": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "泳ぎ": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毛虫": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "宝": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "両": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "大": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "事実": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "代用": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "五台": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入れる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "茶屋": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "氏": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "未来": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "仮定": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "農業": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "姉妹": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "青い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "対する": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毛糸": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "部屋": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "赤": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "心強い": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "羊": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "朝ごはん": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三百": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "上手い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毎回": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お母さん": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毎月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "元々": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "行": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "終": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "試食": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "風船": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "転": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "開": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "外国人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "農場": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "行き": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "多": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "両手": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "花見": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四角": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "受け取る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毎度": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "草": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "室": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "曲線": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全て": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "強力": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "去年": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "谷": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一体": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "決定": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "表": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "引く": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "同時": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "丸ごと": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "申す": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "客": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "太": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "仕草": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "直": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "教": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "見付ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "売り切れ": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "白": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "話す": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "速度": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "考古学": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一打": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一番": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "名曲": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "要": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "実": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "夜": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "水中": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "少年": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "主": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "文学": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "発": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "目": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "東": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "早": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "東方": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "科": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "仕方": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "私立": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "世界": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "古い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "立場": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "私自身": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "道具": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "石ころ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "米": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "市": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜才": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "服": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "農民": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人気": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "病気": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "鉄": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "亡くなる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "太る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "強い": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "対談": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "助": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "休学": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜号室": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "心理学": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "千円": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "午": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "楽しむ": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "台風": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "名所": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "決める": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何年": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中央": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "道": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見分ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "知る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "声": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "妹": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "体": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "足りない": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "開業": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大体": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "有る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "求める": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "早口": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "平": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "必死": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "走行": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "使": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "月光": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お父さん": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出口": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全米": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "ビー玉": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "貝": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "気分": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜室": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "来月": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "記事": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "六つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "手": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "去": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "少ない": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "点ける": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "味": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜斤": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "落": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "交番": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "左右": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出会う": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "休む": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "新": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "雪": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "小": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "体重": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "才": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "四月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "院": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "男の子": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "楽しみ": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "ナポレオン三世": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "岸": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "物": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "星": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "路": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "切": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "大学生": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生活": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "来週": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "火星": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "学ぶ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見当たる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "聞く": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "首になる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "火山": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "私鉄": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "分": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "日記": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "小声": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "校": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "魚": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "麦": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "村人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "休み": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生きる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "教室": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "穴": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "放": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "理": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "大声": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "助言": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "代金": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "弱点": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "曲": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "楽": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入場": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "子犬": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "早々": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "止まる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "魚屋": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "近い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入力": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "茶": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "南東": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "住む": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "土地": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "対比": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "漢": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜向け": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "当てる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "負": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "転がる": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お礼": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "申": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "平ら": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "外国": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "配る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "君主国": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "仮に": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "西": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "太い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "伝": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "金": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お知らせ": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "進む": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "足し算": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "馬力": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "会社": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何日": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "長い": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "終了": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "習": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "社長": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "自": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "村": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "図": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "土星": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜年来": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "王女": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "牛": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "近道": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "顔付き": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "絵": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "シアトル市": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "目医者": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "半": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "名前": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "京": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "他の人": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "週末": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "同": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜形": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "小さい": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "対立": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "不明": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "外人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "身": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "本当に": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "黒い": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "冬": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "辺り": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "戸口": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "努": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "以外": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "投げる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "休": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "仮": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "五十": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "上がる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "地下": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "作": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜氏": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "仲": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "特": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "働": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "最高": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "今月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "者": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "近年": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "東口": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全身": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "体力": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "先月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "要求": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一本気": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毛": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "受ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "通る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "田んぼ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生物": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "会話": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "住民": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "子牛": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "古": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "山道": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "車": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "船": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "通り": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "木": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "青年": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "進行": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "力いっぱい": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "代": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "月見": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "鳴く": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "飲": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "最終": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "親切": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生む": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "上": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "乗せる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "口調": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜円": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "北": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "歌手": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "映像": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "進化": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "通": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "私": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "指": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "金玉": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "思": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "地": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "下さい": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "向こう": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大きい": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "学校": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "低": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "一気": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お客さん": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "付": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "今夜": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "買": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "二重": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "色": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜札": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "終点": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "最も": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "天国": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "午後": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全国": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "部分": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "返": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "今回": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "目玉": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "考え": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "科学": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "女王": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "南米": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "十分間": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "出かける": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "話": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "安全": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "玉": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "本当": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大切": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "線路": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "引": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "末": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "女子": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "正直": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "和室": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "白人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "天": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毎朝": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "多い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "他所": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "今すぐ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "起きる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "々": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "先々月": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "映": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "鉄人": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "光る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中古": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "鳥": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "主人": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "池": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "後ろ": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "正しい": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "肉屋": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毎": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "役に立つ": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "正": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "仕": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "十台": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "活": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "町民": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "夏休み": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "当て字": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "夕": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "勝負": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "内": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "小学生": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "語る": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "場所": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "投手": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "苦": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "年下": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "央": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "今": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "下げる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "試": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "思い出": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "青空": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "始める": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "外": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "必ず": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "作り方": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "その他": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "前回": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "２０１１年": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "地中": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "明": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "売": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "古来": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中々": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "黒": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "地中海": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "会": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "失礼": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "宝石": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "由": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "円い": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "七日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "数字": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "組": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "石": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中学生": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "便": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "老": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "二時半": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "草地": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "名字": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "手首": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "ふじ山": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "金星": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "君": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人工": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "時間": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "空間": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "社会": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "左手": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "両日": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "争": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "十日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "安心": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "元気": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "号": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一番目": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "足りる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "調": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "一回": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "決定する": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "医者": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "安": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "十六": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "耳打ち": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "自由": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "竹": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "辛い": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "犬": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "要点": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "ハート形": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "向": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "日": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "使う": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "主語": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何千": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "明日": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "運がいい": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "店": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二万": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "私立大学": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "東京": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "答え": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "白黒": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大空": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "森": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "別": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜道": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "失う": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "かき氷": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "取り出す": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "直行": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "自分": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "教わる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "公": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "車内": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "豚": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "県": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "楽しい": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "和": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "始めに": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "向く": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大文字": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "不人気": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中国": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "同じ": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "付近": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "足首": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "女の人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "泳": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "持": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "化": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "大事": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見方": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "洋": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "入社": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "病む": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "酒": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "活用": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "日の出": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "発音": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "引き分け": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "黄色": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "交わる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出来上がる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "交ぜる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "助ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜分": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "答える": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "五つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "仕組み": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "学院": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人数": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "負ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "漢字": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "決まる": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "男": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "親": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "日本語": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "丁度いい": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一時": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "保": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "今日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "文": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "海外": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "好": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "言う": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "回す": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "南口": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "弱々しい": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中東": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四百": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "病人": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "作者": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "首": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "病": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "半分": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "鳴": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "画": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "後": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "海王星": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "研究": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "七": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "友": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "子": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "走": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "学年": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "地上": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "新年": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜度": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "拾": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "仮名": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜回": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "医": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "時": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "数": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "引き算": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "次": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "六日": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "支店": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電子": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "労": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "受": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "全く": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "百万": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "強調": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "以後": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "事": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "開ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "足": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "数学": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "死ぬ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "日本": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "力": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "読む": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "工": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "売り上げ": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "化ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "火": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "切れる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "文字": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "開発": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜丁目": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二百": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "社": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "先生": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "使用": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "北西": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全部": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "九日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "学生": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "新しい": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "重い": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "究明": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "太字": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "心配": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "本社": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "空気": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "間": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "作業": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "乗": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "住所": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "名古屋": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "白い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "羊毛": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生地": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "弟": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "対決": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "定": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "活用形": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "林": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "場": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "思い出す": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "九": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "切手": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "局": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "心身": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "象": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "天気": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "工学": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "像": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "茶色": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "多分": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "形": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "当": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "左": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "角度": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一万": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "高校生": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "欠": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "男の人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "米国": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "不": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "上げる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入り口": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "北口": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お前": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四千": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大きく": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "高": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "持つ": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "下町": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "落ちる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "広い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "立てる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "絵文字": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "走る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "進": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "食": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "羽": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "社内": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生まれ": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出す": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入院": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "軽": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "工事": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "本屋": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "点": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "百": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人里": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "友人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "走り回る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "記": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "本来": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "言": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "四国": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "音": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "目次": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "代える": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "了": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "氏名": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "表す": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "年上": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "写す": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大学院": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "父": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "工学者": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "近": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "三角": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "九州": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出発": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "談": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "天使": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全力": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "写": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "紙": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "国": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "思わず": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "名物": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "宝くじ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "初": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "生える": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "虫": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "次回": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "北海道": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "歩": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "お茶": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "黒人": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "打つ": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "玉ねぎ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "光": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "決": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "家事": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "勝": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "二世": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "長": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "手紙": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "研": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "一日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "死": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "私大": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "色々": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "教え": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一斤": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "誰": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "天才": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四十二": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毎年": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "近づく": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "理由": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "注": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "交通": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "速い": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "気": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "戸": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "売れる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "去る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "台所": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "比": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜間": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大した": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "歩く": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "毎日": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "自立": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "矢": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "朝": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二斤": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "親友": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "立ち飲み": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "皮": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大きさ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "年内": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電池": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "売る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "床": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "以下": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "この前": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "世": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "役": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜病": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "国民": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "考える": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "市立": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "工業": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "行う": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "苦い": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "肉": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "先": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "住人": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "五": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出社": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "直る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "不正": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "土": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "反": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "時代": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "休日": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "早く": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "週": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "年中": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "ベッドの下": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "交じる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "女": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜時": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "アメリカ人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三十代": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "早い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "本気": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "公開": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一年生": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "明かり": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "女の子": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "早速": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一ヶ月": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "平安": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "医大": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "当たり": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "里": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "姉": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "高校": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "分かる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜屋": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電話": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "王子": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "勝つ": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "方向": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "役目": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "仕方がない": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "千円札": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "最": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "始": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "美人": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "立": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "部": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "験": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "集める": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "安い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "広": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "決心": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "取": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "出血": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "付く": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "牛肉": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "青": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "役人": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一生": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "欠点": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "弱虫": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "和風": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "実力": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "重要": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "来る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一月": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "千葉": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "気に入る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "答": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "〜君": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "今週": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "兄": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "亡": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "向ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "五日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "助手": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "試験": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "今朝": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "泳ぐ": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "母": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "丸い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大気": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "月末": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "五月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "送る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "代わる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "勝者": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "直す": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "今年": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "田": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "数年": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "番号": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "進める": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "今度": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "十万": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "上る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "入学": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三日月": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "六月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "当たる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "札": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出身": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三世": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "苦しい": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "保つ": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "相談": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "横": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "辛口": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "右": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "方": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "切り取る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "必要": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "出来る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "功": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "白鳥": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "十月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "知": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "身体": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "部首": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "発売": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "業": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "和食": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "交代": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "界": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "一歩": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "道路": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "足す": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "本州": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "地図": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "辛": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "皿": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "相": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "一千": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生ビール": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "農": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "調子": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "礼": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "反対": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "要る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "打": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "欠ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "下がる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "十": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "水星": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お兄さん": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "集金": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "切る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "当たり前": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "明るい": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "受験": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "未": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "円": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "名": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "小文字": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "軽い": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "糸": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "正す": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "赤ちゃん": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "刀": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "返事": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何時": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "作る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "フランス語": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "何度": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "車両": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "転送": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "頭": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "七つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "回転": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "赤い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "民": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "歌": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "終わる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "葉": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "王": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "花火": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人生": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "日本酒": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "平気": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "支える": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "氷": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "丸": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一文字": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二番": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "点く": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二十日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "取る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "八": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "先週": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "火事": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "止める": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "言い方": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "空": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "用事": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "他": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "送": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "具": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "何回": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "生まれる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "回": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "近所": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "万": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "用いる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "文化": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中学校": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "映画": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "八日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "台": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "来年": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電力": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "最後": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "考": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "お酒": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "画像": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "両者": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "回答": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "海": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "辺": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "生保": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "以上": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "この辺": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "辛子": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "点数": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "求": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "究": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "a": {
+    "level": 2,
+    "source": "wanikani"
+  },
+  "試みる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "両方": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "実験": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "以前": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "飲む": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "回る": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "研究所": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "三つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人々": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "外交": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "語": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "死体": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "耳": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "海水魚": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "兄弟": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "楽勝": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "代わり": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見える": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "同日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "食事": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "空手": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "考え方": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "予": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "国宝": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "工場": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "支": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "後で": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "役場": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お姉さん": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "高さ": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "少女": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "心": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "行く": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "馬": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "空車": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "有": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "山": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "弱い": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "必": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "先日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "口にする": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見直す": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "イギリス人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電車": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "有名": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "電鉄": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "保持": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "体験": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "中止": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "教える": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "顔": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "右手": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "返す": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "木星": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "客室": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見せる": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "八つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "転がす": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "歩道": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "科目": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "お金": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "家": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大人しい": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "日光": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "夏": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "分ける": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "美しい": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "用": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "医学": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "新聞": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "自転車": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "冬休み": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "音楽": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜台": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "通す": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "予定": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四十": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "読み方": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "番": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "和服": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "水色": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "親しい": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "少": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "一つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "近々": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "水道": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "集中": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "黄": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "年末": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "全日本": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "青葉": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "路地": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二月": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "助かる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "来": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "他人": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "死亡": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "化かす": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "会う": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "四日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "利": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "休止": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "皮肉": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "間もなく": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "研究室": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "自決": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "花": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "数える": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "心理": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "運": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "六": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "見る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "山びこ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "発表": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "一台": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "買う": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "付ける": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "次々": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "学": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "雲": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "番組": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "以": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "出る": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "高い": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "写る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "支局": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "起": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "未決": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "スペイン語": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "血": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "頁": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "重": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "食べる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "竹の子": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "丁": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "工作": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "番号札": {
+    "level": "Apprentice",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "乗る": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "速": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "夕べ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "調べる": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "開始": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "先ず": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "人口": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大作": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "大役": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "九つ": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "交": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "kanji"
+  },
+  "今まで": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "上手": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "〜ヶ月": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "二日": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "丁度": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "不安": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "朝日": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "風": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "テーブルの上": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "金魚": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "先回り": {
+    "level": "Guru",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "角": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "広げる": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "所": {
+    "level": "Master",
+    "source": "wanikani",
+    "type": "vocabulary"
+  },
+  "町": {
+    "level": "Enlightened",
+    "source": "wanikani",
+    "type": "vocabulary"
+  }
+}

@@ -20,7 +20,11 @@ export default defineConfig({
       webExtConfig: {
         startUrl: ['about:debugging#/runtime/this-firefox'],
         target: 'firefox-desktop'
-      }
+      },
+      additionalInputs: [
+        'src/menu/index.ts',
+        'src/lib/index.ts',
+      ]
     })
   ],
   build: {

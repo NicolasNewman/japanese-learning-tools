@@ -2,7 +2,8 @@ import {
     resourceDir,
     appDataDir,
     homeDir,
-    appLocalDataDir
+    appLocalDataDir,
+    executableDir
 } from "@tauri-apps/api/path";
 import {
     type
@@ -13,6 +14,7 @@ import {
     readTextFile,
     writeFile
 } from "@tauri-apps/plugin-fs";
+import { externalBinaryDir } from "./commands";
 
 interface Manifest {
     name: string;
@@ -29,7 +31,7 @@ type BrowserData<T> = {
 
 const getManifestPath = async (): Promise<BrowserData<string> | null> => {
     const os = type();
-    const manifestName = "subs2srs";
+    const manifestName = "subs2clipboard_native_messenger";
     const home = await homeDir();
     const appData = await appDataDir();
     switch (os) {
@@ -95,7 +97,7 @@ const installManifest = async (): Promise<InstallManifestStatusCode> => {
         }
 
         const manifestJson = JSON.parse(await readTextFile(manifestFile)) as Manifest;
-        manifestJson.path = `${await appLocalDataDir()}/subs2clipboard-native-messenger`;
+        manifestJson.path = `${await externalBinaryDir()}/subs2clipboard-native-messenger`;
 
         const encoder = new TextEncoder();
         await writeFile(manifestPath["firefox"], encoder.encode(JSON.stringify(manifestJson, null, 4)));

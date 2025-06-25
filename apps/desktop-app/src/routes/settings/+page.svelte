@@ -17,7 +17,7 @@
         <p>General settings content goes here.</p>
     </TabItem>
     <TabItem title="Importers">
-        <Accordion>
+        <Accordion flush>
             <AccordionItem>
                 {#snippet header()}WaniKani{/snippet}
                 <svelte:component this={importerSettingsPage['wanikani']} />

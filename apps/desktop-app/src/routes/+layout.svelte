@@ -1,13 +1,16 @@
 <script>
-    import KanjiBank from "$lib/importer/kanji-bank";
-    import { installManifest } from "$lib/manifest-installer";
-    import initMenu from "$lib/menu";
-  let { children } = $props();
+  import KanjiBank from "$lib/importer/kanji-bank";
+  import { installManifest } from "$lib/manifest-installer";
+  import createTitlebar from "$lib/menu";
   import "../app.css";
+  import Alert from "../components/Alert.svelte";
+
+  let { children } = $props();
+  const titlebar = createTitlebar();
 
   const result = installManifest();
-  KanjiBank.setKanji("a", 2, "wanikani");
 </script>
+
 {#await result}
   <p>Loading manifest...</p>
 {:then manifest}
@@ -16,4 +19,8 @@
   <p>Error installing manifest: {error}</p>
 {/await}
 
-{@render children()}
+<div class="relative mt-4">
+
+  <Alert />
+  {@render children()}
+</div>
