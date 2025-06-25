@@ -1,10 +1,10 @@
-name: "Build CLI Tooling"
-description: "Builds the CLI tooling for the project."
-
 inputs:
   os:
     description: "The operating system to build for."
     required: true
+  # arch:
+  #   description: "The architecture to build for."
+  #   required: true
   shell:
     description: "The shell to use for running commands."
     required: true
@@ -14,16 +14,21 @@ runs:
   using: composite
   steps:
     - name: Install dependencies (ubuntu only)
-      if: ${{ input.os == 'linux' }} # This must match the platform value defined above.
+      if: ${{ inputs.os == 'linux' }} # This must match the platform value defined above.
       shell: ${{ inputs.shell }}
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf python3-dev
+        sudo apt-get install -y build-essential libwebkit2gtk-4.1-dev libappindicator3-dev patchelf python3-dev ccache
+        sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8
+        sudo /usr/sbin/update-ccache-symlinks
+        echo "/usr/lib/ccache" >> $GITHUB_PATH
         git submodule init
         git submodule update
     - name: Install dependencies
       shell: ${{ inputs.shell }}
-      run: pnpm install --frozen-lockfile
+      run: |
+        pnpm add -g nx
+        pnpm install --frozen-lockfile
     - uses: actions/setup-python@v5
       with:
         python-version: "3.13"
@@ -31,6 +36,10 @@ runs:
       uses: abatilo/actions-poetry@v3
       with:
         poetry-version: "main"
+    - name: Add poetry to PATH
+      shell: ${{ inputs.shell }}
+      run: |
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
     - name: Install the project dependencies
       shell: ${{ inputs.shell }}
       run: nx run gd-sudachi:install
@@ -46,7 +55,7 @@ runs:
     - name: Build mecab-ipadic-neologd
       shell: ${{ inputs.shell }}
       run: |
-        nx run gd-tools:mecab-ipadic-neologd
+        nx run mecab-ipadic-neologd:build
     - name: Build gd-tools
       shell: ${{ inputs.shell }}
       run: |
