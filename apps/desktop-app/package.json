@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "tauri:dev:xquartz": "LIBGL_ALWAYS_INDIRECT=1 LIBGL_ALWAYS_SOFTWARE=1 TAURI_ALLOW_GPU=0 tauri dev"
   },
   "license": "MIT",
   "dependencies": {
