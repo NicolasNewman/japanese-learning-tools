@@ -1,6 +1,6 @@
 {
-  "name": "@org/subs2clipboard",
-  "version": "0.0.1",
+  "name": "subs2clipboard",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
