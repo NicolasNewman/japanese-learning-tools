@@ -70,7 +70,6 @@ jobs:
           This PR was created automatically by the release workflow." \
             --head "release/${VERSION}" \
             --base "main" \
-            --label "release" \
             --assignee "${{ github.actor }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
