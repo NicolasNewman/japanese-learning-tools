@@ -48,7 +48,7 @@ jobs:
           git checkout -b "release/${VERSION}"
           
           git add .
-          git commit -m "Release version ${VERSION}"
+          git commit -m "chore: release v${VERSION}"
           git push origin "release/${VERSION}"
           
           git tag -a "v${VERSION}" -m "Release version ${VERSION}"
@@ -62,7 +62,7 @@ jobs:
           
           # Create PR using GitHub CLI
           gh pr create \
-            --title "chore: release v${VERSION}" \
+            --title "Release v${VERSION}" \
             --body "Automated release PR for version ${VERSION}
           
           ${CHANGELOG}
