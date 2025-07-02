@@ -8,6 +8,7 @@ jobs:
   create-changelog:
     permissions:
       contents: write
+      pull-requests: write
     name: 'Create Changelog and Release Branch'
     runs-on: ubuntu-22.04
     outputs:
@@ -35,7 +36,6 @@ jobs:
           VERSION=$(tail -n 1 .changelog/tmp)
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
-          git add .
       - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
@@ -45,13 +45,12 @@ jobs:
           VERSION="${{ steps.create-changelog.outputs.VERSION }}"
           echo "Creating branch and tag for version: ${VERSION}"
           
-          # Create and checkout new branch
           git checkout -b "release/${VERSION}"
           
-          # Push the branch
+          git add .
+          git commit -m "Release version ${VERSION}"
           git push origin "release/${VERSION}"
           
-          # Create and push tag
           git tag -a "v${VERSION}" -m "Release version ${VERSION}"
           git push origin "v${VERSION}"
         env:
