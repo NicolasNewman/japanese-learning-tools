@@ -1,0 +1,13 @@
+inputs:
+  shell:
+    description: "The shell to use for running commands."
+    required: true
+    default: "bash"
+
+runs:
+  using: composite
+  steps:
+    - name: Build Extention
+      shell: ${{ inputs.shell }}
+      run: |
+        nx run subs2clipboard:build

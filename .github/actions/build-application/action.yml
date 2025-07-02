@@ -1,0 +1,19 @@
+inputs:
+  os:
+    description: "The operating system to build for."
+    required: true
+  # arch:
+  #   description: "The architecture to build for."
+  #   required: true
+  shell:
+    description: "The shell to use for running commands."
+    required: true
+    default: "bash"
+
+runs:
+  using: composite
+  steps:
+    - name: Build desktop-app
+      shell: ${{ inputs.shell }}
+      run: |
+        nx run desktop-app:build

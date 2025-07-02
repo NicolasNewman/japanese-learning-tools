@@ -13,22 +13,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install dependencies (ubuntu only)
-      if: ${{ inputs.os == 'linux' }} # This must match the platform value defined above.
-      shell: ${{ inputs.shell }}
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential libwebkit2gtk-4.1-dev libappindicator3-dev patchelf python3-dev ccache
-        sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8
-        sudo /usr/sbin/update-ccache-symlinks
-        echo "/usr/lib/ccache" >> $GITHUB_PATH
-        git submodule init
-        git submodule update
-    - name: Install dependencies
-      shell: ${{ inputs.shell }}
-      run: |
-        pnpm add -g nx
-        pnpm install --frozen-lockfile
     - uses: actions/setup-python@v5
       with:
         python-version: "3.13"
@@ -43,11 +27,6 @@ runs:
     - name: Install the project dependencies
       shell: ${{ inputs.shell }}
       run: nx run gd-sudachi:install
-    - name: Install Rust stable
-      uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
-      with:
-        # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-        targets: ${{ inputs.os == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
     - name: Build sudachi
       shell: ${{ inputs.shell }}
       run: |
