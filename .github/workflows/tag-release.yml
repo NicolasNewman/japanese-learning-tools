@@ -28,7 +28,9 @@ jobs:
           pnpm install --frozen-lockfile
       - name: Create changelog
         run: |
-          VERSION=$(pnpm tsx scripts/release.ts | tail -n 1)
+          pnpm tsx scripts/release.ts > .changelog/tmp
+          echo .changelog/tmp
+          VERSION=$(echo .changelog/tmp | tail -n 1)
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
       - name: Configure Git
