@@ -17,6 +17,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
             fetch-depth: 0
+      - name: Check branch
+        run: |
+          if [ "${{ github.ref_name }}" != "development" ]; then
+            echo "This workflow can only be run on the development branch"
+            exit 1
+          fi
       - uses: pnpm/action-setup@v4
       - name: Setup node & dependencies
         uses: actions/setup-node@v4
