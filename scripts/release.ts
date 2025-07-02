@@ -97,12 +97,12 @@ try {
         encoding: 'utf8',
         cwd: process.cwd()
     });
-
+    console.log('Git log output:', output);
     const commits = output
         .trim()
         .split('\n')
         // Filter out empty lines and map to commit objects
-        .filter(line => line.length > 0).map(line => {
+        .filter(line => line.length > 0 && !line.substring(8).startsWith('Merge branch')).map(line => {
             const commit = line.substring(8);
             const parts = commit.match(/^([A-z]*)(\(([\w\d-]*)\))?: ?(.*)$/);
             if (!parts) {
