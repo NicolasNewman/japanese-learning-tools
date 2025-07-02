@@ -12,7 +12,7 @@ jobs:
     if: github.event.pull_request.merged == true
     permissions:
       contents: write
-    name: 'Release Desktop App'
+    name: 'Build Desktop App'
     strategy:
       fail-fast: false
       matrix:
@@ -123,7 +123,7 @@ jobs:
     if: github.event.pull_request.merged == true
     permissions:
       contents: write
-    name: 'Create Release'
+    name: 'Publish Release'
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4      

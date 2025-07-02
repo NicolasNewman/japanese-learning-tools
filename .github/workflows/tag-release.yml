@@ -1,6 +1,6 @@
 # docker ps | awk 'NR>1 {print $1}'
 # docker exec -t -i $(docker ps | awk 'NR>1 {print $1}' | head -n1) /bin/bash
-name: 'Release Desktop App'
+name: 'Create Release Branch and Tag'
 on:
   workflow_dispatch:
 
@@ -8,7 +8,7 @@ jobs:
   create-changelog:
     permissions:
       contents: write
-    name: 'Release Desktop App'
+    name: 'Create Changelog and Release Branch'
     runs-on: ubuntu-22.04
     outputs:
       version: ${{ steps.create-changelog.outputs.VERSION }}
