@@ -1,0 +1,87 @@
+Git log output: d14b9ff fix: removed label
+6466b18 fix: commitlint fix
+c20f4e2 fix: commitlint fix
+037dcb2 feat: permission & commit fix
+d5b1f62 fix: action step id
+b48e3a9 fix: echo -> cat
+654a2e9 fix: attempt 2 at logging
+d766a8a fix: improved logging for creating changelog
+e7f872d fix: specified origin for getting git log in release script
+8d79d28 Merge branch 'main' of https://github.com/NicolasNewman/japanese-learning-tools into development
+01fe015 fix: handle merge commits in release script
+145473c chore: added act outputs to gitignore
+e8b4ed6 Merge branch 'main' of https://github.com/NicolasNewman/japanese-learning-tools into development
+85ecfeb fix: re-ordered members to prevent rust-analyzer from panicing due to missing binaries
+5df09dd fix: handle frontend/backend versions for desktop-app
+d4886d4 feat: added repo script for bumping versions
+9434241 fix(gd-tools): re-added addition to cargo file
+4ad46fc chore(subs2clipboard-native-messenger): removed unused scripts
+a523037 docs(gd-tools): included reference to original C program
+
+Commits: {
+  repo: [
+    { type: 'fix', subject: 'removed label' },
+    { type: 'fix', subject: 'commitlint fix' },
+    { type: 'fix', subject: 'commitlint fix' },
+    { type: 'feat', subject: 'permission & commit fix' },
+    { type: 'fix', subject: 'action step id' },
+    { type: 'fix', subject: 'echo -> cat' },
+    { type: 'fix', subject: 'attempt 2 at logging' },
+    { type: 'fix', subject: 'improved logging for creating changelog' },
+    {
+      type: 'fix',
+      subject: 'specified origin for getting git log in release script'
+    },
+    { type: 'fix', subject: 'handle merge commits in release script' },
+    { type: 'chore', subject: 'added act outputs to gitignore' },
+    {
+      type: 'fix',
+      subject: 're-ordered members to prevent rust-analyzer from panicing due to missing binaries'
+    },
+    {
+      type: 'fix',
+      subject: 'handle frontend/backend versions for desktop-app'
+    },
+    { type: 'feat', subject: 'added repo script for bumping versions' }
+  ],
+  'gd-tools': [
+    { type: 'fix', subject: 're-added addition to cargo file' },
+    {
+      type: 'docs',
+      subject: 'included reference to original C program'
+    }
+  ],
+  'subs2clipboard-native-messenger': [ { type: 'chore', subject: 'removed unused scripts' } ]
+}
+gd-tools: 0.1.0 -> 0.1.1
+subs2clipboard-native-messenger: 0.1.0 -> 0.1.1
+
+
+Patch Notes:
+
+## repo
+
+- fix: removed label
+- fix: commitlint fix
+- fix: commitlint fix
+- feat: permission & commit fix
+- fix: action step id
+- fix: echo -> cat
+- fix: attempt 2 at logging
+- fix: improved logging for creating changelog
+- fix: specified origin for getting git log in release script
+- fix: handle merge commits in release script
+- chore: added act outputs to gitignore
+- fix: re-ordered members to prevent rust-analyzer from panicing due to missing binaries
+- fix: handle frontend/backend versions for desktop-app
+- feat: added repo script for bumping versions
+
+## gd-tools
+
+- fix: re-added addition to cargo file
+- docs: included reference to original C program
+
+## subs2clipboard-native-messenger
+
+- chore: removed unused scripts
+0.1.1
