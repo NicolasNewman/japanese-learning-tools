@@ -19,8 +19,11 @@ const commitTypeToVersion: Record<CommitType, VersionType> = {
     revert: 'patch'
 }
 
-const projectTypeToSourceDir: Record<ProjectType, string> = {
-    'desktop-app': 'apps/desktop-app/package.json',
+const projectTypeToSourceDir: Record<ProjectType, string | Record<'js' | 'toml', string>> = {
+    'desktop-app': {
+        'js': 'apps/desktop-app/package.json', 
+        'toml': 'apps/desktop-app/src-tauri/Cargo.toml'
+    },
     'subs2clipboard-native-messenger': 'apps/subs2clipboard-native-messenger/Cargo.toml',
     'subs2clipboard': 'apps/subs2clipboard/package.json',
     'gd-sudachi': 'apps/gd-sudachi/pyproject.toml',
@@ -46,17 +49,21 @@ const bumpVersion = (version: [number, number, number], bumpType: VersionType): 
 }
 
 const resolveJavaScriptVersion = (projectType: ProjectType, bumpType: VersionType): [string, string] => {
-    const metadata = JSON.parse(readFileSync(projectTypeToSourceDir[projectType], 'utf8')) as Record<string, any>;
+    const src = projectTypeToSourceDir[projectType]
+    const resolvedSrc = typeof src === 'string' ? src : src.js;
+    const metadata = JSON.parse(readFileSync(resolvedSrc, 'utf8')) as Record<string, any>;
     const oldVersion = metadata.version;
     const version = metadata.version.split('.').map(Number) as [number, number, number];
     bumpVersion(version, bumpType);
     metadata.version = version.join('.');
-    writeFileSync(projectTypeToSourceDir[projectType], JSON.stringify(metadata, null, 2));
+    writeFileSync(resolvedSrc, JSON.stringify(metadata, null, 2));
     return [oldVersion, metadata.version];
 }
 
 const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [string, string] => {
-    const metadata = readFileSync(projectTypeToSourceDir[projectType], 'utf8');
+    const src = projectTypeToSourceDir[projectType]
+    const resolvedSrc = typeof src === 'string' ? src : src.toml;
+    const metadata = readFileSync(resolvedSrc, 'utf8');
     const versionFromTo: [string, string] = ["", ""]
     const lines = metadata.split('\n').map(line => {
         const match = line.match(/^version = \"([^ ]*)\"$/)
@@ -69,12 +76,16 @@ const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [s
         }
         return line;
     }).join('\n');
-    writeFileSync(projectTypeToSourceDir[projectType], lines);
+    writeFileSync(resolvedSrc, lines);
     return versionFromTo;
 }
 
 const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersion> = {
-    'desktop-app': resolveJavaScriptVersion,
+    'desktop-app': (projectType: ProjectType, bumpType: VersionType) => {
+        const jsChange = resolveJavaScriptVersion(projectType, bumpType);
+        resolveTomlVersion(projectType, bumpType);
+        return jsChange;
+    },
     'subs2clipboard-native-messenger': resolveTomlVersion,
     'subs2clipboard': resolveJavaScriptVersion,
     'gd-sudachi': resolveTomlVersion,
@@ -105,8 +116,9 @@ try {
             };
         // Re-organize commits by scope
         }).reduce((prev, commit) => {
-            prev[commit.scope] ??= [];
-            prev[commit.scope].push({
+            const scope = commit.scope || 'repo'; // Default to 'repo' if no scope is provided
+            prev[scope] ??= [];
+            prev[scope].push({
                 type: commit.type,
                 subject: commit.subject
             });
@@ -114,7 +126,7 @@ try {
             return prev;
         }, {} as Record<ProjectType, { type: string, subject: string }[]>);
 
-    console.debug('Commits:', commits);
+    console.log('Commits:', commits);
 
     // Generate patch notes and version changes
     const patchNotes: string[] = [];
@@ -124,30 +136,41 @@ try {
         const versions: Partial<Record<VersionType, VersionType>> = {}
         commitList.forEach(commit => {
             const type = commit.type as CommitType;
-            versions[commitTypeToVersion[type]] = commitTypeToVersion[type];
-            allVersions[commitTypeToVersion[type]] = commitTypeToVersion[type];
+            versions[commitTypeToVersion[type]] = commitTypeToVersion[type];                
+            if (scope !== 'repo') {
+                allVersions[commitTypeToVersion[type]] = commitTypeToVersion[type];
+            }
             patchNote.push(`- ${commit.type}: ${commit.subject}`);
         });
         patchNotes.push(patchNote.join('\n'));
         const resolver = projectTypeToVersionResolver[scope as ProjectType];
-        if (!resolver) {
+        if (scope !== 'repo' && !resolver) {
             console.error(`No version resolver found for project type: ${scope}`);
             exit(1);
         }
 
         // Update application manifest version
-        const change = resolver(scope as ProjectType, versions['major'] || versions['minor'] || 'patch' as VersionType);
-        console.log(`${scope}: ${change[0]} -> ${change[1]}`);
+        if (scope !== 'repo') {
+            const change = resolver(scope as ProjectType, versions['major'] || versions['minor'] || 'patch' as VersionType);
+            console.log(`${scope}: ${change[0]} -> ${change[1]}`);
+        }
     });
-    console.debug('\n\nPatch Notes:\n')
-    console.debug(patchNotes.join('\n\n'));
+    console.log('\n\nPatch Notes:\n')
+    console.log(patchNotes.join('\n\n'));
 
     const jpLearningToolsVersion = JSON.parse(readFileSync('./package.json', 'utf8'));
     const version = jpLearningToolsVersion.version.split('.').map(Number) as [number, number, number];
     const newVersion = bumpVersion(version, allVersions['major'] || allVersions['minor'] || 'patch' as VersionType).join('.');
     jpLearningToolsVersion.version = newVersion;
     writeFileSync('./package.json', JSON.stringify(jpLearningToolsVersion, null, 2));
+
+    const desktopAppReleaseVersion = JSON.parse(readFileSync('apps/desktop-app/src-tauri/tauri.conf.json', 'utf8'));
+    desktopAppReleaseVersion.version = newVersion;
+    writeFileSync('apps/desktop-app/src-tauri/tauri.conf.json', JSON.stringify(desktopAppReleaseVersion, null, 2));
+    
     writeFileSync('.changelog/CHANGELOG.md', `# v${newVersion}\n\n${patchNotes.join('\n\n')}\n`);
+
+    console.log(newVersion);
 } catch (error) {
     console.error('Error executing git command:', error.message);
 }
