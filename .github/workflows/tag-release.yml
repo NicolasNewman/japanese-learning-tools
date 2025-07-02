@@ -1,0 +1,73 @@
+# docker ps | awk 'NR>1 {print $1}'
+# docker exec -t -i $(docker ps | awk 'NR>1 {print $1}' | head -n1) /bin/bash
+name: 'Release Desktop App'
+on:
+  workflow_dispatch:
+
+jobs:
+  create-changelog:
+    permissions:
+      contents: write
+    name: 'Release Desktop App'
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.create-changelog.outputs.VERSION }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - name: Setup node & dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - name: Install NodeJS dependencies
+        run: |
+          pnpm add -g nx
+          pnpm install --frozen-lockfile
+      - name: Create changelog
+        run: |
+          VERSION=$(pnpm tsx scripts/release.ts | tail -n 1)
+          echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Generated version: ${VERSION}"
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+      - name: Create release branch and tag
+        run: |
+          VERSION="${{ steps.create-changelog.outputs.VERSION }}"
+          echo "Creating branch and tag for version: ${VERSION}"
+          
+          # Create and checkout new branch
+          git checkout -b "release/${VERSION}"
+          
+          # Push the branch
+          git push origin "release/${VERSION}"
+          
+          # Create and push tag
+          git tag -a "v${VERSION}" -m "Release version ${VERSION}"
+          git push origin "v${VERSION}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Pull Request
+        run: |
+          VERSION="${{ steps.create-changelog.outputs.VERSION }}"
+          CHANGELOG=$(cat .changelog/CHANGELOG.md)
+          
+          # Create PR using GitHub CLI
+          gh pr create \
+            --title "Release v${VERSION}" \
+            --body "Automated release PR for version ${VERSION}
+          
+          ${CHANGELOG}
+          
+          This PR was created automatically by the release workflow." \
+            --head "release/${VERSION}" \
+            --base "main" \
+            --label "release" \
+            --assignee "${{ github.actor }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     
