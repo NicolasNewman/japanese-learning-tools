@@ -27,6 +27,7 @@ jobs:
           pnpm add -g nx
           pnpm install --frozen-lockfile
       - name: Create changelog
+        id: create-changelog
         run: |
           mkdir -p .changelog
           pnpm tsx scripts/release.ts > .changelog/tmp
