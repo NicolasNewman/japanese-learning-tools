@@ -8,6 +8,7 @@ jobs:
   create-changelog:
     permissions:
       contents: write
+      pull-requests: write
     name: 'Create Changelog and Release Branch'
     runs-on: ubuntu-22.04
     outputs:
@@ -16,6 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
             fetch-depth: 0
+            ref: ${{ github.ref_name }}
       - name: Check branch
         run: |
           if [ "${{ github.ref_name }}" != "development" ]; then
