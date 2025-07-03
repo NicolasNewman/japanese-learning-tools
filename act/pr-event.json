@@ -1,0 +1,12 @@
+{
+  "action": "closed",
+  "pull_request": {
+    "merged": true,
+    "head": {
+      "ref": "release/1.1.0"
+    },
+    "base": {
+      "ref": "main"
+    }
+  }
+}

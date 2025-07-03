@@ -8,6 +8,7 @@ jobs:
   create-changelog:
     permissions:
       contents: write
+      pull-requests: write
     name: 'Create Changelog and Release Branch'
     runs-on: ubuntu-22.04
     outputs:
@@ -16,6 +17,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
             fetch-depth: 0
+            ref: ${{ github.ref_name }}
+      - name: Check branch
+        run: |
+          if [ "${{ github.ref_name }}" != "development" ]; then
+            echo "This workflow can only be run on the development branch"
+            exit 1
+          fi
       - uses: pnpm/action-setup@v4
       - name: Setup node & dependencies
         uses: actions/setup-node@v4
@@ -27,8 +35,13 @@ jobs:
           pnpm add -g nx
           pnpm install --frozen-lockfile
       - name: Create changelog
+        id: create-changelog
         run: |
-          VERSION=$(pnpm tsx scripts/release.ts | tail -n 1)
+          mkdir -p .changelog
+          pnpm tsx scripts/release.ts > .changelog/tmp
+          cat .changelog/tmp
+
+          VERSION=$(tail -n 1 .changelog/tmp)
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
       - name: Configure Git
@@ -43,6 +56,8 @@ jobs:
           # Create and checkout new branch
           git checkout -b "release/${VERSION}"
           
+          git add .
+          git commit -m "chore: release v${VERSION}"
           # Push the branch
           git push origin "release/${VERSION}"
           
@@ -66,7 +81,6 @@ jobs:
           This PR was created automatically by the release workflow." \
             --head "release/${VERSION}" \
             --base "main" \
-            --label "release" \
             --assignee "${{ github.actor }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
