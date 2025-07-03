@@ -28,6 +28,7 @@ jobs:
           - name: linux
             image: ubuntu-22.04
             shell: bash
+            installer: dist/target/release/bundle/deb/*.deb
           # - name: windows
           #   image: win-signing
           #   shell: cmd
@@ -91,8 +92,9 @@ jobs:
         with:
           name: desktop-app-${{ matrix.os.name }}
           path: |
-            dist/target/release/bundle/*.*
+            ${{matrix.os.installer}}
           retention-days: 1
+          if-no-files-found: error
   # TODO: how to sign extention?
   # build-web-extention:
   #   if: github.event.pull_request.merged == true
