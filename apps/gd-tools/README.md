@@ -1,6 +1,6 @@
 # gd-tools
 
-A rust port of [gd-tools](https://github.com/Ajatt-Tools/gd-tools) by Ajatt-Tools. gd-tools aims to provide a set of programs to enhance GoldenDict for immersion learning.
+A set of programs to enhance GoldenDict for immersion learning, written in Rust.
 
 ## Overview
 
