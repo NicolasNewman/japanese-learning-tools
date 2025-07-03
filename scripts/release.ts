@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { exit } from 'process';
 
 type CommitType = 'feat' | 'fix' | 'docs' | 'style' | 'refactor' | 'perf' | 'test' | 'build' | 'chore' | 'revert';
@@ -76,7 +76,9 @@ const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [s
         }
         return line;
     }).join('\n');
-    execSync(`cargo update -p ${projectType}`);
+    if (resolvedSrc.split('/').pop() === 'Cargo.toml') {
+        execSync(`cargo update -p ${projectType}`);
+    }
     writeFileSync(resolvedSrc, lines);
     return versionFromTo;
 }
@@ -169,6 +171,9 @@ try {
     desktopAppReleaseVersion.version = newVersion;
     writeFileSync('apps/desktop-app/src-tauri/tauri.conf.json', JSON.stringify(desktopAppReleaseVersion, null, 2));
     
+    if (!existsSync('.changelog')) {
+        mkdirSync('.changelog');
+    }
     writeFileSync('.changelog/CHANGELOG.md', `# v${newVersion}\n\n${patchNotes.join('\n\n')}\n`);
 
     console.log(newVersion);
