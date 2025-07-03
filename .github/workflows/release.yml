@@ -119,7 +119,7 @@ jobs:
   #           dist/subs2clipboard/**/*
   #         retention-days: 1
   release:
-    needs: build
+    needs: build-desktop-app
     if: github.event.pull_request.merged == true
     permissions:
       contents: write
@@ -130,12 +130,18 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          path: release-files      
+          path: release-files
+      - name: Extract version from branch name
+        id: extract-version
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          VERSION=${BRANCH_NAME#release/}
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT      
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           body_path: .changelog/CHANGELOG.md
-          tag_name: v${{ github.head_ref && github.head_ref | replace('release/', '') || '0.0.0' }}
+          tag_name: v${{ steps.extract-version.outputs.version }}
           prerelease: true
           files: |
             release-files/**/*
