@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="TARGETDIR">
+            <Component Id="JPLearningToolsRegistryEntries" Guid="*">
+                <RegistryKey Root="HKLM"
+                    Key="Software\Mozilla\NativeMessagingHosts\com.japanese.learning.tools">
+                    <RegistryValue Type="string"
+                        Value="[INSTALLDIR]resources\manifest\manifest-firefox.json" />
+                </RegistryKey>
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+</Wix>
