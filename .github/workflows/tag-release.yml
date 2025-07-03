@@ -33,8 +33,13 @@ jobs:
           pnpm add -g nx
           pnpm install --frozen-lockfile
       - name: Create changelog
+        id: create-changelog
         run: |
-          VERSION=$(pnpm tsx scripts/release.ts | tail -n 1)
+          mkdir -p .changelog
+          pnpm tsx scripts/release.ts > .changelog/tmp
+          cat .changelog/tmp
+
+          VERSION=$(tail -n 1 .changelog/tmp)
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
       - name: Configure Git
@@ -49,6 +54,8 @@ jobs:
           # Create and checkout new branch
           git checkout -b "release/${VERSION}"
           
+          git add .
+          git commit -m "chore: release v${VERSION}"
           # Push the branch
           git push origin "release/${VERSION}"
           
@@ -72,7 +79,6 @@ jobs:
           This PR was created automatically by the release workflow." \
             --head "release/${VERSION}" \
             --base "main" \
-            --label "release" \
             --assignee "${{ github.actor }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
