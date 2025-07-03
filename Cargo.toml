@@ -2,9 +2,9 @@
 [workspace]
 resolver = '2'
 members = [
+	'apps/desktop-app/src-tauri',
 	'apps/gd-tools',
 	'apps/subs2clipboard-native-messenger',
-	'apps/desktop-app/src-tauri',
 ]
 
 [workspace.package]
