@@ -11,6 +11,5 @@ apps/gd-tools/gd-tools/
 .github/instructions/nx.instructions.md
 .cache
 reports/
-bin/
-target/
-.changelog/tmp
+bin/*
+target/*
