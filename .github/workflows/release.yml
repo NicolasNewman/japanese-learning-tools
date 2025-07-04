@@ -36,7 +36,7 @@ jobs:
           name: mecab-ipadic-neologd
           path: dist/target/mecab-ipadic-neologd/
           retention-days: 1
-  build-desktop-app:
+  build-jp-learning-tools:
     if: github.event.pull_request.merged == true
     needs: build-mecab-ipadic-neologd
     permissions:
@@ -123,7 +123,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: desktop-app-${{ matrix.os.name }}
+          name: jp-learning-tools-${{ matrix.os.name }}
           path: |
             ${{matrix.os.installer}}
           retention-days: 1
@@ -154,7 +154,7 @@ jobs:
   #           dist/subs2clipboard/**/*
   #         retention-days: 1
   release:
-    needs: build-desktop-app
+    needs: build-jp-learning-tools
     if: github.event.pull_request.merged == true
     permissions:
       contents: write

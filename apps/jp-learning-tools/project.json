@@ -1,7 +1,7 @@
 {
-    "name": "desktop-app",
+    "name": "jp-learning-tools",
     "projectType": "application",
-    "sourceRoot": "apps/desktop-app/src",
+    "sourceRoot": "apps/jp-learning-tools/src",
     "targets": {
         "build:linux": {
             "executor": "nx:run-commands",
