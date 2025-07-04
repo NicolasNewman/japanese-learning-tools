@@ -14,37 +14,37 @@ on:
       - main
 
 jobs:
-  # build-mecab-ipadic-neologd:
-  #   if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-  #   permissions:
-  #     contents: write
-  #   name: 'Build mecab-ipadic-neologd'
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: pnpm/action-setup@v4
-  #     - name: Install dependencies
-  #       run: |
-  #         pnpm add -g nx
-  #         pnpm install --frozen-lockfile
-  #     - name: Build mecab-ipadic-neologd
-  #       run: |
-  #         sudo apt-get update
-  #         sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git make curl xz-utils file
+  build-mecab-ipadic-neologd:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+    name: 'Build mecab-ipadic-neologd'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: |
+          pnpm add -g nx
+          pnpm install --frozen-lockfile
+      - name: Build mecab-ipadic-neologd
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git make curl xz-utils file
 
-  #         git submodule init
-  #         git submodule update
+          git submodule init
+          git submodule update
 
-  #         nx run mecab-ipadic-neologd:build
-  #     - name: Upload build artifacts
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: mecab-ipadic-neologd
-  #         path: dist/target/mecab-ipadic-neologd/
-  #         retention-days: 1
+          nx run mecab-ipadic-neologd:build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mecab-ipadic-neologd
+          path: dist/target/mecab-ipadic-neologd/
+          retention-days: 1
   build-jp-learning-tools:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-    # needs: build-mecab-ipadic-neologd
+    needs: build-mecab-ipadic-neologd
     permissions:
       contents: write
     name: 'Build Desktop App'
@@ -91,16 +91,16 @@ jobs:
         run: |
           pnpm add -g nx
           pnpm install --frozen-lockfile
-      # - name: Install Rust stable
-      #   uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
-      #   with:
-      #     # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-      #     targets: ${{ matrix.os.name == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-      # - name: Download mecab-ipadic-neologd artifacts
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: mecab-ipadic-neologd
-      #     path: dist/target/mecab-ipadic-neologd/
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.os.name == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - name: Download mecab-ipadic-neologd artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: mecab-ipadic-neologd
+          path: dist/target/mecab-ipadic-neologd/
       - name: Build CLI Tooling
         uses: ./.github/actions/build-cli
         with:
