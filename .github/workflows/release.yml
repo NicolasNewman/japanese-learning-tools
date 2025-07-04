@@ -60,10 +60,10 @@ jobs:
           #   image: macos-latest
           #   shell: bash
           #   args: '--target x86_64-apple-darwin' 
-          - name: linux
-            image: ubuntu-22.04
-            shell: bash
-            installer: dist/target/release/bundle/deb/*.deb
+          # - name: linux
+          #   image: ubuntu-22.04
+          #   shell: bash
+          #   installer: dist/target/release/bundle/deb/*.deb
           - name: windows
             image: windows-2022
             shell: cmd
