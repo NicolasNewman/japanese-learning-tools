@@ -18,8 +18,8 @@
   type SaveState = "IDLE" | "SAVING" | "SAVED";
   let saveState: SaveState = $state("IDLE");
 
-  let apiKey: string | null = $state(null);
-  let lastSync: Date | null = $state(null);
+  let apiKey: string | null | undefined = $state(undefined);
+  let lastSync: Date | null | undefined = $state(undefined);
 
   onMount(async () => {
     const [storedApiKey, storedLastSync] = await Promise.all([
@@ -46,7 +46,7 @@
     }, 750);
   }}
 >
-  {#if apiKey === null && lastSync === null}
+  {#if apiKey === undefined || lastSync === undefined}
     <Skeleton size="sm" class="my-8" />
   {:else}
     <div>
