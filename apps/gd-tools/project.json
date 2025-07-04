@@ -40,7 +40,7 @@
       "options": {
         "commands": [
           "nx run gd-tools:_build:windows",
-          "nx run gd-tools:rename-binary --target=x86_64-pc-windows-gnu"
+          "nx run gd-tools:rename-binary --target=x86_64-pc-windows-msvc"
         ],
         "parallel": false
       }
@@ -51,7 +51,7 @@
         "{options.target-dir}"
       ],
       "options": {
-        "target": "x86_64-pc-windows-gnu",
+        "target": "x86_64-pc-windows-msvc",
         "target-dir": "dist/target/gd-tools",
         "release": true
       }

@@ -3,7 +3,7 @@ import * as path from 'path';
 
 const targetDir = process.argv[2];
 const target = process.argv[3];
-const originalName = targetDir.split(path.sep).pop() || 'binary';
+const originalName = targetDir.split('/').pop() || 'binary';
 
 console.log('📦 Rename Binary Script');
 console.log(`Target Directory: ${targetDir}`);
