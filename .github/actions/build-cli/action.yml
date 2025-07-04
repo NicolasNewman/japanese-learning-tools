@@ -31,11 +31,11 @@ runs:
       shell: ${{ inputs.shell }}
       run: |
         nx run gd-sudachi:build:${{ inputs.os }}
-    - name: Build gd-tools
-      shell: ${{ inputs.shell }}
-      run: |
-        nx run gd-tools:build:${{ inputs.os }}
-    - name: Build subs2clipboard-native-messenger
-      shell: ${{ inputs.shell }}
-      run: |
-        nx run subs2clipboard-native-messenger:build:${{ inputs.os }}
+    # - name: Build gd-tools
+    #   shell: ${{ inputs.shell }}
+    #   run: |
+    #     nx run gd-tools:build:${{ inputs.os }}
+    # - name: Build subs2clipboard-native-messenger
+    #   shell: ${{ inputs.shell }}
+    #   run: |
+    #     nx run subs2clipboard-native-messenger:build:${{ inputs.os }}
