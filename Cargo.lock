@@ -2297,7 +2297,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "jp-learning-tools"
+name = "jp-learning-tools-backend"
 version = "0.2.0"
 dependencies = [
  "serde",
