@@ -2,6 +2,12 @@
 # docker exec -t -i $(docker ps | awk 'NR>1 {print $1}' | head -n1) /bin/bash
 name: 'Release Desktop App'
 on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version (without v prefix, e.g. 1.2.3)'
+        required: true
+        type: string
   pull_request:
     types: [closed]
     branches:
@@ -9,7 +15,7 @@ on:
 
 jobs:
   build-mecab-ipadic-neologd:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
     name: 'Build mecab-ipadic-neologd'
@@ -37,7 +43,7 @@ jobs:
           path: dist/target/mecab-ipadic-neologd/
           retention-days: 1
   build-jp-learning-tools:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     needs: build-mecab-ipadic-neologd
     permissions:
       contents: write
@@ -54,10 +60,10 @@ jobs:
           #   image: macos-latest
           #   shell: bash
           #   args: '--target x86_64-apple-darwin' 
-          - name: linux
-            image: ubuntu-22.04
-            shell: bash
-            installer: dist/target/release/bundle/deb/*.deb
+          # - name: linux
+          #   image: ubuntu-22.04
+          #   shell: bash
+          #   installer: dist/target/release/bundle/deb/*.deb
           - name: windows
             image: windows-2022
             shell: cmd
@@ -106,20 +112,30 @@ jobs:
         with:
           os: ${{ matrix.os.name }}
           shell: ${{ matrix.os.shell }}
-      - name: Test
-        # shell: ${{ matrix.shell }}
+      - name: Debug directory structure
+        shell: pwsh
         run: |
-          echo "===== PWD ====="
-          pwd
-          echo ${{github.ref_name}}
-          echo "===== Listing current directory ====="
-          ls ./
-          echo "===== Listing dist directory ====="
-          ls dist/
-          echo "===== Listing dist/target directory ====="
-          ls dist/target
-          echo "===== Listing dist/target directory ====="
-          ls dist/target/release
+          Get-ChildItem -Path .\ -Recurse -Depth 3 | 
+          Where-Object { 
+            $_.FullName -notlike "*\node_modules\*" -and 
+            $_.FullName -notlike "*\debug\*" -and
+            $_.FullName -notlike "*\Debug\*"
+          } | 
+          Select-Object FullName
+      # - name: Test
+      #   # shell: ${{ matrix.shell }}
+      #   run: |
+      #     echo "===== PWD ====="
+      #     pwd
+      #     echo ${{github.ref_name}}
+      #     echo "===== Listing current directory ====="
+      #     ls ./
+      #     echo "===== Listing dist directory ====="
+      #     ls dist/
+      #     echo "===== Listing dist/target directory ====="
+      #     ls dist/target
+      #     echo "===== Listing dist/target directory ====="
+      #     ls dist/target/release
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -155,7 +171,7 @@ jobs:
   #         retention-days: 1
   release:
     needs: build-jp-learning-tools
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
     name: 'Publish Release'
@@ -169,8 +185,12 @@ jobs:
       - name: Extract version from branch name
         id: extract-version
         run: |
-          BRANCH_NAME="${{ github.head_ref }}"
-          VERSION=${BRANCH_NAME#release/}
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            VERSION="${{ github.event.inputs.release_version }}"
+          else
+            BRANCH_NAME="${{ github.head_ref }}"
+            VERSION=${BRANCH_NAME#release/}
+          fi
           echo "version=${VERSION}" >> $GITHUB_OUTPUT      
       - name: Create Release
         uses: softprops/action-gh-release@v2

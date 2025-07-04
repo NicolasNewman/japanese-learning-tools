@@ -16,4 +16,4 @@ runs:
     - name: Build jp-learning-tools
       shell: ${{ inputs.shell }}
       run: |
-        nx run jp-learning-tools:build
+        nx run jp-learning-tools:build:${{ inputs.os }}

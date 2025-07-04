@@ -8,6 +8,13 @@
                     <RegistryValue Type="string"
                         Value="%APPDATA%\com.nicolasnewman.jp-learning-tools\manifest-firefox.json" />
                 </RegistryKey>
+                <Environment Id="PATH"
+                    Name="PATH"
+                    Value="[INSTALLDIR]"
+                    Permanent="no"
+                    Part="last"
+                    Action="set"
+                    System="yes" />
             </Component>
         </DirectoryRef>
     </Fragment>
