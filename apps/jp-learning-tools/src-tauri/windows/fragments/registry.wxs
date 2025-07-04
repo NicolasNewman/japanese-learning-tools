@@ -8,6 +8,13 @@
                     <RegistryValue Type="string"
                         Value="[INSTALLDIR]resources\manifest\manifest-firefox-configured.json" />
                 </RegistryKey>
+                <Environment Id="PATH"
+                    Name="PATH"
+                    Value="[INSTALLDIR]"
+                    Permanent="no"
+                    Part="last"
+                    Action="set"
+                    System="yes" />
             </Component>
         </DirectoryRef>
     </Fragment>
