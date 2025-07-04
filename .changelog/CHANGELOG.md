@@ -1,18 +1,17 @@
-# v0.1.1
+# v0.2.0
 
 ## repo
 
-- fix: checkout development branch when tagging release
-- fix: rust-analyzer should build desktop-app last when run through IDE
-- fix: re-added reverted changes
-- fix: only run cargo update on Cargo.toml files
-- feat: release script
-- docs: updated readme
-- feat: improved action testing with act
-- fix: action syntax
-- chore: tag-release aborts if not on development branch
-- fix: added changelog tmp to gitignore
+- fix: release script error
+- fix: release project name resolution
+- fix: temporary resolver to desktop app
+- refactor: renamed desktop-app package
+- fix: fixes to windows nx build scripts
+- feat: updated gd-sudachi windows build command to support cmd
+- feat: pre-build mecab-ipadic-neologd and download artifact in matrix
+- fix: explicitly set installer location on release artifact upload
 
-## gd-sudachi
+## desktop-app
 
-- docs: updated  README
+- feat: windows support
+- feat: enable msi installer creation for windows

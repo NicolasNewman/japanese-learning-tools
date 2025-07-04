@@ -20,6 +20,14 @@
           "path": "$RESOURCE/resources/manifest/*"
         }
       ]
+    },
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "$RESOURCE/"
+        }
+      ]
     }
   ]
 }

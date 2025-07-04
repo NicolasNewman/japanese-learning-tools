@@ -40,8 +40,9 @@ jobs:
           mkdir -p .changelog
           pnpm tsx scripts/release.ts > .changelog/tmp
           cat .changelog/tmp
-
+          
           VERSION=$(tail -n 1 .changelog/tmp)
+          rm .changelog/tmp
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
       - name: Configure Git

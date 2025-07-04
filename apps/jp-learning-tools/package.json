@@ -1,6 +1,6 @@
 {
-  "name": "desktop-app",
-  "version": "0.1.0",
+  "name": "jp-learning-tools",
+  "version": "0.2.0",
   "description": "",
   "type": "module",
   "scripts": {
@@ -18,7 +18,7 @@
     "@tailwindcss/vite": "^4.1.10",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-fs": "~2.3.0",
-    "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/plugin-opener": "^2.3.0",
     "@tauri-apps/plugin-os": "~2.2.1",
     "@tauri-apps/plugin-store": "~2.2.0",
     "custom-tauri-titlebar": "^0.3.2",

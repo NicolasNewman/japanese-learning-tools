@@ -48,3 +48,7 @@
 	}
 
 }
+
+.titlebar {
+  z-index: 1000;
+}

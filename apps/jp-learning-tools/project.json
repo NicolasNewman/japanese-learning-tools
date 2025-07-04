@@ -1,15 +1,25 @@
 {
-    "name": "desktop-app",
+    "name": "jp-learning-tools",
     "projectType": "application",
-    "sourceRoot": "apps/desktop-app/src",
+    "sourceRoot": "apps/jp-learning-tools/src",
     "targets": {
-        "build": {
+        "build:linux": {
             "executor": "nx:run-commands",
             "outputs": [
                 "{projectRoot}/build"
             ],
             "options": {
                 "command": "cd {projectRoot} && pnpm tauri build -b deb",
+                "cwd": "{workspaceRoot}"
+            }
+        },
+        "build:windows": {
+            "executor": "nx:run-commands",
+            "outputs": [
+                "{projectRoot}/build"
+            ],
+            "options": {
+                "command": "cd {projectRoot} && pnpm tauri build -b msi",
                 "cwd": "{workspaceRoot}"
             }
         },

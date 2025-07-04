@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "desktop-app",
-  "version": "0.1.1",
+  "productName": "jp-learning-tools",
+  "version": "0.2.0",
   "identifier": "com.nicolasnewman.jp-learning-tools",
   "build": {
     "beforeDevCommand": "pnpm dev",
@@ -12,10 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "desktop-app",
+        "title": "jp-learning-tools",
         "decorations": false,
         "width": 1000,
-        "height": 800
+        "height": 800,
+        "devtools": true
       }
     ],
     "security": {
@@ -54,6 +55,21 @@
           "type": "xz",
           "level": 9
         }
+      }
+    },
+    "windows": {
+      "webviewInstallMode": {
+        "silent": true,
+        "type": "downloadBootstrapper"
+      },
+      "nsis": null,
+      "wix": {
+        "fragmentPaths": [
+          "./windows/fragments/registry.wxs"
+        ],
+        "componentRefs": [
+          "JPLearningToolsRegistryEntries"
+        ]
       }
     }
   }

@@ -4,7 +4,7 @@ resolver = '2'
 members = [
 	'apps/gd-tools',
 	'apps/subs2clipboard-native-messenger',
-	'apps/desktop-app/src-tauri',
+	'apps/jp-learning-tools/src-tauri',
 ]
 
 [workspace.package]

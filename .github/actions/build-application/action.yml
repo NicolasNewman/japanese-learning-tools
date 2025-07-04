@@ -13,7 +13,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Build desktop-app
+    - name: Build jp-learning-tools
       shell: ${{ inputs.shell }}
       run: |
-        nx run desktop-app:build
+        nx run jp-learning-tools:build

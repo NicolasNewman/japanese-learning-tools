@@ -4,7 +4,7 @@ import { exit } from 'process';
 
 type CommitType = 'feat' | 'fix' | 'docs' | 'style' | 'refactor' | 'perf' | 'test' | 'build' | 'chore' | 'revert';
 type VersionType = 'major' | 'minor' | 'patch';
-type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'desktop-app' | 'gd-sudachi' | 'gd-tools';
+type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'jp-learning-tools' | 'gd-sudachi' | 'gd-tools' | 'desktop-app';
 
 const commitTypeToVersion: Record<CommitType, VersionType> = {
     feat: 'minor',
@@ -20,9 +20,13 @@ const commitTypeToVersion: Record<CommitType, VersionType> = {
 }
 
 const projectTypeToSourceDir: Record<ProjectType, string | Record<'js' | 'toml', string>> = {
+    'jp-learning-tools': {
+        'js': 'apps/jp-learning-tools/package.json', 
+        'toml': 'apps/jp-learning-tools/src-tauri/Cargo.toml'
+    },
     'desktop-app': {
-        'js': 'apps/desktop-app/package.json', 
-        'toml': 'apps/desktop-app/src-tauri/Cargo.toml'
+        'js': 'apps/jp-learning-tools/package.json',
+        'toml': 'apps/jp-learning-tools/src-tauri/Cargo.toml'
     },
     'subs2clipboard-native-messenger': 'apps/subs2clipboard-native-messenger/Cargo.toml',
     'subs2clipboard': 'apps/subs2clipboard/package.json',
@@ -84,9 +88,14 @@ const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [s
 }
 
 const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersion> = {
-    'desktop-app': (projectType: ProjectType, bumpType: VersionType) => {
+    'jp-learning-tools': (projectType: ProjectType, bumpType: VersionType) => {
         const jsChange = resolveJavaScriptVersion(projectType, bumpType);
         resolveTomlVersion(projectType, bumpType);
+        return jsChange;
+    },
+    'desktop-app': (projectType: ProjectType, bumpType: VersionType) => {
+        const jsChange = resolveJavaScriptVersion('jp-learning-tools', bumpType);
+        resolveTomlVersion('jp-learning-tools', bumpType);
         return jsChange;
     },
     'subs2clipboard-native-messenger': resolveTomlVersion,
@@ -167,9 +176,9 @@ try {
     jpLearningToolsVersion.version = newVersion;
     writeFileSync('./package.json', JSON.stringify(jpLearningToolsVersion, null, 2));
 
-    const desktopAppReleaseVersion = JSON.parse(readFileSync('apps/desktop-app/src-tauri/tauri.conf.json', 'utf8'));
+    const desktopAppReleaseVersion = JSON.parse(readFileSync('apps/jp-learning-tools/src-tauri/tauri.conf.json', 'utf8'));
     desktopAppReleaseVersion.version = newVersion;
-    writeFileSync('apps/desktop-app/src-tauri/tauri.conf.json', JSON.stringify(desktopAppReleaseVersion, null, 2));
+    writeFileSync('apps/jp-learning-tools/src-tauri/tauri.conf.json', JSON.stringify(desktopAppReleaseVersion, null, 2));
     
     if (!existsSync('.changelog')) {
         mkdirSync('.changelog');
