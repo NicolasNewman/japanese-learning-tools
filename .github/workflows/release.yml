@@ -2,6 +2,12 @@
 # docker exec -t -i $(docker ps | awk 'NR>1 {print $1}' | head -n1) /bin/bash
 name: 'Release Desktop App'
 on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version (without v prefix, e.g. 1.2.3)'
+        required: true
+        type: string
   pull_request:
     types: [closed]
     branches:
@@ -9,7 +15,7 @@ on:
 
 jobs:
   build-mecab-ipadic-neologd:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
     name: 'Build mecab-ipadic-neologd'
@@ -37,7 +43,7 @@ jobs:
           path: dist/target/mecab-ipadic-neologd/
           retention-days: 1
   build-jp-learning-tools:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     needs: build-mecab-ipadic-neologd
     permissions:
       contents: write
@@ -169,8 +175,12 @@ jobs:
       - name: Extract version from branch name
         id: extract-version
         run: |
-          BRANCH_NAME="${{ github.head_ref }}"
-          VERSION=${BRANCH_NAME#release/}
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            VERSION="${{ github.event.inputs.release_version }}"
+          else
+            BRANCH_NAME="${{ github.head_ref }}"
+            VERSION=${BRANCH_NAME#release/}
+          fi
           echo "version=${VERSION}" >> $GITHUB_OUTPUT      
       - name: Create Release
         uses: softprops/action-gh-release@v2
