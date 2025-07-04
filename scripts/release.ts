@@ -4,7 +4,7 @@ import { exit } from 'process';
 
 type CommitType = 'feat' | 'fix' | 'docs' | 'style' | 'refactor' | 'perf' | 'test' | 'build' | 'chore' | 'revert';
 type VersionType = 'major' | 'minor' | 'patch';
-type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'jp-learning-tools' | 'gd-sudachi' | 'gd-tools';
+type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'jp-learning-tools' | 'gd-sudachi' | 'gd-tools' | 'desktop-app';
 
 const commitTypeToVersion: Record<CommitType, VersionType> = {
     feat: 'minor',
@@ -22,6 +22,10 @@ const commitTypeToVersion: Record<CommitType, VersionType> = {
 const projectTypeToSourceDir: Record<ProjectType, string | Record<'js' | 'toml', string>> = {
     'jp-learning-tools': {
         'js': 'apps/jp-learning-tools/package.json', 
+        'toml': 'apps/jp-learning-tools/src-tauri/Cargo.toml'
+    },
+    'desktop-app': {
+        'js': 'apps/jp-learning-tools/package.json',
         'toml': 'apps/jp-learning-tools/src-tauri/Cargo.toml'
     },
     'subs2clipboard-native-messenger': 'apps/subs2clipboard-native-messenger/Cargo.toml',
@@ -85,6 +89,11 @@ const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [s
 
 const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersion> = {
     'jp-learning-tools': (projectType: ProjectType, bumpType: VersionType) => {
+        const jsChange = resolveJavaScriptVersion(projectType, bumpType);
+        resolveTomlVersion(projectType, bumpType);
+        return jsChange;
+    },
+    'desktop-app': (projectType: ProjectType, bumpType: VersionType) => {
         const jsChange = resolveJavaScriptVersion(projectType, bumpType);
         resolveTomlVersion(projectType, bumpType);
         return jsChange;
