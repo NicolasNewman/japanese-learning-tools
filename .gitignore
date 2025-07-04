@@ -13,3 +13,6 @@ apps/gd-tools/gd-tools/
 reports/
 bin/*
 target/*
+.changelog/tmp
+.env
+.act-artifacts

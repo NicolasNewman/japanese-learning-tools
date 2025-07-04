@@ -31,10 +31,6 @@ runs:
       shell: ${{ inputs.shell }}
       run: |
         nx run gd-sudachi:build:${{ inputs.os }}
-    - name: Build mecab-ipadic-neologd
-      shell: ${{ inputs.shell }}
-      run: |
-        nx run mecab-ipadic-neologd:build
     - name: Build gd-tools
       shell: ${{ inputs.shell }}
       run: |

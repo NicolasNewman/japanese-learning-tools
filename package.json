@@ -12,7 +12,7 @@
     "build:tauri": "nx run desktop-app:build",
     "build:gd-tools": "nx run gd-tools:build",
     "build:dic": "nx run mecab-ipadic-neologd:build",
-    "act:release": "act pull_request -e act/pr-event.json"
+    "act:release": "act pull_request -e act/pr-event.json --artifact-server-path ./.act-artifacts"
   },
   "private": true,
   "devDependencies": {

@@ -40,6 +40,7 @@ jobs:
           mkdir -p .changelog
           pnpm tsx scripts/release.ts > .changelog/tmp
           cat .changelog/tmp
+          rm .changelog/tmp
 
           VERSION=$(tail -n 1 .changelog/tmp)
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
