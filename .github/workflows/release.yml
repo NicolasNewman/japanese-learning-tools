@@ -112,20 +112,30 @@ jobs:
         with:
           os: ${{ matrix.os.name }}
           shell: ${{ matrix.os.shell }}
-      - name: Test
-        # shell: ${{ matrix.shell }}
+      - name: Debug directory structure
+        shell: pwsh
         run: |
-          echo "===== PWD ====="
-          pwd
-          echo ${{github.ref_name}}
-          echo "===== Listing current directory ====="
-          ls ./
-          echo "===== Listing dist directory ====="
-          ls dist/
-          echo "===== Listing dist/target directory ====="
-          ls dist/target
-          echo "===== Listing dist/target directory ====="
-          ls dist/target/release
+          Get-ChildItem -Path .\ -Recurse -Depth 3 | 
+          Where-Object { 
+            $_.FullName -notlike "*\node_modules\*" -and 
+            $_.FullName -notlike "*\debug\*" -and
+            $_.FullName -notlike "*\Debug\*"
+          } | 
+          Select-Object FullName
+      # - name: Test
+      #   # shell: ${{ matrix.shell }}
+      #   run: |
+      #     echo "===== PWD ====="
+      #     pwd
+      #     echo ${{github.ref_name}}
+      #     echo "===== Listing current directory ====="
+      #     ls ./
+      #     echo "===== Listing dist directory ====="
+      #     ls dist/
+      #     echo "===== Listing dist/target directory ====="
+      #     ls dist/target
+      #     echo "===== Listing dist/target directory ====="
+      #     ls dist/target/release
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
