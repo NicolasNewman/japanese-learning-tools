@@ -6,7 +6,7 @@
                 <RegistryKey Root="HKLM"
                     Key="Software\Mozilla\NativeMessagingHosts\com.japanese.learning.tools">
                     <RegistryValue Type="string"
-                        Value="[INSTALLDIR]resources\manifest\manifest-firefox.json" />
+                        Value="[INSTALLDIR]resources\manifest\manifest-firefox-configured.json" />
                 </RegistryKey>
             </Component>
         </DirectoryRef>

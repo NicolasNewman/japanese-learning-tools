@@ -1,6 +1,10 @@
 import Titlebar from "custom-tauri-titlebar";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { goto } from "$app/navigation";
+import { invoke } from "@tauri-apps/api/core";
+import { externalBinaryDir, openDevTools } from "./commands";
+import { resourceDir } from "@tauri-apps/api/path";
+import { openPath } from "@tauri-apps/plugin-opener";
 
 export default async () => {
   const titlebar = new Titlebar({
@@ -40,9 +44,36 @@ export default async () => {
         type: "item",
         action: async () => {
           await goto("/settings");
-        }
-      }
-    ]
-  })
+        },
+      },
+    ],
+  });
+
+  await titlebar.addMenu({
+    label: "Debug",
+    items: [
+      {
+        label: "Open DevTools",
+        type: "item",
+        action: async () => {
+          await openDevTools();
+        },
+      },
+      {
+        label: "Resource Directory",
+        type: "item",
+        action: async () => {
+          await openPath(await resourceDir())
+        },
+      },
+      {
+        label: "External Binary Directory",
+        type: "item",
+        action: async () => {
+          await openPath(await externalBinaryDir())
+        },
+      },
+    ],
+  });
   return titlebar;
-}
+};

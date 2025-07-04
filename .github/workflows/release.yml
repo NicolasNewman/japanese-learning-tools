@@ -58,9 +58,10 @@ jobs:
             image: ubuntu-22.04
             shell: bash
             installer: dist/target/release/bundle/deb/*.deb
-          # - name: windows
-          #   image: win-signing
-          #   shell: cmd
+          - name: windows
+            image: windows-2022
+            shell: cmd
+            installer: dist/target/release/bundle/msi/*.msi
     runs-on: ${{ matrix.os.image }}
     steps:
       - uses: actions/checkout@v4
