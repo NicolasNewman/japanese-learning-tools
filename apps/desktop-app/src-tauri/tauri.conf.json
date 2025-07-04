@@ -55,6 +55,21 @@
           "level": 9
         }
       }
+    },
+    "windows": {
+      "webviewInstallMode": {
+        "silent": true,
+        "type": "downloadBootstrapper"
+      },
+      "nsis": null,
+      "wix": {
+        "fragmentPaths": [
+          "./windows/fragments/registry.wxs"
+        ],
+        "componentRefs": [
+          "JPLearningToolsRegistryEntries"
+        ]
+      }
     }
   }
 }

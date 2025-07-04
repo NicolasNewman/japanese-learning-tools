@@ -3,7 +3,17 @@
     "projectType": "application",
     "sourceRoot": "apps/desktop-app/src",
     "targets": {
-        "build": {
+        "build:linux": {
+            "executor": "nx:run-commands",
+            "outputs": [
+                "{projectRoot}/build"
+            ],
+            "options": {
+                "command": "cd {projectRoot} && pnpm tauri build -b deb",
+                "cwd": "{workspaceRoot}"
+            }
+        },
+        "build:windows": {
             "executor": "nx:run-commands",
             "outputs": [
                 "{projectRoot}/build"
