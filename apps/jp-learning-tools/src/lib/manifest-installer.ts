@@ -34,10 +34,9 @@ const getManifestPath = async (): Promise<BrowserData<string> | null> => {
     const appData = await appDataDir();
     switch (os) {
         case "windows":
-            const resourcePath = await resourceDir();
             return {
                 chrome: `${appData}/Google/Chrome/User Data/NativeMessagingHosts/${manifestName}.json`,
-                firefox: `${resourcePath}/resources/manifest/manifest-firefox-configured.json`
+                firefox: `${appData}/manifest-firefox.json`
             };
         case 'linux':
             return {

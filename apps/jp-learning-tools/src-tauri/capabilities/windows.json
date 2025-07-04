@@ -32,7 +32,7 @@
       "identifier": "fs:write-files",
       "allow": [
         {
-          "path": "$RESOURCE/resources/manifest/*"
+          "path": "$APPDATA/*"
         }
       ]
     }
