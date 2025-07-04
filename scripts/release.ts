@@ -94,8 +94,8 @@ const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersio
         return jsChange;
     },
     'desktop-app': (projectType: ProjectType, bumpType: VersionType) => {
-        const jsChange = resolveJavaScriptVersion(projectType, bumpType);
-        resolveTomlVersion(projectType, bumpType);
+        const jsChange = resolveJavaScriptVersion('jp-learning-tools', bumpType);
+        resolveTomlVersion('jp-learning-tools', bumpType);
         return jsChange;
     },
     'subs2clipboard-native-messenger': resolveTomlVersion,
