@@ -1,4 +1,4 @@
-type Service = "Jellyfin";
+type Service = "Jellyfin" | "YouTube";
 type ServiceSubtitleSelector = {
   service: Service;
   selector: string;
@@ -11,6 +11,13 @@ export const getSupportedSubtitleSelector = (): ServiceSubtitleSelector | null =
       service: "Jellyfin",
       selector: ".videoSubtitles",
     };
+  }
+  const isYoutube = document.querySelector("ytd-app");
+  if (isYoutube) {
+    return {
+      service: "YouTube",
+      selector: ".captions-text"
+    }
   }
   return null;
 };
