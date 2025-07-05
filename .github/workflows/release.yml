@@ -14,113 +14,112 @@ on:
       - main
 
 jobs:
-  build-mecab-ipadic-neologd:
-    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-    permissions:
-      contents: write
-    name: 'Build mecab-ipadic-neologd'
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - name: Install dependencies
-        run: |
-          pnpm add -g nx
-          pnpm install --frozen-lockfile
-      - name: Build mecab-ipadic-neologd
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git make curl xz-utils file
+  # build-mecab-ipadic-neologd:
+  #   if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+  #   permissions:
+  #     contents: write
+  #   name: 'Build mecab-ipadic-neologd'
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: pnpm/action-setup@v4
+  #     - name: Install dependencies
+  #       run: |
+  #         pnpm add -g nx
+  #         pnpm install --frozen-lockfile
+  #     - name: Build mecab-ipadic-neologd
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git make curl xz-utils file
 
-          git submodule init
-          git submodule update
+  #         git submodule init
+  #         git submodule update
 
-          nx run mecab-ipadic-neologd:build
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: mecab-ipadic-neologd
-          path: dist/target/mecab-ipadic-neologd/
-          retention-days: 1
-  build-jp-learning-tools:
-    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-    needs: build-mecab-ipadic-neologd
-    permissions:
-      contents: write
-    name: 'Build Desktop App'
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          # - name: macos
-          #   image: macos-latest
-          #   shell: bash
-          #   args: '--target aarch64-apple-darwin'
-          # - name: macos
-          #   image: macos-latest
-          #   shell: bash
-          #   args: '--target x86_64-apple-darwin' 
-          - name: linux
-            image: ubuntu-22.04
-            shell: bash
-            installer: dist/target/release/bundle/deb/*.deb
-          - name: windows
-            image: windows-2022
-            shell: cmd
-            installer: dist/target/release/bundle/msi/*.msi
-    runs-on: ${{ matrix.os.image }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - name: Install dependencies (ubuntu only)
-        if: ${{ matrix.os.name == 'linux' }}
-        # shell: ${{ matrix.shell }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libwebkit2gtk-4.1-dev libappindicator3-dev patchelf python3-dev ccache
-          sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8
-          sudo /usr/sbin/update-ccache-symlinks
-          echo "/usr/lib/ccache" >> $GITHUB_PATH
-      - name: Setup node & dependencies
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'pnpm'
-      - name: Install NodeJS dependencies
-        # shell: ${{ matrix.shell }}
-        run: |
-          pnpm add -g nx
-          pnpm install --frozen-lockfile
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
-        with:
-          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-          targets: ${{ matrix.os.name == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-      - name: Download mecab-ipadic-neologd artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: mecab-ipadic-neologd
-          path: dist/target/mecab-ipadic-neologd/
-      - name: Build CLI Tooling
-        uses: ./.github/actions/build-cli
-        with:
-          os: ${{ matrix.os.name }}
-          # arch: ${{ matrix.arch }}
-          shell: ${{ matrix.os.shell }}
-      - name: Build Desktop App
-        uses: ./.github/actions/build-application
-        with:
-          os: ${{ matrix.os.name }}
-          shell: ${{ matrix.os.shell }}
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: jp-learning-tools-${{ matrix.os.name }}
-          path: |
-            ${{matrix.os.installer}}
-          retention-days: 1
-          if-no-files-found: error
-  # TODO: how to sign extention?
+  #         nx run mecab-ipadic-neologd:build
+  #     - name: Upload build artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: mecab-ipadic-neologd
+  #         path: dist/target/mecab-ipadic-neologd/
+  #         retention-days: 1
+  # build-jp-learning-tools:
+  #   if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+  #   needs: build-mecab-ipadic-neologd
+  #   permissions:
+  #     contents: write
+  #   name: 'Build Desktop App'
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       os:
+  #         # - name: macos
+  #         #   image: macos-latest
+  #         #   shell: bash
+  #         #   args: '--target aarch64-apple-darwin'
+  #         # - name: macos
+  #         #   image: macos-latest
+  #         #   shell: bash
+  #         #   args: '--target x86_64-apple-darwin' 
+  #         - name: linux
+  #           image: ubuntu-22.04
+  #           shell: bash
+  #           installer: dist/target/release/bundle/deb/*.deb
+  #         - name: windows
+  #           image: windows-2022
+  #           shell: cmd
+  #           installer: dist/target/release/bundle/msi/*.msi
+  #   runs-on: ${{ matrix.os.image }}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: pnpm/action-setup@v4
+  #     - name: Install dependencies (ubuntu only)
+  #       if: ${{ matrix.os.name == 'linux' }}
+  #       # shell: ${{ matrix.shell }}
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y build-essential libwebkit2gtk-4.1-dev libappindicator3-dev patchelf python3-dev ccache
+  #         sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8
+  #         sudo /usr/sbin/update-ccache-symlinks
+  #         echo "/usr/lib/ccache" >> $GITHUB_PATH
+  #     - name: Setup node & dependencies
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: 'pnpm'
+  #     - name: Install NodeJS dependencies
+  #       # shell: ${{ matrix.shell }}
+  #       run: |
+  #         pnpm add -g nx
+  #         pnpm install --frozen-lockfile
+  #     - name: Install Rust stable
+  #       uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+  #       with:
+  #         # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+  #         targets: ${{ matrix.os.name == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+  #     - name: Download mecab-ipadic-neologd artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: mecab-ipadic-neologd
+  #         path: dist/target/mecab-ipadic-neologd/
+  #     - name: Build CLI Tooling
+  #       uses: ./.github/actions/build-cli
+  #       with:
+  #         os: ${{ matrix.os.name }}
+  #         # arch: ${{ matrix.arch }}
+  #         shell: ${{ matrix.os.shell }}
+  #     - name: Build Desktop App
+  #       uses: ./.github/actions/build-application
+  #       with:
+  #         os: ${{ matrix.os.name }}
+  #         shell: ${{ matrix.os.shell }}
+  #     - name: Upload build artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: jp-learning-tools-${{ matrix.os.name }}
+  #         path: |
+  #           ${{matrix.os.installer}}
+  #         retention-days: 1
+  #         if-no-files-found: error
   build-web-extention:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
@@ -136,10 +135,9 @@ jobs:
           pnpm install --frozen-lockfile
       - name: Build Web Extention
         uses: ./.github/actions/build-web-extention
-        with:
-          shell: ${{ matrix.os.shell }}
   release:
-    needs: build-jp-learning-tools
+    # needs: build-jp-learning-tools
+    needs: build-web-extention
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
@@ -151,9 +149,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: |
-            jp-learning-tools-linux
-            jp-learning-tools-windows
             web-extention
+          # name: |
+          #   jp-learning-tools-linux
+          #   jp-learning-tools-windows
+          #   web-extention
           path: release-files
       - name: Extract version from branch name
         id: extract-version
