@@ -11,8 +11,8 @@ type RuntimeMessagePayload = {
   };
   COPY_TO_CLIPBOARD: {
     message: {
-        type: "COPY_TO_CLIPBOARD";
-        text: string;
+      type: "COPY_TO_CLIPBOARD";
+      text: string;
     };
     response: null;
   }
@@ -43,6 +43,13 @@ type RuntimeMessagePayload = {
       type: "UPDATE_SUDACHI";
       text: string;
       id: string;
+    };
+    response: null;
+  };
+  DEBUG_MODE_CHANGED: {
+    message: {
+      type: "DEBUG_MODE_CHANGED";
+      enabled: boolean;
     };
     response: null;
   };

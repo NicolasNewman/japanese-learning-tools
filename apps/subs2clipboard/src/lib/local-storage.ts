@@ -1,11 +1,13 @@
 import browser from "webextension-polyfill";
 
 type LocalStorage = {
-    copyOnClick: boolean;
+    copySubsEnabled: boolean;
+    debugModeEnabled: boolean;
 };
 
 const defaultStorage: LocalStorage = {
-    copyOnClick: false
+    copySubsEnabled: false,
+    debugModeEnabled: false
 };
 
 const { get, set } = browser.storage.local;
