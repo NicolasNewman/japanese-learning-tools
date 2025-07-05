@@ -8,6 +8,11 @@ on:
         description: 'Release version (without v prefix, e.g. 1.2.3)'
         required: true
         type: string
+      build_web_ext:
+        description: 'Build and release web extension'
+        required: false
+        default: false
+        type: boolean
   pull_request:
     types: [closed]
     branches:
@@ -121,7 +126,7 @@ jobs:
           retention-days: 1
           if-no-files-found: error
   build-web-extention:
-    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
     permissions:
       contents: write
     name: 'Build Web Extention'
@@ -129,18 +134,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Install dependencies
-        run: |
-          pnpm add -g nx web-ext
-          pnpm install --frozen-lockfile
+      - name: Check for subs2clipboard changes
+        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            subs2clipboard:
+              - 'apps/subs2clipboard/**'
+      # TODO: copy previous version if this does not run
       - name: Build Web Extention
+        if: |
+            (github.event_name == 'pull_request' && steps.changes.outputs.subs2clipboard == 'true') ||
+            (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
         uses: ./.github/actions/build-web-extention
         with:
           web-ext-api-key: ${{ secrets.WEB_EXT_API_KEY }}
           web-ext-api-secret: ${{ secrets.WEB_EXT_API_SECRET }}
   release:
-    # needs: build-jp-learning-tools
-    needs: build-web-extention
+    needs: [build-jp-learning-tools, build-web-extention]
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
@@ -152,12 +164,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: |
+            jp-learning-tools-linux
+            jp-learning-tools-windows
             web-extention
-          # name: |
-          #   jp-learning-tools-linux
-          #   jp-learning-tools-windows
-          #   web-extention
           path: release-files
+        continue-on-error: true # TODO: temporary until 1.0 and web-ext is handled
       - name: Extract version from branch name
         id: extract-version
         run: |

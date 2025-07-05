@@ -8,6 +8,11 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        pnpm add -g nx web-ext
+        pnpm install --frozen-lockfile
     - name: Build Extention
       shell: bash
       run: |
