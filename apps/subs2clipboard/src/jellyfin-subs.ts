@@ -1,9 +1,8 @@
 import browser from "webextension-polyfill";
-import { getSupportedSubtitleSelector } from "./lib/index";
+import { waitForSupportedService } from "./lib/index";
 import { onRuntimeMessage } from "./lib/content-helper";
 
-const subtitleSelector = getSupportedSubtitleSelector();
-if (subtitleSelector) {
+waitForSupportedService().then((subtitleSelector) => {
   let observer: MutationObserver | null = null;
   let lastSubs = "";
 
@@ -58,7 +57,7 @@ if (subtitleSelector) {
       observer = null;
     }
   };
-  
+
   onRuntimeMessage((msg, _sender, sendResponse) => {
     if (msg.type === "TOGGLE_SUBS") {
       if (msg.enabled) {
@@ -70,4 +69,6 @@ if (subtitleSelector) {
       sendResponse(subtitleSelector.service);
     }
   });
-}
+}).catch(() => {
+  return;
+});
