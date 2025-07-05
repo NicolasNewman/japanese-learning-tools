@@ -1,14 +1,15 @@
 import browser from "webextension-polyfill";
 import { sendMessageToTab } from "../lib/background-helper";
+import { sessionStore } from "../lib/local-storage";
 
 // ===== copySubsCheckbox =====
 const copySubsCheckbox = document.getElementById("copyOnClick") as HTMLInputElement;
-browser.storage.session.get("copyOnClick").then((item) => {
-    copySubsCheckbox.checked = (item.copyOnClick as boolean) ?? false;
+sessionStore.get("copyOnClick").then((copyOnClick) => {
+    copySubsCheckbox.checked = (copyOnClick as boolean) ?? false;
 });
 copySubsCheckbox.addEventListener("change", (e) => {
     const enabled = (e.target as HTMLInputElement).checked;
-    browser.storage.session.set({ copyOnClick: enabled });
+    sessionStore.set("copyOnClick", enabled)
     console.log("Checkbox changed:", enabled);
     browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
         sendMessageToTab(tabs[0].id ?? browser.tabs.TAB_ID_NONE, { type: "TOGGLE_SUBS", enabled })

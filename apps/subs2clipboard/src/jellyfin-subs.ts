@@ -1,6 +1,7 @@
 import browser from "webextension-polyfill";
 import { waitForSupportedService } from "./lib/index";
 import { onRuntimeMessage } from "./lib/content-helper";
+import { sessionStore } from "./lib/local-storage";
 
 waitForSupportedService().then((subtitleSelector) => {
   let observer: MutationObserver | null = null;
@@ -38,7 +39,7 @@ waitForSupportedService().then((subtitleSelector) => {
       observer = new MutationObserver((mutationsList) => {
         const subs = (mutationsList[0].target as HTMLElement).innerText;
         if (subs !== lastSubs) {
-          console.log("Subtitles changed:", subs);
+          console.log("[subs2clipboard] Subtitles changed:", subs);
           sendToClipboard(subs);
           lastSubs = subs;
         }
@@ -57,6 +58,12 @@ waitForSupportedService().then((subtitleSelector) => {
       observer = null;
     }
   };
+
+  sessionStore.get("copyOnClick").then((copyOnClick) => {
+    if (copyOnClick) {
+      startSubsCopy();
+    }
+  });
 
   onRuntimeMessage((msg, _sender, sendResponse) => {
     if (msg.type === "TOGGLE_SUBS") {
