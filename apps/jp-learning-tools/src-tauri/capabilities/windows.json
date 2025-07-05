@@ -13,10 +13,7 @@
       "identifier": "fs:allow-exists",
       "allow": [
         {
-          "path": "$RESOURCE/resources/manifest"
-        },
-        {
-          "path": "$RESOURCE/resources/manifest/*"
+          "path": "$APPDATA/**"
         }
       ]
     },
@@ -24,7 +21,10 @@
       "identifier": "fs:read-files",
       "allow": [
         {
-          "path": "$RESOURCE/resources/manifest/*"
+          "path": "$RESOURCE/**"
+        },
+        {
+          "path": "$APPDATA/**"
         }
       ]
     },
@@ -32,7 +32,7 @@
       "identifier": "fs:write-files",
       "allow": [
         {
-          "path": "$RESOURCE/resources/manifest/*"
+          "path": "$APPDATA/**"
         }
       ]
     }

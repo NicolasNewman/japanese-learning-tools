@@ -60,10 +60,10 @@ jobs:
           #   image: macos-latest
           #   shell: bash
           #   args: '--target x86_64-apple-darwin' 
-          # - name: linux
-          #   image: ubuntu-22.04
-          #   shell: bash
-          #   installer: dist/target/release/bundle/deb/*.deb
+          - name: linux
+            image: ubuntu-22.04
+            shell: bash
+            installer: dist/target/release/bundle/deb/*.deb
           - name: windows
             image: windows-2022
             shell: cmd
@@ -112,16 +112,16 @@ jobs:
         with:
           os: ${{ matrix.os.name }}
           shell: ${{ matrix.os.shell }}
-      - name: Debug directory structure
-        shell: pwsh
-        run: |
-          Get-ChildItem -Path .\ -Recurse -Depth 3 | 
-          Where-Object { 
-            $_.FullName -notlike "*\node_modules\*" -and 
-            $_.FullName -notlike "*\debug\*" -and
-            $_.FullName -notlike "*\Debug\*"
-          } | 
-          Select-Object FullName
+      # - name: Debug directory structure
+      #   shell: pwsh
+      #   run: |
+      #     Get-ChildItem -Path .\ -Recurse -Depth 3 | 
+      #     Where-Object { 
+      #       $_.FullName -notlike "*\node_modules\*" -and 
+      #       $_.FullName -notlike "*\debug\*" -and
+      #       $_.FullName -notlike "*\Debug\*"
+      #     } | 
+      #     Select-Object FullName
       # - name: Test
       #   # shell: ${{ matrix.shell }}
       #   run: |

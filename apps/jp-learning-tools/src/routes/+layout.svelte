@@ -16,6 +16,7 @@
 {:then manifest}
   <p>Manifest installed: {JSON.stringify(manifest)}</p>
 {:catch error}
+  {console.error(error)}
   <p>Error installing manifest: {error}</p>
 {/await}
 

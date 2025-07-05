@@ -3,7 +3,7 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import { goto } from "$app/navigation";
 import { invoke } from "@tauri-apps/api/core";
 import { externalBinaryDir, openDevTools } from "./commands";
-import { resourceDir } from "@tauri-apps/api/path";
+import { appDataDir, resourceDir } from "@tauri-apps/api/path";
 import { openPath } from "@tauri-apps/plugin-opener";
 
 export default async () => {
@@ -71,6 +71,13 @@ export default async () => {
         type: "item",
         action: async () => {
           await openPath(await externalBinaryDir())
+        },
+      },
+      {
+        label: "App Data Directory",
+        type: "item",
+        action: async () => {
+          await openPath(await appDataDir())
         },
       },
     ],
