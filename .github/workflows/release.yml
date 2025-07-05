@@ -129,6 +129,7 @@ jobs:
     if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
     permissions:
       contents: write
+      pull-requests: read
     name: 'Build Web Extention'
     runs-on: ubuntu-22.04
     steps:
