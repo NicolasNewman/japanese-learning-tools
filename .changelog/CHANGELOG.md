@@ -1,12 +1,23 @@
-# v0.2.1
+# v0.3.0
+
+## subs2clipboard
+
+- feat: added debugging mode
+- fix: properly resumes copying on page reload
+- feat: youtube support
+- fix: continuous retry until timeout for detecting supported site
+- chore: synced package to extention version
+- chore: bumped min supported version
+- chore: release action extention signing
 
 ## jp-learning-tools
 
-- fix: fixed windows manifest installation
-- fix: fixed endless skeleton for WaniKani settings
-- chore: moved native plugin manifest to appdata on windows
-- chore: add executable dir to path on windows
+- feat: improved flow for WaniKani settings
 
 ## repo
 
-- chore: re-enabled linux builds
+- feat: only sign web-ext if change detected
+- chore: release script handles 2 json versions for web ext
+- chore: re-enabled disabled portions of action
+- fix: actions secrets passing
+- chore: removed parts of action for web-ext testing

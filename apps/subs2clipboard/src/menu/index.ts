@@ -1,17 +1,32 @@
 import browser from "webextension-polyfill";
 import { sendMessageToTab } from "../lib/background-helper";
+import { sessionStore } from "../lib/local-storage";
 
 // ===== copySubsCheckbox =====
-const copySubsCheckbox = document.getElementById("copyOnClick") as HTMLInputElement;
-browser.storage.session.get("copyOnClick").then((item) => {
-    copySubsCheckbox.checked = (item.copyOnClick as boolean) ?? false;
+const copySubsCheckbox = document.getElementById("checkboxCopySubs") as HTMLInputElement;
+sessionStore.get("copySubsEnabled").then((copySubsEnabled) => {
+    copySubsCheckbox.checked = (copySubsEnabled as boolean) ?? false;
 });
 copySubsCheckbox.addEventListener("change", (e) => {
     const enabled = (e.target as HTMLInputElement).checked;
-    browser.storage.session.set({ copyOnClick: enabled });
+    sessionStore.set("copySubsEnabled", enabled)
     console.log("Checkbox changed:", enabled);
     browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
         sendMessageToTab(tabs[0].id ?? browser.tabs.TAB_ID_NONE, { type: "TOGGLE_SUBS", enabled })
+    });
+});
+
+// ===== debugModeCheckbox =====
+const debugModeCheckbox = document.getElementById("checkboxDebugMode") as HTMLInputElement;
+sessionStore.get("debugModeEnabled").then((debugMode) => {
+    debugModeCheckbox.checked = (debugMode as boolean) ?? false;
+});
+debugModeCheckbox.addEventListener("change", (e) => {
+    const enabled = (e.target as HTMLInputElement).checked;
+    sessionStore.set("debugModeEnabled", enabled)
+    console.log("Checkbox changed:", enabled);
+    browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        sendMessageToTab(tabs[0].id ?? browser.tabs.TAB_ID_NONE, { type: "DEBUG_MODE_CHANGED", enabled })
     });
 });
 

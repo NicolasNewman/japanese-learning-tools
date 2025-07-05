@@ -29,6 +29,13 @@ type SendMessageToTabEvents = {
     };
     response: null;
   }
+  DEBUG_MODE_CHANGED: {
+    message: {
+      type: "DEBUG_MODE_CHANGED";
+      enabled: boolean;
+    };
+    response: null;
+  };
 };
 export const sendMessageToTab = browser.tabs.sendMessage as <
   T extends keyof SendMessageToTabEvents

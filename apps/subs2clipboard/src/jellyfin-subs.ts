@@ -1,9 +1,16 @@
 import browser from "webextension-polyfill";
-import { getSupportedSubtitleSelector } from "./lib/index";
+import { waitForSupportedService } from "./lib/index";
 import { onRuntimeMessage } from "./lib/content-helper";
+import { sessionStore } from "./lib/local-storage";
 
-const subtitleSelector = getSupportedSubtitleSelector();
-if (subtitleSelector) {
+let debugModeEnabled = false;
+const log = (...args: any[]) => {
+  if (debugModeEnabled) {
+    console.log("[subs2clipboard]", ...args);
+  }
+};
+
+waitForSupportedService().then((subtitleSelector) => {
   let observer: MutationObserver | null = null;
   let lastSubs = "";
 
@@ -39,7 +46,7 @@ if (subtitleSelector) {
       observer = new MutationObserver((mutationsList) => {
         const subs = (mutationsList[0].target as HTMLElement).innerText;
         if (subs !== lastSubs) {
-          console.log("Subtitles changed:", subs);
+          log("Subtitles changed:", subs);
           sendToClipboard(subs);
           lastSubs = subs;
         }
@@ -58,8 +65,21 @@ if (subtitleSelector) {
       observer = null;
     }
   };
-  
+
+  sessionStore.get("debugModeEnabled").then((debugMode) => {
+    debugModeEnabled = debugMode;
+    log("Debug mode enabled:", debugMode);
+  });
+
+  sessionStore.get("copySubsEnabled").then((copySubsEnabled) => {
+    log("Copy subtitles enabled:", copySubsEnabled);
+    if (copySubsEnabled) {
+      startSubsCopy();
+    }
+  });
+
   onRuntimeMessage((msg, _sender, sendResponse) => {
+    log("Received message:", msg);
     if (msg.type === "TOGGLE_SUBS") {
       if (msg.enabled) {
         startSubsCopy();
@@ -68,6 +88,10 @@ if (subtitleSelector) {
       }
     } else if (msg.type === "GET_SUPPORTED_SERVICE") {
       sendResponse(subtitleSelector.service);
+    } else if (msg.type === "DEBUG_MODE_CHANGED") {
+      debugModeEnabled = msg.enabled;
     }
   });
-}
+}).catch(() => {
+  return;
+});

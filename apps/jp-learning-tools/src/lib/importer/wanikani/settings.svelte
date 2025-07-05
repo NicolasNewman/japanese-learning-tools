@@ -20,6 +20,9 @@
 
   let apiKey: string | null | undefined = $state(undefined);
   let lastSync: Date | null | undefined = $state(undefined);
+  let inputValue: string = $state("");
+
+  let isSaveDisabled = $derived(saveState !== "IDLE" || inputValue === apiKey);
 
   onMount(async () => {
     const [storedApiKey, storedLastSync] = await Promise.all([
@@ -27,6 +30,7 @@
       get("lastSync"),
     ]);
     apiKey = storedApiKey;
+    inputValue = storedApiKey ?? "";
     lastSync = storedLastSync ? new Date(storedLastSync) : null;
   });
 </script>
@@ -57,7 +61,7 @@
         name="api-key"
         required
         clearable
-        defaultValue={apiKey || ""}
+        bind:value={inputValue}
       />
       <Helper class="text-sm">
         Your API key can be found <button
@@ -69,9 +73,9 @@
       </Helper>
     </div>
     <div class="flex items-center mt-4 gap-x-4">
-      <Button type="submit" disabled={saveState !== "IDLE"}>Save</Button>
+      <Button type="submit" disabled={isSaveDisabled}>Save</Button>
       <Button
-        disabled={saveState !== "IDLE"}
+        disabled={saveState !== "IDLE" || !apiKey}
         onclick={async () => {
           saveState = "SAVING";
           try {
@@ -83,6 +87,7 @@
             const changelog = await KanjiBank.batchKanji(result);
             const lastSyncDate = new Date();
             await set("lastSync", lastSyncDate);
+            lastSync = lastSyncDate;
             alertState.alert = {
               alertTitle: "Success",
               alertMessage: `Updated ${Object.values(changelog).length} kanji from WaniKani.`,
@@ -97,6 +102,9 @@
             console.error(error);
           }
           saveState = "SAVED";
+          await setTimeout(() => {
+            saveState = "IDLE";
+          }, 750);
         }}
         color="green"
       >

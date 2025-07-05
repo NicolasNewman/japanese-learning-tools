@@ -19,13 +19,13 @@ const commitTypeToVersion: Record<CommitType, VersionType> = {
     revert: 'patch'
 }
 
-const projectTypeToSourceDir: Record<ProjectType, string | Record<'js' | 'toml', string>> = {
+const projectTypeToSourceDir: Record<ProjectType, string | Record<'js' | 'toml', string> | string[]> = {
     'jp-learning-tools': {
-        'js': 'apps/jp-learning-tools/package.json', 
+        'js': 'apps/jp-learning-tools/package.json',
         'toml': 'apps/jp-learning-tools/src-tauri/Cargo.toml'
     },
     'subs2clipboard-native-messenger': 'apps/subs2clipboard-native-messenger/Cargo.toml',
-    'subs2clipboard': 'apps/subs2clipboard/package.json',
+    'subs2clipboard': ['apps/subs2clipboard/package.json', 'apps/subs2clipboard/manifest.json'],
     'gd-sudachi': 'apps/gd-sudachi/pyproject.toml',
     'gd-tools': 'apps/gd-tools/Cargo.toml'
 }
@@ -50,19 +50,27 @@ const bumpVersion = (version: [number, number, number], bumpType: VersionType): 
 
 const resolveJavaScriptVersion = (projectType: ProjectType, bumpType: VersionType): [string, string] => {
     const src = projectTypeToSourceDir[projectType]
-    const resolvedSrc = typeof src === 'string' ? src : src.js;
-    const metadata = JSON.parse(readFileSync(resolvedSrc, 'utf8')) as Record<string, any>;
-    const oldVersion = metadata.version;
-    const version = metadata.version.split('.').map(Number) as [number, number, number];
-    bumpVersion(version, bumpType);
-    metadata.version = version.join('.');
-    writeFileSync(resolvedSrc, JSON.stringify(metadata, null, 2));
-    return [oldVersion, metadata.version];
+    const resolvedSrcArray = Array.isArray(src) ? src : [typeof src === 'string' ? src : src.js];
+    const versions: { from: string | null, to: string | null } = { from: null, to: null };
+    resolvedSrcArray.forEach(resolvedSrc => {
+        const metadata = JSON.parse(readFileSync(resolvedSrc, 'utf8')) as Record<string, any>;
+        versions.from ??= metadata.version;
+        if (!versions.to) {
+            const version = metadata.version.split('.').map(Number) as [number, number, number];
+            bumpVersion(version, bumpType);
+            versions.to = version.join('.');
+        }
+        metadata.version = versions.to;
+        writeFileSync(resolvedSrc, JSON.stringify(metadata, null, 2));
+
+    });
+    // const resolvedSrc = typeof src === 'string' ? src : src.js;
+    return [versions.from ?? '', versions.to ?? ''];
 }
 
 const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [string, string] => {
     const src = projectTypeToSourceDir[projectType]
-    const resolvedSrc = typeof src === 'string' ? src : src.toml;
+    const resolvedSrc = typeof src === 'string' ? src : (src as Record<'js' | 'toml', string>).toml;
     const metadata = readFileSync(resolvedSrc, 'utf8');
     const versionFromTo: [string, string] = ["", ""]
     const lines = metadata.split('\n').map(line => {
@@ -117,7 +125,7 @@ try {
                 scope: parts[3],
                 subject: parts[4]
             };
-        // Re-organize commits by scope
+            // Re-organize commits by scope
         }).reduce((prev, commit) => {
             const scope = commit.scope || 'repo'; // Default to 'repo' if no scope is provided
             prev[scope] ??= [];
@@ -139,7 +147,7 @@ try {
         const versions: Partial<Record<VersionType, VersionType>> = {}
         commitList.forEach(commit => {
             const type = commit.type as CommitType;
-            versions[commitTypeToVersion[type]] = commitTypeToVersion[type];                
+            versions[commitTypeToVersion[type]] = commitTypeToVersion[type];
             if (scope !== 'repo') {
                 allVersions[commitTypeToVersion[type]] = commitTypeToVersion[type];
             }
@@ -170,7 +178,7 @@ try {
     const desktopAppReleaseVersion = JSON.parse(readFileSync('apps/jp-learning-tools/src-tauri/tauri.conf.json', 'utf8'));
     desktopAppReleaseVersion.version = newVersion;
     writeFileSync('apps/jp-learning-tools/src-tauri/tauri.conf.json', JSON.stringify(desktopAppReleaseVersion, null, 2));
-    
+
     if (!existsSync('.changelog')) {
         mkdirSync('.changelog');
     }
