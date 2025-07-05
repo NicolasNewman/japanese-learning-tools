@@ -11,3 +11,16 @@ runs:
       shell: ${{ inputs.shell }}
       run: |
         nx run subs2clipboard:build
+    - name: Sign Extention
+      shell: ${{ inputs.shell }}
+      run: |
+        mkdir -p dist/subs2clipboard
+        zip -r dist/subs2clipboard/source.zip apps/subs2clipboard/
+        web-ext sign --channel unlisted --api-key ${{ secrets.WEB_EXT_API_KEY }} --api-secret ${{ secrets.WEB_EXT_API_SECRET }} --source-dir dist/subs2clipboard --artifacts-dir dist/subs2clipboard --upload-source-code dist/subs2clipboard/source.zip
+    - name: Upload Extention Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-extention
+        path: |
+          dist/subs2clipboard/*.xpi
+        retention-days: 1

@@ -9,7 +9,7 @@
                 "{projectRoot}/dist/subs2clipboard"
             ],
             "options": {
-                "command": "cd {projectRoot} && pnpm vite build",
+                "command": "cd {projectRoot} && pnpm vite build && web-ext build -s ../../dist/subs2clipboard -a ../../dist/",
                 "cwd": "{workspaceRoot}"
             }
         },

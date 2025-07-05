@@ -46,7 +46,8 @@
     "tsx": "^4.20.3",
     "typescript": "~5.7.2",
     "vite": "^6.0.0",
-    "vitest": "^3.0.0"
+    "vitest": "^3.0.0",
+    "web-ext": "^8.8.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

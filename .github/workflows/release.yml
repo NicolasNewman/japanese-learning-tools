@@ -112,30 +112,6 @@ jobs:
         with:
           os: ${{ matrix.os.name }}
           shell: ${{ matrix.os.shell }}
-      # - name: Debug directory structure
-      #   shell: pwsh
-      #   run: |
-      #     Get-ChildItem -Path .\ -Recurse -Depth 3 | 
-      #     Where-Object { 
-      #       $_.FullName -notlike "*\node_modules\*" -and 
-      #       $_.FullName -notlike "*\debug\*" -and
-      #       $_.FullName -notlike "*\Debug\*"
-      #     } | 
-      #     Select-Object FullName
-      # - name: Test
-      #   # shell: ${{ matrix.shell }}
-      #   run: |
-      #     echo "===== PWD ====="
-      #     pwd
-      #     echo ${{github.ref_name}}
-      #     echo "===== Listing current directory ====="
-      #     ls ./
-      #     echo "===== Listing dist directory ====="
-      #     ls dist/
-      #     echo "===== Listing dist/target directory ====="
-      #     ls dist/target
-      #     echo "===== Listing dist/target directory ====="
-      #     ls dist/target/release
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -145,30 +121,23 @@ jobs:
           retention-days: 1
           if-no-files-found: error
   # TODO: how to sign extention?
-  # build-web-extention:
-  #   if: github.event.pull_request.merged == true
-  #   permissions:
-  #     contents: write
-  #   name: 'Build Web Extention'
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: pnpm/action-setup@v4
-  #     - name: Install dependencies
-  #       run: |
-  #         pnpm add -g nx
-  #         pnpm install --frozen-lockfile
-  #     - name: Build Web Extention
-  #       uses: ./.github/actions/build-web-extention
-  #       with:
-  #         shell: ${{ matrix.os.shell }}
-  #     - name: Upload web extention artifacts
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: web-extention
-  #         path: |
-  #           dist/subs2clipboard/**/*
-  #         retention-days: 1
+  build-web-extention:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+    name: 'Build Web Extention'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: |
+          pnpm add -g nx web-ext
+          pnpm install --frozen-lockfile
+      - name: Build Web Extention
+        uses: ./.github/actions/build-web-extention
+        with:
+          shell: ${{ matrix.os.shell }}
   release:
     needs: build-jp-learning-tools
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
@@ -181,6 +150,10 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
+          name: |
+            jp-learning-tools-linux
+            jp-learning-tools-windows
+            web-extention
           path: release-files
       - name: Extract version from branch name
         id: extract-version
