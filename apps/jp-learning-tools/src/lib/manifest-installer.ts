@@ -2,6 +2,7 @@ import {
     resourceDir,
     appDataDir,
     homeDir,
+    sep
 } from "@tauri-apps/api/path";
 import {
     type
@@ -36,7 +37,7 @@ const getManifestPath = async (): Promise<BrowserData<string> | null> => {
         case "windows":
             return {
                 chrome: `${appData}/Google/Chrome/User Data/NativeMessagingHosts/${manifestName}.json`,
-                firefox: `${appData}/manifest-firefox.json`
+                firefox: `${appData}\\manifest-firefox.json`
             };
         case 'linux':
             return {
@@ -79,24 +80,26 @@ const installManifest = async (): Promise<InstallManifestStatusCode> => {
             console.error("Unsupported OS for manifest installation");
             throw new Error(InstallManifestStatusCode.NOT_SUPPORTED_OS, { cause: "Unsupported OS for manifest installation" });
         }
+        console.log(`Manifest path for Firefox: ${manifestPath["firefox"]}`);
         if (await exists(manifestPath["firefox"])) {
             return InstallManifestStatusCode.ALREADY_INSTALLED;
         }
 
-        const manifestDir = manifestPath["firefox"].substring(0, manifestPath["firefox"].lastIndexOf('/'));
-        if (!await exists(manifestDir)) {
+        const manifestDir = manifestPath["firefox"].substring(0, manifestPath["firefox"].lastIndexOf(sep()));
+        console.log(`Checking if directory exists: ${manifestDir}`);
+        if (type() !== 'windows' && !await exists(manifestDir)) {
             await mkdir(manifestDir, { recursive: true });
         }
-
-        const manifestFile = `${resourcePath}/resources/manifest/manifest-firefox.json`;
+        
+        const manifestFile = `${resourcePath}${sep()}resources${sep()}manifest${sep()}manifest-firefox.json`;
+        console.log(`Checking if file exists: ${manifestFile}`);
         if (!await exists(manifestFile)) {
             console.error("Manifest file not found in resources");
             throw new Error(InstallManifestStatusCode.MANIFEST_FILE_NOT_FOUND, { cause: `Manifest file not found in resources: ${manifestFile}` });
         }
 
         const manifestJson = JSON.parse(await readTextFile(manifestFile)) as Manifest;
-        manifestJson.path = `${await externalBinaryDir()}/subs2clipboard-native-messenger`;
-        console.log(manifestJson.path);
+        manifestJson.path = `${await externalBinaryDir()}${sep()}subs2clipboard-native-messenger`;
 
         const encoder = new TextEncoder();
         await writeFile(manifestPath["firefox"], encoder.encode(JSON.stringify(manifestJson, null, 4)));
