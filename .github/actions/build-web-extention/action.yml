@@ -1,22 +1,23 @@
 inputs:
-  shell:
-    description: "The shell to use for running commands."
+  web-ext-api-key:
+    description: "Web-ext API key"
     required: true
-    default: "bash"
-
+  web-ext-api-secret:
+    description: "Web-ext API secret"
+    required: true
 runs:
   using: composite
   steps:
     - name: Build Extention
-      shell: ${{ inputs.shell }}
+      shell: bash
       run: |
         nx run subs2clipboard:build
     - name: Sign Extention
-      shell: ${{ inputs.shell }}
+      shell: bash
       run: |
         mkdir -p dist/subs2clipboard
         zip -r dist/subs2clipboard/source.zip apps/subs2clipboard/
-        web-ext sign --channel unlisted --api-key ${{ secrets.WEB_EXT_API_KEY }} --api-secret ${{ secrets.WEB_EXT_API_SECRET }} --source-dir dist/subs2clipboard --artifacts-dir dist/subs2clipboard --upload-source-code dist/subs2clipboard/source.zip
+        web-ext sign --channel unlisted --api-key ${{ inputs.web-ext-api-key }} --api-secret ${{ inputs.web-ext-api-secret }} --source-dir dist/subs2clipboard --artifacts-dir dist/subs2clipboard --upload-source-code dist/subs2clipboard/source.zip
     - name: Upload Extention Artifacts
       uses: actions/upload-artifact@v4
       with:

@@ -135,6 +135,9 @@ jobs:
           pnpm install --frozen-lockfile
       - name: Build Web Extention
         uses: ./.github/actions/build-web-extention
+        with:
+          web-ext-api-key: ${{ secrets.WEB_EXT_API_KEY }}
+          web-ext-api-secret: ${{ secrets.WEB_EXT_API_SECRET }}
   release:
     # needs: build-jp-learning-tools
     needs: build-web-extention
