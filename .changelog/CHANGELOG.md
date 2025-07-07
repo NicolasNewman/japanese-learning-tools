@@ -1,23 +1,28 @@
-# v0.3.0
-
-## subs2clipboard
-
-- feat: added debugging mode
-- fix: properly resumes copying on page reload
-- feat: youtube support
-- fix: continuous retry until timeout for detecting supported site
-- chore: synced package to extention version
-- chore: bumped min supported version
-- chore: release action extention signing
-
-## jp-learning-tools
-
-- feat: improved flow for WaniKani settings
+# v0.4.0
 
 ## repo
 
-- feat: only sign web-ext if change detected
-- chore: release script handles 2 json versions for web ext
-- chore: re-enabled disabled portions of action
-- fix: actions secrets passing
-- chore: removed parts of action for web-ext testing
+- fix: release script properly updates cargo lock
+- chore: command for full linux build
+- fix: syncing issues between main and develop
+- fix: proper action syntax for multiple named artifacts
+
+## subs2clipboard
+
+- fix: synced package version with manifest version
+- feat: popup on hover over known vocab/kanji
+- chore: better handling of debug mode flag
+- fix: excluded nodejs types from TS
+- chore: improved logging
+- feat: handle Japanese in div elements
+
+## gd-sudachi
+
+- fix: import fix
+- feat: added data attributes with metadata to output
+
+## jp-learning-tools
+
+- fix: [windows] create APPDATA program directory if dne
+- fix: manifest binary path set to exe on Windows
+- feat: support for kanji-bank service specific metadata
