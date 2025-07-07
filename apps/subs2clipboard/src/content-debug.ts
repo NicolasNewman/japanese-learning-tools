@@ -1,27 +1,31 @@
 import { onRuntimeMessage } from "./lib/content-helper";
 import { sessionStore } from "./lib/local-storage";
 
-// let initialized = false;
-let debugModeEnabled = false;
+declare global {
+    interface Window {
+        __debugModeInitialized?: boolean;
+        __debugModeEnabled?: boolean;
+    }
+}
+
 const initialize = () => {
-    // @ts-expect-error custom property on window
     if (window.__debugModeInitialized) return;
-    // @ts-expect-error custom property on window
     window.__debugModeInitialized = true;
     sessionStore.get("debugModeEnabled").then((debugMode) => {
-        debugModeEnabled = debugMode;
-        log("Debug mode enabled:", debugMode);
+        window.__debugModeEnabled = debugMode;
+        // debugModeEnabled = debugMode;
+        log("Debug mode enabled:", window.__debugModeEnabled);
     });
     onRuntimeMessage((msg) => {
         if (msg.type === "DEBUG_MODE_CHANGED") {
-            debugModeEnabled = msg.enabled;
-            log(`Debug mode: ${debugModeEnabled}`);
+            window.__debugModeEnabled = msg.enabled;
+            log(`Debug mode: ${window.__debugModeEnabled}`);
         }
     });
 }
 
 export const log = (...args: any[]) => {
-    if (debugModeEnabled) {
+    if (window.__debugModeEnabled) {
         console.log("[subs2clipboard]", ...args);
     }
 };
