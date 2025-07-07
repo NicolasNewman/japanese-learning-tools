@@ -3,7 +3,6 @@ import { onRuntimeMessage, sendRuntimeMessage } from "./lib/content-helper";
 
 const style = document.createElement('style');
 style.textContent = `
-  /* Your CSS here */
   .kanji {
     color: #FF00AA;
   }
@@ -71,6 +70,44 @@ onRuntimeMessage((msg) => {
       });
     });
 
+    const processedDivTextNodes = new WeakSet<Node>();
+    const validDivNodes: Node[] = [];
+    document.querySelectorAll("div").forEach((el) => {
+      const text = (el as HTMLElement).innerHTML || "";
+      if (containsJapanese(text)) {
+        const walker = document.createTreeWalker(
+          el,
+          NodeFilter.SHOW_TEXT,
+          null
+        );
+
+        let node;
+        while ((node = walker.nextNode()) !== null) {
+          if (containsJapanese(node.textContent || "") && !processedDivTextNodes.has(node)) {
+            processedDivTextNodes.add(node);
+            validDivNodes.push(node);
+          }
+        }
+      }
+    });
+    console.log("Valid div text nodes:", validDivNodes.length);
+    validDivNodes.forEach((node) => {
+      const span = document.createElement("span");
+      span.textContent = node.textContent;
+      node.parentNode?.replaceChild(span, node);
+
+      if (span.textContent) {
+        const id = `sudachi-${nodeIdCounter++}`;
+        elementMap[id] = span as HTMLElement;
+        console.log("Sending div text to Sudachi:", span.textContent, id);
+        sendRuntimeMessage({
+          type: "SEND_SUDACHI",
+          text: span.textContent,
+          id,
+          tabId: msg.tabId
+        })
+      }
+    });
     // // 2. Handle lists: each <li> as a unit, only its own text (not nested lists)
     // document.querySelectorAll("li").forEach((li: Element) => {
     //   // Ignore if inside an ignored tag
