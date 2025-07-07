@@ -1,12 +1,5 @@
 <script lang="ts">
-  import {
-    Input,
-    Label,
-    Helper,
-    Button,
-    Skeleton,
-    Spinner,
-  } from "flowbite-svelte";
+  import { Input, Label, Helper, Button, Skeleton } from "flowbite-svelte";
   import { set, get, save } from "./store";
   import { openUrl } from "@tauri-apps/plugin-opener";
   import { kanjiImporter } from "..";
