@@ -18,7 +18,7 @@ const initializePort = () => {
     (port.onMessage as OnPortMessageListener).addListener((response) => {
       if (response.type === "RECEIVE_SUDACHI") {
         console.log("SUDACHI response received:", response);
-        sendMessageToTab(response.tabId, {type: "UPDATE_SUDACHI", text: response.text, id: response.id});
+        sendMessageToTab(response.tabId, { type: "UPDATE_SUDACHI", text: response.text, id: response.id });
       }
     });
   }

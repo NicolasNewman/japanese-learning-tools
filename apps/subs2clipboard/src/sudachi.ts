@@ -10,6 +10,18 @@ style.textContent = `
   .vocabulary {
     color: #AA00FF;
   }
+  .subs2clipboard-popup-parent {
+    position: relative;
+}
+  .subs2clipboard-popup {
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    padding: 5px;
+    z-index: 1000;
+    color: #000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 `;
 document.head.appendChild(style);
 
@@ -22,6 +34,56 @@ const IGNORED_TAGS = new Set([
 ]);
 
 const BLOCK_TAGS = ["P", "SECTION", "ARTICLE", "BLOCKQUOTE"];
+
+const createHoverPopup = (spanEl: HTMLElement) => {
+  // spanEl.classList.add("subs2clipboard-popup-parent");
+  const metadata = JSON.parse(atob(spanEl.getAttribute("data-metadata") || ""));
+  const source = spanEl.getAttribute("data-source") || "unknown";
+  const meaning = spanEl.getAttribute("data-meaning") || "";
+  console.log(metadata);
+
+  const { left, bottom } = spanEl.getBoundingClientRect();
+  const popup = document.createElement("div");
+  popup.style.left = `${left}px`;
+  popup.style.top = `${bottom}px`;
+  popup.classList.add("subs2clipboard-popup");
+  popup.style.borderColor = getComputedStyle(spanEl).color || "#aaa";
+  popup.innerHTML = `
+  <div>${spanEl.innerText}</div>
+  <div><strong>Meaning:</strong> ${meaning}</div>
+  <div><strong>Source:</strong> ${source}</div>
+`;
+  if (source === "wanikani") {
+    if (metadata?.vocabularyData) {
+      popup.innerHTML += `
+        <div><strong>Part of Speech:</strong> ${metadata.vocabularyData.partsOfSpeech.join(", ")}</div>
+      `;
+    }
+    if (metadata?.kanjiData) {
+      if (metadata.kanjiData?.onyomiReadings.length > 0) {
+        popup.innerHTML += `
+          <div><strong>Onyomi Reading:</strong> ${metadata.kanjiData.onyomiReadings.join(", ")}</div>
+        `;
+      }
+      if (metadata.kanjiData?.kunyomiReadings.length > 0) {
+        popup.innerHTML += `
+          <div><strong>Kunyomi Reading:</strong> ${metadata.kanjiData.kunyomiReadings.join(", ")}</div>
+        `;
+      }
+      if (metadata.kanjiData?.nanoriReadings.length > 0) {
+        popup.innerHTML += `
+          <div><strong>Nanori Reading:</strong> ${metadata.kanjiData.nanoriReadings.join(", ")}</div>
+        `;
+      }
+    }
+    popup.innerHTML += `
+      <a href="${metadata?.url}">See more</a>
+    `;
+  };
+  spanEl.appendChild(popup);
+
+  return popup;
+}
 
 // const getLiTextExcludingNestedLists = (el: Element): string => {
 //   let text = "";
@@ -131,7 +193,24 @@ onRuntimeMessage((msg) => {
   } else if (msg.type === "UPDATE_SUDACHI") {
     const { text, id } = msg;
     log("Received Sudachi response:", text, id);
-    log("Element map:", elementMap[id]);
+    log("Element map:", elementMap[id].innerHTML);
     elementMap[id].innerHTML = text;
+    elementMap[id].querySelectorAll(`span[data-source="wanikani"]`).forEach((el) => {
+      let timeout: number | undefined = undefined;
+      let popup: HTMLDivElement | null = null;
+      el.addEventListener("mouseenter", (hoverEl) => {
+        timeout = setTimeout(() => {
+          log("hovered element:", hoverEl);
+          popup = createHoverPopup(hoverEl.target as HTMLElement);
+        }, 1000);
+      });
+      el.addEventListener("mouseleave", () => {
+        clearTimeout(timeout);
+        setTimeout(() => {
+          popup?.remove();
+        }, 500);
+      });
+    });
+
   }
 });
