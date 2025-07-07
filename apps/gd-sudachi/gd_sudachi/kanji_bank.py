@@ -1,36 +1,69 @@
 import json
 import os
 import platform
-from typing import Literal, TypedDict
+from abc import ABC
+from typing import Generic, Literal, Optional, TypeGuard, TypeVar, TypedDict
 
+Level = Literal["Apprentice", "Guru", "Master", "Enlightened", "Burned"]
 KanjiType = Literal["kanji", "vocabulary"]
 
-class KanjiSource(TypedDict, total=False):
-    # Define the fields of KanjiSource here, for example:
-    # source_name: str
-    # source_url: str
-    pass  # Replace with actual fields
+T = TypeVar("T")
 
-class KanjiBankEntry(TypedDict):
+
+class MetadataBase(ABC):
+    pass
+
+
+class KanjiData:
+    onyomi_readings: list[str]
+    kunyomi_readings: list[str]
+    nanori_readings: list[str]
+
+
+class VocabularyData:
+    parts_of_speech: list[str]
+
+
+class WaniKaniMetadata(MetadataBase):
+    url: str
     level: str
-    type: KanjiType
-    source: KanjiSource
+    kanji_data: Optional[KanjiData] = None
+    vocabulary_data: Optional[VocabularyData] = None
 
-KanjiBankData = dict[str, KanjiBankEntry]
+
+class KanjiBankEntry(Generic[T], TypedDict):
+    level: Level
+    type: KanjiType
+    source: str  # Assuming KanjiSource is a string
+    meaning: str
+    metadata: T
+
+
+KanjiBankData = dict[str, KanjiBankEntry[T]]
+WaniKaniKanjiBankData = dict[str, KanjiBankEntry[WaniKaniMetadata]]
+
+
+def is_wanikani_entry(
+    entry: KanjiBankEntry,
+) -> TypeGuard[KanjiBankEntry[WaniKaniMetadata]]:
+    """Type guard to check if entry has WaniKani metadata"""
+    return entry.get("source") == "wanikani"
+
 
 def is_kanji(char):
     code = ord(char)
     return (
-        (0x3400 <= code <= 0x4DBF) or    # Extension A
-        (0x4E00 <= code <= 0x9FFF) or    # Unified Ideographs
-        (0xF900 <= code <= 0xFAFF) or    # Compatibility Ideographs
-        (0x20000 <= code <= 0x2A6DF) or  # Extension B
-        (0x2A700 <= code <= 0x2B73F) or  # Extension C
-        (0x2B740 <= code <= 0x2B81F) or  # Extension D
-        (0x2B820 <= code <= 0x2CEAF) or  # Extension E
-        (0x2CEB0 <= code <= 0x2EBEF) or  # Extension F
-        (0x30000 <= code <= 0x3134F)     # Extension G
+        (0x3400 <= code <= 0x4DBF)  # Extension A
+        or (0x4E00 <= code <= 0x9FFF)  # Unified Ideographs
+        or (0xF900 <= code <= 0xFAFF)  # Compatibility Ideographs
+        or (0x20000 <= code <= 0x2A6DF)  # Extension B
+        or (0x2A700 <= code <= 0x2B73F)  # Extension C
+        or (0x2B740 <= code <= 0x2B81F)  # Extension D
+        or (0x2B820 <= code <= 0x2CEAF)  # Extension E
+        or (0x2CEB0 <= code <= 0x2EBEF)  # Extension F
+        or (0x30000 <= code <= 0x3134F)  # Extension G
     )
+
 
 def get_app_data_dir(bundle_identifier: str) -> str:
     home = os.path.expanduser("~")
@@ -44,6 +77,7 @@ def get_app_data_dir(bundle_identifier: str) -> str:
     else:
         raise RuntimeError(f"Unsupported OS: {system}")
     return os.path.join(base, bundle_identifier)
+
 
 def load_kanji_bank(bundle_identifier: str) -> KanjiBankData:
     app_data_dir = get_app_data_dir(bundle_identifier)
