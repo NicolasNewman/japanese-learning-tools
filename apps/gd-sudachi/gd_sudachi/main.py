@@ -1,16 +1,14 @@
 import argparse
 import os
 
-from sudachi_helper import encode_to_b64
-
 try:
     # When running as a package (normal usage and tests)
     from .kanji_bank import is_kanji, load_kanji_bank
-    from .sudachi_helper import get_english_pos, get_english_pos_string
+    from .sudachi_helper import encode_to_b64, get_english_pos, get_english_pos_string
 except ImportError:
     # When bundled with Nuitka or run as script
     from kanji_bank import is_kanji, load_kanji_bank
-    from sudachi_helper import get_english_pos, get_english_pos_string
+    from sudachi_helper import encode_to_b64, get_english_pos, get_english_pos_string
 from selectolax.parser import HTMLParser, Node
 from sudachipy import Dictionary
 
