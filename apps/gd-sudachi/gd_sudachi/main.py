@@ -1,5 +1,7 @@
 import argparse
 import os
+import platform
+import sys
 
 try:
     # When running as a package (normal usage and tests)
@@ -9,8 +11,12 @@ except ImportError:
     # When bundled with Nuitka or run as script
     from kanji_bank import is_kanji, load_kanji_bank
     from sudachi_helper import encode_to_b64, get_english_pos, get_english_pos_string
+
 from selectolax.parser import HTMLParser, Node
 from sudachipy import Dictionary
+
+if platform.system() == "Windows":
+    sys.stdout.reconfigure(encoding='utf-8')
 
 
 def create_logger(enabled: bool = False):
