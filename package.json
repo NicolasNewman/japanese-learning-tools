@@ -1,6 +1,6 @@
 {
   "name": "@nicolasnewman/jp-learning-tools",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "MIT",
   "packageManager": "pnpm@10.11.1",
   "scripts": {
@@ -12,6 +12,7 @@
     "build:tauri": "nx run jp-learning-tools:build",
     "build:gd-tools": "nx run gd-tools:build",
     "build:dic": "nx run mecab-ipadic-neologd:build",
+    "build:linux": "mkdir -p ./dist/target && nx run mecab-ipadic-neologd:build --tuiAutoExit && nx run gd-tools:build:linux --tuiAutoExit && nx run gd-sudachi:build:linux --tuiAutoExit && nx run subs2clipboard-native-messenger:build:linux --tuiAutoExit && nx run jp-learning-tools:build:linux",
     "act:release": "act pull_request -e act/pr-event.json --artifact-server-path ./.act-artifacts",
     "act:release:windows": "act pull_request -P windows-latest=-self-hosted -e act/pr-event.json --artifact-server-path ./.act-artifacts"
   },

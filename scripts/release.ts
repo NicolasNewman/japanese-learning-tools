@@ -84,10 +84,10 @@ const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [s
         }
         return line;
     }).join('\n');
+    writeFileSync(resolvedSrc, lines);
     if (resolvedSrc.split('/').pop() === 'Cargo.toml') {
         execSync(`cargo update -p ${projectType === 'jp-learning-tools' ? 'jp-learning-tools-backend' : projectType}`);
     }
-    writeFileSync(resolvedSrc, lines);
     return versionFromTo;
 }
 

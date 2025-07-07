@@ -34,6 +34,10 @@ jobs:
         run: |
           pnpm add -g nx
           pnpm install --frozen-lockfile
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
       - name: Create changelog
         id: create-changelog
         run: |
@@ -45,24 +49,18 @@ jobs:
           rm .changelog/tmp
           echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
-      - name: Configure Git
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+
+          git add .
+          git commit -m "chore: release v${VERSION}"
+          git push origin "${{ github.ref_name }}"
       - name: Create release branch and tag
         run: |
           VERSION="${{ steps.create-changelog.outputs.VERSION }}"
           echo "Creating branch and tag for version: ${VERSION}"
           
-          # Create and checkout new branch
           git checkout -b "release/${VERSION}"
-          
-          git add .
-          git commit -m "chore: release v${VERSION}"
-          # Push the branch
           git push origin "release/${VERSION}"
           
-          # Create and push tag
           git tag -a "v${VERSION}" -m "Release version ${VERSION}"
           git push origin "v${VERSION}"
         env:

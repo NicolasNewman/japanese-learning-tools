@@ -87,10 +87,10 @@ const installManifest = async (): Promise<InstallManifestStatusCode> => {
 
         const manifestDir = manifestPath["firefox"].substring(0, manifestPath["firefox"].lastIndexOf(sep()));
         console.log(`Checking if directory exists: ${manifestDir}`);
-        if (type() !== 'windows' && !await exists(manifestDir)) {
+        if (!(await exists(manifestDir))) {
             await mkdir(manifestDir, { recursive: true });
         }
-        
+
         const manifestFile = `${resourcePath}${sep()}resources${sep()}manifest${sep()}manifest-firefox.json`;
         console.log(`Checking if file exists: ${manifestFile}`);
         if (!await exists(manifestFile)) {
@@ -99,7 +99,7 @@ const installManifest = async (): Promise<InstallManifestStatusCode> => {
         }
 
         const manifestJson = JSON.parse(await readTextFile(manifestFile)) as Manifest;
-        manifestJson.path = `${await externalBinaryDir()}${sep()}subs2clipboard-native-messenger`;
+        manifestJson.path = `${await externalBinaryDir()}${sep()}subs2clipboard-native-messenger${type() === 'windows' ? '.exe' : ''}`;
 
         const encoder = new TextEncoder();
         await writeFile(manifestPath["firefox"], encoder.encode(JSON.stringify(manifestJson, null, 4)));
