@@ -2,13 +2,7 @@ import browser from "webextension-polyfill";
 import { waitForSupportedService } from "./lib/index";
 import { onRuntimeMessage } from "./lib/content-helper";
 import { sessionStore } from "./lib/local-storage";
-
-let debugModeEnabled = false;
-const log = (...args: any[]) => {
-  if (debugModeEnabled) {
-    console.log("[subs2clipboard]", ...args);
-  }
-};
+import { log } from "./content-debug";
 
 waitForSupportedService().then((subtitleSelector) => {
   let observer: MutationObserver | null = null;
@@ -66,11 +60,6 @@ waitForSupportedService().then((subtitleSelector) => {
     }
   };
 
-  sessionStore.get("debugModeEnabled").then((debugMode) => {
-    debugModeEnabled = debugMode;
-    log("Debug mode enabled:", debugMode);
-  });
-
   sessionStore.get("copySubsEnabled").then((copySubsEnabled) => {
     log("Copy subtitles enabled:", copySubsEnabled);
     if (copySubsEnabled) {
@@ -88,8 +77,6 @@ waitForSupportedService().then((subtitleSelector) => {
       }
     } else if (msg.type === "GET_SUPPORTED_SERVICE") {
       sendResponse(subtitleSelector.service);
-    } else if (msg.type === "DEBUG_MODE_CHANGED") {
-      debugModeEnabled = msg.enabled;
     }
   });
 }).catch(() => {

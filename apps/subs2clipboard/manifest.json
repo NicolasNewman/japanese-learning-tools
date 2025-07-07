@@ -13,7 +13,8 @@
       ],
       "js": [
         "src/jellyfin-subs.ts",
-        "src/sudachi.ts"
+        "src/sudachi.ts",
+        "src/content-debug.ts"
       ]
     }
   ],

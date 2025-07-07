@@ -1,5 +1,6 @@
 import browser from "webextension-polyfill";
 import { onRuntimeMessage, sendRuntimeMessage } from "./lib/content-helper";
+import { log } from "./content-debug";
 
 const style = document.createElement('style');
 style.textContent = `
@@ -59,7 +60,7 @@ onRuntimeMessage((msg) => {
         if (containsJapanese(text)) {
           const id = `sudachi-${nodeIdCounter++}`;
           elementMap[id] = el as HTMLElement;
-          console.log("Sending block text to Sudachi:", text, id);
+          log("Sending block text to Sudachi:", text, id);
           sendRuntimeMessage({
             type: "SEND_SUDACHI",
             text,
@@ -90,7 +91,7 @@ onRuntimeMessage((msg) => {
         }
       }
     });
-    console.log("Valid div text nodes:", validDivNodes.length);
+    log("Valid div text nodes:", validDivNodes.length);
     validDivNodes.forEach((node) => {
       const span = document.createElement("span");
       span.textContent = node.textContent;
@@ -99,7 +100,7 @@ onRuntimeMessage((msg) => {
       if (span.textContent) {
         const id = `sudachi-${nodeIdCounter++}`;
         elementMap[id] = span as HTMLElement;
-        console.log("Sending div text to Sudachi:", span.textContent, id);
+        log("Sending div text to Sudachi:", span.textContent, id);
         sendRuntimeMessage({
           type: "SEND_SUDACHI",
           text: span.textContent,
@@ -119,7 +120,7 @@ onRuntimeMessage((msg) => {
     //   const text = getLiTextExcludingNestedLists(li).trim();
     //   if (containsJapanese(text)) {
     //     const id = `sudachi-${nodeIdCounter++}`;
-    //     console.log("Sending li text to Sudachi:", text, id);
+    //     log("Sending li text to Sudachi:", text, id);
     //     browser.runtime.sendMessage({
     //       type: "SEND_SUDACHI",
     //       text,
@@ -129,8 +130,8 @@ onRuntimeMessage((msg) => {
     // });
   } else if (msg.type === "UPDATE_SUDACHI") {
     const { text, id } = msg;
-    console.log("Received Sudachi response:", text, id);
-    console.log("Element map:", elementMap[id]);
+    log("Received Sudachi response:", text, id);
+    log("Element map:", elementMap[id]);
     elementMap[id].innerHTML = text;
   }
 });
