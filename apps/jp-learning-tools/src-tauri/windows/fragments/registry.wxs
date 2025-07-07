@@ -6,7 +6,7 @@
                 <RegistryKey Root="HKLM"
                     Key="Software\Mozilla\NativeMessagingHosts\com.japanese.learning.tools">
                     <RegistryValue Type="string"
-                        Value="%APPDATA%\com.nicolasnewman.jp-learning-tools\manifest-firefox.json" />
+                        Value="[AppDataFolder]\com.nicolasnewman.jp-learning-tools\manifest-firefox.json" />
                 </RegistryKey>
                 <Environment Id="PATH"
                     Name="PATH"
