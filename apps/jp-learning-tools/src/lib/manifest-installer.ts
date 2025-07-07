@@ -87,7 +87,7 @@ const installManifest = async (): Promise<InstallManifestStatusCode> => {
 
         const manifestDir = manifestPath["firefox"].substring(0, manifestPath["firefox"].lastIndexOf(sep()));
         console.log(`Checking if directory exists: ${manifestDir}`);
-        if (type() !== 'windows' && !await exists(manifestDir)) {
+        if (!(await exists(manifestDir))) {
             await mkdir(manifestDir, { recursive: true });
         }
 
