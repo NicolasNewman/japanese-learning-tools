@@ -1,6 +1,6 @@
 import argparse
+import json
 import os
-import platform
 import sys
 
 try:
@@ -15,8 +15,7 @@ except ImportError:
 from selectolax.parser import HTMLParser, Node
 from sudachipy import Dictionary
 
-if platform.system() == "Windows":
-    sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding="utf-8")  # type: ignore
 
 
 def create_logger(enabled: bool = False):
@@ -36,32 +35,8 @@ def create_panic(enabled: bool = False):
     return panic
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="Parse Japanese text using SudachiPy and output HTML with POS tagging.",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-    ./gd-sudachi.bin "昨日買った3つのりんごを持っています。"
-    ./gd-sudachi.bin -o output.html "日本語の文章を解析する"
-        """,
-    )
-    kanji_bank = load_kanji_bank("com.nicolasnewman.jp-learning-tools")
-    # log(len(kanji_bank.keys()))
-
-    parser.add_argument(
-        "text",
-        nargs="?",
-        default="昨日買った3つのりんごを持っています。",
-        help="Japanese text to parse (default: example sentence)",
-    )
-
-    parser.add_argument(
-        "--debug", "-d", action="store_true", help="Enable debug logging"
-    )
-
-    args = parser.parse_args()
-
+def create_tokenizer():
+    """Create and return a SudachiPy tokenizer object"""
     # Get the bundle directory for resources
     if "__compiled__" in globals():
         # We're in a Nuitka bundle
@@ -70,27 +45,28 @@ Examples:
             bundle_dir, "sudachidict_core", "resources", "system.dic"
         )
         os.environ["SUDACHIDICT_CORE_PATH"] = dict_path
-
-        tokenizer_obj = Dictionary(dict=dict_path).create()
+        return Dictionary(dict=dict_path).create()
     else:
-        tokenizer_obj = Dictionary().create()
+        return Dictionary().create()
 
-    tree = HTMLParser(args.text)
 
-    log = create_logger(args.debug)
-    panic = create_panic(args.debug)
+def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
+    """Process text and return HTML with POS tagging"""
+    tree = HTMLParser(text)
 
-    text = tree.text(True, "", True)
+    log = create_logger(debug)
+    panic = create_panic(debug)
+
+    text_content = tree.text(True, "", True)
 
     html_map: list[Node] = []
     if tree.root:
         for node in tree.root.traverse(True):
-            if node.tag != "html" and node.tag != "body" and node.tag != "head":
-                if not node.child:
-                    html_map.append(node)
-                    log(f"Text: {node.text(False)}")
+            if node.tag not in ["html", "body", "head"] and not node.child:
+                html_map.append(node)
+                log(f"Text: {node.text(False)}")
 
-    tokens = tokenizer_obj.tokenize(text)
+    tokens = tokenizer_obj.tokenize(text_content)
 
     accumulator_html = 0
     html_idx = 0
@@ -98,10 +74,10 @@ Examples:
     updated_html = html_text
     updated_html_start_shift = 0
     updated_html_end_shift = 0
+
     for token in tokens:
         character = token.surface()
         normalized_form = token.normalized_form()
-        # 3rd = counter?
         bank_data = kanji_bank.get(normalized_form)
         (pos, pos_sub, _, _, conj_type, conj_form) = get_english_pos(token).values()
 
@@ -216,8 +192,108 @@ Examples:
             if accumulator_sudachi >= len(character):
                 break
     if tree.body and tree.body.html:
-        text = tree.body.html.replace("<body>", "").replace("</body>", "")
-        print(text)
+        result = tree.body.html.replace("<body>", "").replace("</body>", "")
+        return result
+    return ""
+
+
+def run_as_daemon():
+    """Run as a daemon that processes JSON requests from stdin"""
+
+    # Initialize everything ONCE at startup
+    sys.stderr.write("Daemon starting - initializing tokenizer...\n")
+    sys.stderr.flush()
+
+    try:
+        kanji_bank = load_kanji_bank("com.nicolasnewman.jp-learning-tools")
+
+        # Get the bundle directory for resources
+        tokenizer_obj = create_tokenizer()
+
+        sys.stderr.write("Daemon ready - waiting for requests...\n")
+        sys.stderr.flush()
+
+        # Process requests in a loop
+        for line in sys.stdin:
+            try:
+                # Parse request
+                request = json.loads(line.strip())
+                text = request.get("text", "")
+                debug = request.get("debug", False)
+
+                if not text:
+                    continue
+
+                # Process text
+                result = process_text_to_html(text, tokenizer_obj, kanji_bank, debug)
+
+                # Send response back as JSON
+                response = {"status": "success", "result": result}
+                print(json.dumps(response))
+                sys.stdout.flush()
+
+            except json.JSONDecodeError:
+                error_response = {"status": "error", "message": "Invalid JSON"}
+                print(json.dumps(error_response))
+                sys.stdout.flush()
+
+            except Exception as e:
+                error_response = {"status": "error", "message": str(e)}
+                print(json.dumps(error_response))
+                sys.stdout.flush()
+
+    except KeyboardInterrupt:
+        sys.stderr.write("Daemon shutting down...\n")
+        sys.stderr.flush()
+    except Exception as e:
+        sys.stderr.write(f"Daemon initialization failed: {e}\n")
+        sys.stderr.flush()
+        sys.exit(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Parse Japanese text using SudachiPy and output HTML with POS tagging.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+    ./gd-sudachi.bin "昨日買った3つのりんごを持っています。"
+    ./gd-sudachi.bin -o output.html "日本語の文章を解析する"
+    ./gd-sudachi.bin --daemon  # Run as daemon for persistent processing
+        """,
+    )
+
+    parser.add_argument(
+        "text",
+        nargs="?",
+        default="昨日買った3つのりんごを持っています。",
+        help="Japanese text to parse (default: example sentence)",
+    )
+
+    parser.add_argument(
+        "--debug", "-d", action="store_true", help="Enable debug logging"
+    )
+
+    parser.add_argument(
+        "--daemon", action="store_true", help="Run as daemon for persistent processing"
+    )
+
+    args = parser.parse_args()
+
+    # If daemon mode is requested, run as daemon
+    if args.daemon:
+        run_as_daemon()
+        return
+
+    # Original single-run mode
+    kanji_bank = load_kanji_bank("com.nicolasnewman.jp-learning-tools")
+
+    # Get the bundle directory for resources
+    tokenizer_obj = create_tokenizer()
+
+    # Process single text input
+    result = process_text_to_html(args.text, tokenizer_obj, kanji_bank, args.debug)
+    print(result)
 
 
 if __name__ == "__main__":

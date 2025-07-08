@@ -1,12 +1,12 @@
-use anyhow::{anyhow, Context, Result};
+use anyhow::{Context, Result};
 use arboard::Clipboard;
 use chrono::Local;
 use log::{error, info};
 use serde::{Deserialize, Serialize};
 use std::fs::OpenOptions;
 use std::io::{self, Read, Write};
-use std::process::{Command, Stdio};
-use std::str;
+
+mod sudachi;
 
 #[derive(Debug, Deserialize)]
 struct BrowserMessage {
@@ -14,7 +14,7 @@ struct BrowserMessage {
     text: String,
     #[serde(default)]
     id: String,
-    tabId: isize
+    tabId: isize,
 }
 
 #[derive(Debug, Serialize)]
@@ -23,7 +23,7 @@ struct ResponseMessage {
     response_type: String,
     text: String,
     id: String,
-    tabId: isize
+    tabId: isize,
 }
 
 fn setup_logger() -> Result<()> {
@@ -34,11 +34,11 @@ fn setup_logger() -> Result<()> {
         .truncate(true)
         .open(&log_file)
         .context("Failed to open log file")?;
-    
+
     if std::env::var("RUST_LOG").is_err() {
         std::env::set_var("RUST_LOG", "info");
     }
-    
+
     env_logger::builder()
         .target(env_logger::Target::Pipe(Box::new(file)))
         .format(|buf, record| {
@@ -62,77 +62,65 @@ fn read_message_from_stdin() -> Result<BrowserMessage> {
     io::stdin()
         .read_exact(&mut length_bytes)
         .context("Failed to read message length")?;
-    
+
     let message_length = u32::from_ne_bytes(length_bytes) as usize;
-    
+
     // Read the actual message
     let mut input = vec![0; message_length];
     io::stdin()
         .read_exact(&mut input)
         .context("Failed to read message")?;
-    
+
     // Parse the JSON message
-    let message: BrowserMessage = serde_json::from_slice(&input)
-        .context("Failed to parse JSON message")?;
-    
+    let message: BrowserMessage =
+        serde_json::from_slice(&input).context("Failed to parse JSON message")?;
+
     Ok(message)
 }
 
 fn write_message_to_stdout(message: &ResponseMessage) -> Result<()> {
-    let json = serde_json::to_vec(message)
-        .context("Failed to serialize response to JSON")?;
-    
+    let json = serde_json::to_vec(message).context("Failed to serialize response to JSON")?;
+
     let message_length = json.len() as u32;
     let length_bytes = message_length.to_ne_bytes();
-    
+
     // Write the message length followed by the message
-    io::stdout().write_all(&length_bytes).context("Failed to write message length")?;
-    io::stdout().write_all(&json).context("Failed to write response")?;
+    io::stdout()
+        .write_all(&length_bytes)
+        .context("Failed to write message length")?;
+    io::stdout()
+        .write_all(&json)
+        .context("Failed to write response")?;
     io::stdout().flush().context("Failed to flush stdout")?;
-    
+
     Ok(())
 }
 
 fn copy_to_clipboard(text: &str) -> Result<()> {
-    let mut clipboard = Clipboard::new()
-        .context("Failed to initialize clipboard")?;
-    
+    let mut clipboard = Clipboard::new().context("Failed to initialize clipboard")?;
+
     clipboard
         .set_text(text)
         .context("Failed to set text to clipboard")?;
-    
+
     info!("Copied text to clipboard: {}", text);
     Ok(())
 }
 
 fn run_sudachi(text: &str, id: &str, tabId: isize) -> Result<()> {
-    // Run the gd-sudachi command with the provided text
-    let output = Command::new("gd-sudachi")
-        .arg(text)
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .output()
-        .context("Failed to execute gd-sudachi command")?;
-    
-    if !output.status.success() {
-        let stderr = String::from_utf8_lossy(&output.stderr);
-        error!("gd-sudachi command failed: {}", stderr);
-        return Err(anyhow!("gd-sudachi command failed: {}", stderr));
-    }
-    
-    let output_text = String::from_utf8_lossy(&output.stdout).to_string();
-    info!("Sudachi output: {}", output_text);
-    
+    // Process text using the daemon
+    let output_text = sudachi::process_text_with_daemon(text)?;
+
     // Send the output back to the browser
     let response = ResponseMessage {
         response_type: "RECEIVE_SUDACHI".to_string(),
         text: output_text,
         id: id.to_string(),
-        tabId
+        tabId,
     };
-    
+
     write_message_to_stdout(&response)?;
-    
+
     Ok(())
 }
 
@@ -141,30 +129,30 @@ fn main() -> Result<()> {
     if let Err(e) = setup_logger() {
         eprintln!("Failed to set up logger: {}", e);
     }
-    
+
     info!("Native messenger started");
-    
+
     loop {
         match read_message_from_stdin() {
             Ok(message) => {
                 info!("Received message: {:?}", message);
-                
+
                 match message.event.as_str() {
                     "COPY_TO_CLIPBOARD" => {
                         if let Err(e) = copy_to_clipboard(&message.text) {
                             error!("Failed to copy to clipboard: {}", e);
                         }
-                    },
+                    }
                     "SEND_SUDACHI" => {
                         if let Err(e) = run_sudachi(&message.text, &message.id, message.tabId) {
                             error!("Failed to run sudachi: {}", e);
                         }
-                    },
+                    }
                     _ => {
                         error!("Unknown event type: {}", message.event);
                     }
                 }
-            },
+            }
             Err(e) => {
                 // If we can't read from stdin (e.g., browser closed connection), exit
                 error!("Error reading message: {}", e);
@@ -172,7 +160,7 @@ fn main() -> Result<()> {
             }
         }
     }
-    
+
     info!("Native messenger shutting down");
     Ok(())
 }
