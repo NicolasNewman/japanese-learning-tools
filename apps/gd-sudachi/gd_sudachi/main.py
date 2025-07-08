@@ -1,7 +1,25 @@
+import contextlib
+import locale
+import sys
+
+# Add this at the very beginning of main.py, before any other imports
+if sys.platform == "win32":
+    # Force UTF-8 encoding on Windows
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+    sys.stdin.reconfigure(encoding="utf-8")
+    # Set locale to handle Japanese characters properly
+    try:
+        locale.setlocale(locale.LC_ALL, "Japanese_Japan.UTF-8")
+    except locale.Error:
+        try:
+            locale.setlocale(locale.LC_ALL, "ja_JP.UTF-8")
+        except locale.Error:
+            contextlib.suppress(locale.Error)
+
 import argparse
 import json
 import os
-import sys
 
 try:
     # When running as a package (normal usage and tests)
@@ -14,8 +32,6 @@ except ImportError:
 
 from selectolax.parser import HTMLParser, Node
 from sudachipy import Dictionary
-
-sys.stdout.reconfigure(encoding="utf-8")  # type: ignore
 
 
 def create_logger(enabled: bool = False):
