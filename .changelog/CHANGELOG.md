@@ -1,9 +1,9 @@
-# v0.4.1
+# v0.5.0
 
 ## jp-learning-tools
 
-- fix: [windows] registry fix
+- feat: added temp logs to debug menu
 
-## gd-sudachi
+## subs2clipboard-native-messenger
 
-- fix: [windows] utf8 terminal printing
+- feat: optimized sudachi by running as daemon
