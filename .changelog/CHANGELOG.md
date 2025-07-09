@@ -1,9 +1,10 @@
-# v0.5.0
+# v0.5.1
 
-## jp-learning-tools
+## gd-sudachi
 
-- feat: added temp logs to debug menu
+- docs: commented portions of code
+- fix: [windows] attempted utf-8 fix
 
 ## subs2clipboard-native-messenger
 
-- feat: optimized sudachi by running as daemon
+- fix: [windows] env vars for utf-8
