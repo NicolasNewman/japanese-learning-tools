@@ -1,7 +1,6 @@
 import Titlebar from "custom-tauri-titlebar";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { goto } from "$app/navigation";
-import { invoke } from "@tauri-apps/api/core";
 import { externalBinaryDir, openDevTools, openTmpLog } from "./commands";
 import { appDataDir, resourceDir } from "@tauri-apps/api/path";
 import { openPath } from "@tauri-apps/plugin-opener";
@@ -81,7 +80,7 @@ export default async () => {
         },
       },
       {
-        label: "Temp Log",
+        label: "gd-sudachi log",
         type: "item",
         action: async () => {
           await openTmpLog();

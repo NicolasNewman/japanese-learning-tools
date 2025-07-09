@@ -1,10 +1,9 @@
-# v0.5.1
+# v0.5.2
+
+## jp-learning-tools
+
+- refactor: removed unneeded code
 
 ## gd-sudachi
 
-- docs: commented portions of code
-- fix: [windows] attempted utf-8 fix
-
-## subs2clipboard-native-messenger
-
-- fix: [windows] env vars for utf-8
+- chore: attempt to optimize onefile extraction

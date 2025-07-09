@@ -5,7 +5,6 @@ import type { KanjiBankData, Level } from "../kanji-bank";
 export type WaniKaniMetadata = {
   url: string;
   level: string;
-  // kanji specific metadata
   kanjiData?: {
     onyomiReadings: string[];
     kunyomiReadings: string[];
@@ -74,7 +73,8 @@ export default class WaniKaniImporter extends Importer<WaniKaniMetadata> {
           kanjiBankData = {
             ...kanjiBankData,
             ...subjects.data.reduce((prev, { data, object, id }) => {
-              if (object === 'kanji' || object === 'vocabulary') {
+              // For single character vocabulary, default to the kanji entry if it exists
+              if (object === 'kanji' || (object === 'vocabulary' && !prev[data.characters])) {
                 prev[data.characters] = {
                   level: assignmentToSrsStage[id],
                   source: 'wanikani',

@@ -106,12 +106,23 @@ jobs:
         with:
           name: mecab-ipadic-neologd
           path: dist/target/mecab-ipadic-neologd/
+      - name: Extract version from branch name
+        id: extract-version
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            VERSION="${{ github.event.inputs.release_version }}"
+          else
+            BRANCH_NAME="${{ github.head_ref }}"
+            VERSION=${BRANCH_NAME#release/}
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT      
       - name: Build CLI Tooling
         uses: ./.github/actions/build-cli
         with:
           os: ${{ matrix.os.name }}
           # arch: ${{ matrix.arch }}
           shell: ${{ matrix.os.shell }}
+          version: ${{ steps.extract-version.outputs.version }}
       - name: Build Desktop App
         uses: ./.github/actions/build-application
         with:
