@@ -9,6 +9,9 @@ inputs:
     description: "The shell to use for running commands."
     required: true
     default: "bash"
+  version:
+    description: "The version of the project to build."
+    required: true
 
 runs:
   using: composite
@@ -30,7 +33,7 @@ runs:
     - name: Build sudachi
       shell: ${{ inputs.shell }}
       run: |
-        nx run gd-sudachi:build:${{ inputs.os }}
+        nx run gd-sudachi:build:${{ inputs.os }} --args="--env.PRODUCT_VERSION=1.0"
     - name: Build gd-tools
       shell: ${{ inputs.shell }}
       run: |
