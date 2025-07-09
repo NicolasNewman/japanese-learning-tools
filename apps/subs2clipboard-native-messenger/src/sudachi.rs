@@ -37,6 +37,8 @@ impl SudachiDaemon {
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
+            .env("PYTHONIOENCODING", "utf-8")
+            .env("PYTHONUTF8", "1")
             .spawn()
             .context("Failed to start gd-sudachi daemon")?;
 
