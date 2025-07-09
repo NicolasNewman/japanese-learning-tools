@@ -84,40 +84,51 @@ def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
 
     tokens = tokenizer_obj.tokenize(text_content)
 
-    accumulator_html = 0
-    html_idx = 0
-    html_text = html_map[html_idx].text(True, "", True)
+    # Initialize the HTML char index accumulator and the current HTML node index
+    html_accumulator = 0
+    html_node_index = 0
+    html_text = html_map[html_node_index].text(True, "", True)
     updated_html = html_text
     updated_html_start_shift = 0
     updated_html_end_shift = 0
 
+    # Loop through each token from the SudachiPy tokenizer
     for token in tokens:
-        character = token.surface()
+        # The current SudachiPy token
+        sudachi_text = token.surface()
         normalized_form = token.normalized_form()
         bank_data = kanji_bank.get(normalized_form)
         (pos, pos_sub, _, _, conj_type, conj_form) = get_english_pos(token).values()
 
-        log(character, get_english_pos_string(token), normalized_form, bank_data)
-        accumulator_sudachi = 0
-        html_start_rel_sudachi = accumulator_html
-        for _sudachi_i in range(len(character)):
+        log(sudachi_text, get_english_pos_string(token), normalized_form, bank_data)
+        sudachi_accumulator = 0
+        # As html is appended to the original text, the index of each html character are shifted by the length of the HTML tags added
+        html_start_rel_sudachi = html_accumulator
+        for _sudachi_i in range(len(sudachi_text)):
             for _html_i in range(len(html_text)):
-                log("\t", character[accumulator_sudachi], html_text[accumulator_html])
-                if character[accumulator_sudachi] != html_text[accumulator_html]:
+                log(
+                    "\t", sudachi_text[sudachi_accumulator], html_text[html_accumulator]
+                )
+                # The character from SudachiPy and the current HTML character should always match for each iteration
+                if sudachi_text[sudachi_accumulator] != html_text[html_accumulator]:
                     panic("NO MATCH FOUND")
                 log(
                     "\t",
-                    accumulator_sudachi + 1,
-                    len(character),
+                    sudachi_accumulator + 1,
+                    len(sudachi_text),
                     " : ",
-                    accumulator_html + 1,
+                    html_accumulator + 1,
                     len(html_text),
                 )
-                accumulator_sudachi += 1
+                sudachi_accumulator += 1
 
-                if accumulator_sudachi >= len(character):
+                # If we've reached the end of the current SudachiPy token
+                if sudachi_accumulator >= len(sudachi_text):
+                    # and the full token is stored in the kanji bank,
+                    # surround the token in the HTML with a styled span
                     if bank_data:
-                        tmp_accumulator_html = accumulator_html + 1
+                        # html_accumulator shifted by 1 (off-by-one error)
+                        tmp_accumulator_html = html_accumulator + 1
                         log(
                             "\t\t\tBank Vocab Found:",
                             updated_html[
@@ -133,7 +144,7 @@ def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
                             updated_html[
                                 : html_start_rel_sudachi + updated_html_start_shift
                             ]
-                            + f"{opening_tag}{character}{closing_tag}"
+                            + f"{opening_tag}{sudachi_text}{closing_tag}"
                             + updated_html[
                                 tmp_accumulator_html + updated_html_end_shift :
                             ]
@@ -141,15 +152,15 @@ def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
                         updated_html_start_shift += len(opening_tag) + len(closing_tag)
                         updated_html_end_shift += len(closing_tag) + len(opening_tag)
                         log("\t\t\t", updated_html)
+                    # otherwise, check if each character in the SudachiPy token is a kanji that is stored in the bank
                     else:
-                        known_kanji = 0
-                        for i, char in enumerate(character):
+                        for i, char in enumerate(sudachi_text):
                             if is_kanji(char):
-                                # TODO: 紹介所 - 所 cab be saved as both kanji and vocabulary but only one is in the kanji bank
                                 individual_bank_data = kanji_bank.get(char)
                                 if individual_bank_data:
+                                    # accumulator_html shifted to the current kanji index
                                     tmp_accumulator_html = (
-                                        accumulator_html + i - (len(character) - 2)
+                                        html_accumulator + i - (len(sudachi_text) - 2)
                                     )
                                     tmp_range = updated_html[
                                         html_start_rel_sudachi
@@ -180,32 +191,36 @@ def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
                                         opening_tag
                                     )
                                     log("\t\t\t", updated_html)
-                                    known_kanji += 1
                                     if len(tmp_range) != 1:
                                         panic(
                                             f"Only 1 character not in range: {tmp_range}"
                                         )
 
-                if accumulator_html == len(html_text) - 1:
+                # If the html accumulator has reached the end of the current HTML node,
+                # replace the HTML node with the updated HTML
+                # and advance to the next HTML node
+                if html_accumulator == len(html_text) - 1:
                     if updated_html != html_text:
                         log("\tREPLACING HTML")
-                        html_map[html_idx].replace_with(HTMLParser(updated_html).body)  # type: ignore
-                    if html_idx >= len(html_map) - 1:
+                        html_map[html_node_index].replace_with(
+                            HTMLParser(updated_html).body
+                        )  # type: ignore
+                    if html_node_index >= len(html_map) - 1:
                         log("\t\tBREAKING HTML")
                         break
-                    html_idx += 1
-                    html_text = html_map[html_idx].text(True, "", True)
-                    accumulator_html = 0
+                    html_node_index += 1
+                    html_text = html_map[html_node_index].text(True, "", True)
+                    html_accumulator = 0
                     updated_html = html_text
                     updated_html_start_shift = 0
                     updated_html_end_shift = 0
                     log("  Next HTML node: ", html_text)
                 else:
-                    accumulator_html += 1
+                    html_accumulator += 1
 
-                if accumulator_sudachi >= len(character):
+                if sudachi_accumulator >= len(sudachi_text):
                     break
-            if accumulator_sudachi >= len(character):
+            if sudachi_accumulator >= len(sudachi_text):
                 break
     if tree.body and tree.body.html:
         result = tree.body.html.replace("<body>", "").replace("</body>", "")
