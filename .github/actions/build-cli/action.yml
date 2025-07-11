@@ -33,7 +33,7 @@ runs:
     - name: Build sudachi
       shell: ${{ inputs.shell }}
       run: |
-        nx run gd-sudachi:build:${{ inputs.os }} --args="--env.PRODUCT_VERSION=1.0"
+        nx run gd-sudachi:build:${{ inputs.os }} --version=${{ inputs.version }}
     - name: Build gd-tools
       shell: ${{ inputs.shell }}
       run: |
