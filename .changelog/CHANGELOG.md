@@ -1,9 +1,5 @@
-# v0.5.2
+# v0.5.3
 
-## jp-learning-tools
+## repo
 
-- refactor: removed unneeded code
-
-## gd-sudachi
-
-- chore: attempt to optimize onefile extraction
+- fix: action fix
