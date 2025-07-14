@@ -97,10 +97,19 @@ def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
         # The current SudachiPy token
         sudachi_text = token.surface()
         normalized_form = token.normalized_form()
+        reading_form = token.reading_form()
+        dictionary_form = token.dictionary_form()
         bank_data = kanji_bank.get(normalized_form)
         (pos, pos_sub, _, _, conj_type, conj_form) = get_english_pos(token).values()
 
-        log(sudachi_text, get_english_pos_string(token), normalized_form, bank_data)
+        log(
+            sudachi_text,
+            get_english_pos_string(token),
+            normalized_form,
+            reading_form,
+            dictionary_form,
+            bank_data,
+        )
         sudachi_accumulator = 0
         # As html is appended to the original text, the index of each html character are shifted by the length of the HTML tags added
         html_start_rel_sudachi = html_accumulator
@@ -169,7 +178,7 @@ def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
                                         + updated_html_end_shift
                                     ]
                                     log(f"\t\t\tBank Kanji Found: {char}/{tmp_range}")
-                                    opening_tag = f'<span data-source="{individual_bank_data.get("source")}" data-meaning="{individual_bank_data.get("meaning")}" data-metadata={encode_to_b64(individual_bank_data.get("metadata"))} class="{pos} {individual_bank_data.get("source")} kanji stage-{individual_bank_data.get("level").lower()}">'
+                                    opening_tag = f'<span data-source="{individual_bank_data.get("source")}" data-meaning="{individual_bank_data.get("meaning")}" data-reading="{reading_form}" data-metadata={encode_to_b64(individual_bank_data.get("metadata"))} class="{pos} {individual_bank_data.get("source")} kanji stage-{individual_bank_data.get("level").lower()}">'
                                     closing_tag = "</span>"
                                     log("\t\t\t", updated_html)
                                     updated_html = (
