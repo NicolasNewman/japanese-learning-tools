@@ -57,6 +57,11 @@ export default class KanjiBank {
     return (await KanjiBank.getInstance()).get<KanjiBankData<T>>(kanji);
   }
 
+  public static async getAll<T>(
+  ): Promise<[key: string, value: KanjiBankEntry<T>][] | undefined> {
+    return (await KanjiBank.getInstance()).entries<KanjiBankEntry<T>>();
+  }
+
   private static async getInstance(): Promise<Store> {
     if (!KanjiBank.instance) {
       KanjiBank.instance = new KanjiBank();
