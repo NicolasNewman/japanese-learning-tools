@@ -1,4 +1,3 @@
-import browser from "webextension-polyfill";
 import { onRuntimeMessage, sendRuntimeMessage } from "./lib/content-helper";
 import { log } from "./content-debug";
 
@@ -40,6 +39,7 @@ const createHoverPopup = (spanEl: HTMLElement) => {
   const metadata = JSON.parse(atob(spanEl.getAttribute("data-metadata") || ""));
   const source = spanEl.getAttribute("data-source") || "unknown";
   const meaning = spanEl.getAttribute("data-meaning") || "";
+  const reading = spanEl.getAttribute("data-reading");
   console.log(metadata);
 
   const { left, bottom } = spanEl.getBoundingClientRect();
@@ -51,8 +51,15 @@ const createHoverPopup = (spanEl: HTMLElement) => {
   popup.innerHTML = `
   <div>${spanEl.innerText}</div>
   <div><strong>Meaning:</strong> ${meaning}</div>
-  <div><strong>Source:</strong> ${source}</div>
-`;
+  `;
+  if (reading) {
+    popup.innerHTML += `
+      <div><strong>Reading:</strong> ${reading}</div>
+    `;
+  }
+  popup.innerHTML += `
+    <div><strong>Source:</strong> ${source}</div>
+  `;
   if (source === "wanikani") {
     if (metadata?.vocabularyData) {
       popup.innerHTML += `
@@ -84,22 +91,6 @@ const createHoverPopup = (spanEl: HTMLElement) => {
 
   return popup;
 }
-
-// const getLiTextExcludingNestedLists = (el: Element): string => {
-//   let text = "";
-//   for (const node of el.childNodes) {
-//     if (node.nodeType === Node.TEXT_NODE) {
-//       text += node.innerHTML;
-//     } else if (
-//       node.nodeType === Node.ELEMENT_NODE &&
-//       !["UL", "OL"].includes((node as Element).tagName)
-//     ) {
-//       text += getLiTextExcludingNestedLists(node as Element);
-//     }
-//     // Skip UL/OL and their children
-//   }
-//   return text;
-// };
 
 const containsJapanese = (text: string): boolean =>
   /[\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]/.test(text);
@@ -171,25 +162,6 @@ onRuntimeMessage((msg) => {
         })
       }
     });
-    // // 2. Handle lists: each <li> as a unit, only its own text (not nested lists)
-    // document.querySelectorAll("li").forEach((li: Element) => {
-    //   // Ignore if inside an ignored tag
-    //   let parent = li.parentElement;
-    //   while (parent) {
-    //     if (IGNORED_TAGS.has(parent.tagName)) return;
-    //     parent = parent.parentElement;
-    //   }
-    //   const text = getLiTextExcludingNestedLists(li).trim();
-    //   if (containsJapanese(text)) {
-    //     const id = `sudachi-${nodeIdCounter++}`;
-    //     log("Sending li text to Sudachi:", text, id);
-    //     browser.runtime.sendMessage({
-    //       type: "SEND_SUDACHI",
-    //       text,
-    //       id,
-    //     });
-    //   }
-    // });
   } else if (msg.type === "UPDATE_SUDACHI") {
     const { text, id } = msg;
     log("Received Sudachi response:", text, id);
