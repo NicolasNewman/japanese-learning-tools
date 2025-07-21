@@ -1,5 +1,13 @@
-# v0.5.5
+# v0.6.0
+
+## jp-learning-tools
+
+- feat: support for rpm installer
+
+## subs2clipboard
+
+- feat: display reading-form for vocab
 
 ## gd-sudachi
 
-- fix: nx syntax fix
+- feat: include reading-form for vocab added to html
