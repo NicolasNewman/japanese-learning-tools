@@ -52,8 +52,7 @@
     "linux": {
       "rpm": {
         "compression": {
-          "type": "xz",
-          "level": 9
+          "type": "none"
         }
       }
     },
