@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../packages/kanji-bank-types"
+    },
+    {
       "path": "./tsconfig.app.json"
     }
   ]

@@ -8,6 +8,7 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@nicolasnewman/kanji-bank-types": "workspace:*",
     "@types/webextension-polyfill": "^0.12.3",
     "vite-plugin-web-extension": "^4.4.4",
     "webextension-polyfill": "^0.12.0"
