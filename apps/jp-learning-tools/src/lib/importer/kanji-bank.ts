@@ -1,20 +1,5 @@
 import { load, Store } from "@tauri-apps/plugin-store";
-import type { KanjiSource } from ".";
-
-
-export type Level = "Apprentice" | "Guru" | "Master" | "Enlightened" | "Burned";
-
-export type KanjiBankEntry<T> = {
-  level: Level;
-  type: "kanji" | "vocabulary";
-  source: KanjiSource;
-  meaning: string;
-  metadata: T
-}
-export type KanjiBankData<T> = Record<
-  string,
-  KanjiBankEntry<T>
->;
+import type { KanjiBankData, KanjiBankEntry } from "@nicolasnewman/kanji-bank-types";
 
 export default class KanjiBank {
   private static instance: KanjiBank | null = null;

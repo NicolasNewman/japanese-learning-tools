@@ -1,5 +1,6 @@
 import { onRuntimeMessage, sendRuntimeMessage } from "./lib/content-helper";
 import { log } from "./content-debug";
+import { Metadata } from "@nicolasnewman/kanji-bank-types";
 
 const style = document.createElement('style');
 style.textContent = `
@@ -19,6 +20,7 @@ style.textContent = `
     padding: 5px;
     z-index: 1000;
     color: #000;
+    font-weight: normal;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 `;
@@ -34,9 +36,15 @@ const IGNORED_TAGS = new Set([
 
 const BLOCK_TAGS = ["P", "SECTION", "ARTICLE", "BLOCKQUOTE"];
 
+const decodeBase64UTF8 = (str: string): string => {
+  const utf8BytesDecoded = Uint8Array.from(atob(str), c => c.charCodeAt(0));
+  const textDecoder = new TextDecoder();
+  return textDecoder.decode(utf8BytesDecoded);
+}
+
 const createHoverPopup = (spanEl: HTMLElement) => {
   // spanEl.classList.add("subs2clipboard-popup-parent");
-  const metadata = JSON.parse(atob(spanEl.getAttribute("data-metadata") || ""));
+  const metadata = JSON.parse(decodeBase64UTF8(spanEl.getAttribute("data-metadata") || "")) as Metadata;
   const source = spanEl.getAttribute("data-source") || "unknown";
   const meaning = spanEl.getAttribute("data-meaning") || "";
   const reading = spanEl.getAttribute("data-reading");
