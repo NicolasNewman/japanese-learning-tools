@@ -1,3 +1,5 @@
+name: Build Web Extension
+description: This action builds the web extension for the project.
 inputs:
   web-ext-api-key:
     description: "Web-ext API key"

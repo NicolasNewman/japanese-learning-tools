@@ -25,5 +25,10 @@
   ],
   "include": [
     "src/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../../packages/kanji-bank-types/tsconfig.lib.json"
+    }
   ]
 }

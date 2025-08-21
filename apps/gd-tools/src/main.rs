@@ -26,6 +26,7 @@ mod kana_conv;
 mod mecab_split;
 mod translate;
 mod util;
+mod marian_mt;
 
 use std::env;
 

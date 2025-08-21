@@ -1,24 +1,10 @@
 import { isAssignmentCollection, isSubjectCollection } from "@bachman-dev/wanikani-api-types";
 import { Importer } from "../";
-import type { KanjiBankData, Level } from "../kanji-bank";
-
-export type WaniKaniMetadata = {
-  url: string;
-  level: string;
-  kanjiData?: {
-    onyomiReadings: string[];
-    kunyomiReadings: string[];
-    nanoriReadings: string[];
-  };
-  vocabularyData?: {
-    partsOfSpeech: string[];
-  }
-}
-
-type WaniKaniKanjiBankData = KanjiBankData<WaniKaniMetadata>
+import type { WaniKaniMetadata, WaniKaniKanjiBankData, Level } from "@nicolasnewman/kanji-bank-types";
 
 export default class WaniKaniImporter extends Importer<WaniKaniMetadata> {
   private headers;
+  version = 1;
 
   constructor(apiKey: string) {
     super();
@@ -93,7 +79,12 @@ export default class WaniKaniImporter extends Importer<WaniKaniMetadata> {
                   };
                 } else if (object === 'vocabulary') {
                   prev[data.characters].metadata.vocabularyData = {
-                    partsOfSpeech: data.parts_of_speech
+                    partsOfSpeech: data.parts_of_speech,
+                    readings: data.readings.sort((a, b) => {
+                      const aNum = a.primary ? 1 : 0;
+                      const bNum = b.primary ? 1 : 0;
+                      return bNum - aNum;
+                    })
                   };
                 }
               }

@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug gd-sudachi",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/gd-sudachi/gd_sudachi/main.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/apps/gd-sudachi",
+            "args": ["昨日買った3つのりんごを持っています。", "--debug"],
+            "python": "${command:python.interpreterPath}"
+        }
+    ]
+}

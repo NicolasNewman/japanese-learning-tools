@@ -20,8 +20,14 @@ class KanjiData:
     nanori_readings: list[str]
 
 
+class VocabularyReadingData:
+    reading: str
+    primary: bool
+
+
 class VocabularyData:
     parts_of_speech: list[str]
+    readings: list[VocabularyReadingData]
 
 
 class WaniKaniMetadata(MetadataBase):

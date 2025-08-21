@@ -80,23 +80,16 @@ pub fn escape_html(content: &str) -> String {
 pub fn html_wrapper(content: &str, css: Option<&str>) -> String {
     let css_content = css.unwrap_or("");
     format!(
-        r#"<!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <style>
-            {css}
-            body {{
-                font-family: sans-serif;
-                margin: 0;
-                padding: 10px;
-            }}
-            </style>
-        </head>
-        <body>
-            {content}
-        </body>
-        </html>"#,
+        r#"
+        <style>
+        {css}
+        body {{
+            font-family: sans-serif;
+            margin: 0;
+            padding: 10px;
+        }}
+        </style>
+        {content}"#,
         css = css_content,
         content = content
     )

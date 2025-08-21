@@ -4,7 +4,7 @@ import { exit } from 'process';
 
 type CommitType = 'feat' | 'fix' | 'docs' | 'style' | 'refactor' | 'perf' | 'test' | 'build' | 'chore' | 'revert';
 type VersionType = 'major' | 'minor' | 'patch';
-type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'jp-learning-tools' | 'gd-sudachi' | 'gd-tools';
+type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'jp-learning-tools' | 'gd-sudachi' | 'gd-tools' | 'kanji-bank-types';
 
 const commitTypeToVersion: Record<CommitType, VersionType> = {
     feat: 'minor',
@@ -27,7 +27,8 @@ const projectTypeToSourceDir: Record<ProjectType, string | Record<'js' | 'toml',
     'subs2clipboard-native-messenger': 'apps/subs2clipboard-native-messenger/Cargo.toml',
     'subs2clipboard': ['apps/subs2clipboard/package.json', 'apps/subs2clipboard/manifest.json'],
     'gd-sudachi': 'apps/gd-sudachi/pyproject.toml',
-    'gd-tools': 'apps/gd-tools/Cargo.toml'
+    'gd-tools': 'apps/gd-tools/Cargo.toml',
+    'kanji-bank-types': 'packages/kanji-bank-types/package.json'
 }
 
 const bumpVersion = (version: [number, number, number], bumpType: VersionType): [number, number, number] => {
@@ -100,7 +101,8 @@ const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersio
     'subs2clipboard-native-messenger': resolveTomlVersion,
     'subs2clipboard': resolveJavaScriptVersion,
     'gd-sudachi': resolveTomlVersion,
-    'gd-tools': resolveTomlVersion
+    'gd-tools': resolveTomlVersion,
+    'kanji-bank-types': resolveJavaScriptVersion
 }
 
 try {

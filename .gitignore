@@ -16,3 +16,4 @@ target/*
 .changelog/tmp
 .env
 .act-artifacts
+__pycache__/
