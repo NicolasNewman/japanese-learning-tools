@@ -25,33 +25,26 @@ const HELP_TEXT: &str = r#"usage: gd-translate [OPTIONS]
 Translate text from Japanese to English using Helsinki-NLP/opus-mt-ja-en
 
 OPTIONS
-  --text TEXT       The text to translate (required)
+  --sentence TEXT       The text to translate (required)
+  --spoiler             Black out the translation with a spoiler box
   -h, --help        Print this help screen
 
 EXAMPLES
-gd-translate --text "こんにちはお元気ですか"
+gd-translate --sentence "こんにちはお元気ですか" --spoiler
 "#;
 
 const CSS_STYLE: &str = r#"
-.translation-container {
-  padding: 15px;
-  max-width: 100%;
+.spoiler {
+  background-color: black;
+  padding: 6px;
+  width: fit-content;
 }
-.translation-text {
-  margin-bottom: 10px;
-  font-size: 1.1em;
+.spoiler:hover {
+  background-color: white;
 }
-.source-lang, .target-lang {
-  color: #888;
-  font-size: 0.9em;
-  margin-bottom: 5px;
-}
-.translation-result {
-  padding: 10px;
-  border-left: 3px solid #4a90e2;
-  background-color: #f8f9fa;
-  margin-top: 10px;
-  font-size: 1.2em;
+.error {
+  color: red;
+  font-weight: bold;
 }
 "#;
 
@@ -67,15 +60,16 @@ pub fn translate_text(args: &[String]) {
     
     let parsed_args = parse_args(args);
     
-    // Get text to translate
-    let text = match parsed_args.get("text") {
+    let text = match parsed_args.get("sentence") {
         Some(t) => t,
         None => {
-            eprintln!("Error: Missing required argument --text");
+            eprintln!("Error: Missing required argument --sentence");
             print_help();
             return;
         }
     };
+
+    let spoiler = parsed_args.get("spoiler").is_some();
 
     let arguments = Args {
         cpu: true,
@@ -86,18 +80,15 @@ pub fn translate_text(args: &[String]) {
     match translated_text {
         Ok(result) => {
           let html = format!(
-              r#"<div class="translation-container">
-                  <div class="translation-result">{}</div>
-              </div>"#,
+              r#"<div{}>{}</div>"#,
+              if spoiler { " class=\"spoiler\"" } else { "" },
               result
           );
           println!("{}", html_wrapper(&html, Some(CSS_STYLE)));
         }
         Err(e) => {
             let html = format!(
-              r#"<div class="translation-container">
-                  <div class="translation-error">{}</div>
-              </div>"#,
+              r#"<div class="error">{}</div>"#,
               e.to_string()
           );
           println!("{}", html_wrapper(&html, Some(CSS_STYLE)));
