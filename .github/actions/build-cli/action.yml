@@ -1,3 +1,5 @@
+name: Build CLI Tooling
+description: This action builds the CLI tooling for the project.
 inputs:
   os:
     description: "The operating system to build for."
@@ -18,7 +20,7 @@ runs:
   steps:
     - uses: actions/setup-python@v5
       with:
-        python-version: "3.13"
+        python-version: "3.12.7"
     - name: Run image
       uses: abatilo/actions-poetry@v3
       with:
