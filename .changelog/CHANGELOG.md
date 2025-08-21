@@ -1,7 +1,9 @@
-# v0.7.0
+# v0.8.0
 
 ## repo
 
+- fix: fixed incorrect python version in action
+- chore: release v0.7.0
 - chore: updated release script with new type
 - chore: type update
 - feat: added tooling for downloading opus-mt-ja-en
