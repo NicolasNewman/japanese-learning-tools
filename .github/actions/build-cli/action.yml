@@ -29,12 +29,15 @@ runs:
       shell: ${{ inputs.shell }}
       run: |
         echo "$HOME/.local/bin" >> $GITHUB_PATH
-    - name: Install the project dependencies
+    - name: Install gd-sudachi dependencies
       shell: ${{ inputs.shell }}
-      run: |
-        nx run gd-sudachi:install
-        nx run opus-mt-ja-en:install
-        nx run opus-mt-ja-en:build
+      run: nx run gd-sudachi:install
+    - name: Install opus-mt-ja-en dependencies
+      shell: ${{ inputs.shell }}
+      run: nx run opus-mt-ja-en:install    
+    - name: Build opus-mt-ja-en
+      shell: ${{ inputs.shell }}
+      run: nx run opus-mt-ja-en:build
     - name: Build sudachi
       shell: ${{ inputs.shell }}
       run: |
