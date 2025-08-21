@@ -1,6 +1,6 @@
 {
   "name": "@nicolasnewman/jp-learning-tools",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "license": "MIT",
   "packageManager": "pnpm@10.11.1",
   "scripts": {

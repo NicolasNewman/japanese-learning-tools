@@ -1,5 +1,12 @@
+import os
+import sys
 import warnings
 from pathlib import Path
+
+if os.name == "nt":  # Windows
+    os.environ["PYTHONIOENCODING"] = "utf-8"
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
 
 from huggingface_hub import hf_hub_download
 from transformers import AutoTokenizer

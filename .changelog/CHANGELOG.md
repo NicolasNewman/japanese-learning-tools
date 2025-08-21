@@ -1,5 +1,5 @@
-# v0.8.1
+# v0.8.2
 
 ## repo
 
-- fix: build step fixes
+- fix: opus-mt-ja-en windows encoding
