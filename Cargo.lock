@@ -3010,7 +3010,7 @@ dependencies = [
 
 [[package]]
 name = "jp-learning-tools-backend"
-version = "0.8.0"
+version = "0.8.1"
 dependencies = [
  "serde",
  "serde_json",

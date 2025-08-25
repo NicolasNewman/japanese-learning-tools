@@ -1,5 +1,5 @@
-# v0.8.2
+# v0.8.3
 
-## repo
+## jp-learning-tools
 
-- fix: opus-mt-ja-en windows encoding
+- chore: updated rust deps
