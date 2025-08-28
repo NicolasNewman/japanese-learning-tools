@@ -1,6 +1,14 @@
 import browser from "webextension-polyfill";
+import './styles.scss';
+import { Tab } from 'bootstrap';
 import { sendMessageToTab } from "../lib/background-helper";
 import { sessionStore } from "../lib/local-storage";
+
+// ===== nav-tabs =====
+const tabTriggerList = Array.from(document.querySelectorAll('#nav-tab button[data-bs-toggle="tab"]'));
+tabTriggerList.forEach(tabTriggerEl => {
+    new Tab(tabTriggerEl);
+});
 
 // ===== copySubsCheckbox =====
 const copySubsCheckbox = document.getElementById("checkboxCopySubs") as HTMLInputElement;

@@ -1,27 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="./index.js"></script>
 </head>
 
 <body>
-  <div>
-    Mode: <span id="mode">None</span>
-  </div>
-  <div style="display: flex;">
-    <p>Enable subtitle copying:</p>
-    <input type="checkbox" id="checkboxCopySubs" />
-  </div>
-  <div style="display: flex;">
-    <p>Enable debug mode:</p>
-    <input type="checkbox" id="checkboxDebugMode" />
-  </div>
-  <div>
-    <button id="sudachi">Sudachi</button>
-  </div>
-  <script type="module" src="./index.js"></script>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-subs-tab" data-bs-toggle="tab" data-bs-target="#nav-subs" type="button"
+        role="tab" aria-controls="nav-subs" aria-selected="true">Subs2Clipboard</button>
+      <button class="nav-link" id="nav-sudachi-tab" data-bs-toggle="tab" data-bs-target="#nav-sudachi" type="button"
+        role="tab" aria-controls="nav-sudachi" aria-selected="false">Sudachi</button>
+      <button class="nav-link" id="nav-settings-tab" data-bs-toggle="tab" data-bs-target="#nav-settings" type="button"
+        role="tab" aria-controls="nav-settings" aria-selected="false">Settings</button>
+    </div>
+  </nav>
+  <div class="tab-content p-3" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-subs" role="tabpanel" aria-labelledby="nav-subs-tab" tabindex="0">
+      <div>
+        Mode: <span id="mode">None</span>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label" for="checkboxCopySubs">Enable subtitle copying</label>
+        <input type="checkbox" class="form-check-input" id="checkboxCopySubs" />
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-sudachi" role="tabpanel" aria-labelledby="nav-sudachi-tab" tabindex="0">
+      <div>
+        <button id="sudachi" class="btn btn-primary">Sudachi</button>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab" tabindex="0">
+      <div class="form-check">
+        <label class="form-check-label" for="checkboxDebugMode">Enable debug mode</label>
+        <input type="checkbox" class="form-check-input" id="checkboxDebugMode" />
+      </div>
+      <div class="form-check">
+        <label class="form-check-label" for="checkboxDarkMode">Dark mode</label>
+        <input type="checkbox" class="form-check-input" id="checkboxDarkMode" />
+      </div>
+    </div>
+    </div>
 </body>
 
 </html>
