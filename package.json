@@ -1,12 +1,13 @@
 {
   "name": "@nicolasnewman/jp-learning-tools",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "license": "MIT",
   "packageManager": "pnpm@10.11.1",
   "scripts": {
     "commitlint": "commitlint --edit",
     "prepare": "husky install",
     "dev:tauri": "nx run jp-learning-tools:dev",
+    "dev:ext": "nx run subs2clipboard:dev",
     "build": "pnpm run build:ext && pnpm run build:gd-tools && pnpm run build:dic && pnpm run build:tauri",
     "build:ext": "nx run subs2clipboard-native-messenger:build",
     "build:tauri": "nx run jp-learning-tools:build",
