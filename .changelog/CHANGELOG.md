@@ -1,5 +1,10 @@
-# v0.8.3
+# v0.9.0
 
-## jp-learning-tools
+## repo
 
-- chore: updated rust deps
+- ci: dev script for ext added to root
+
+## subs2clipboard
+
+- feat: improved menu styling
+- chore: added bs6
