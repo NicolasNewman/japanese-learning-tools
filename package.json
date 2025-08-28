@@ -7,6 +7,7 @@
     "commitlint": "commitlint --edit",
     "prepare": "husky install",
     "dev:tauri": "nx run jp-learning-tools:dev",
+    "dev:ext": "nx run subs2clipboard:dev",
     "build": "pnpm run build:ext && pnpm run build:gd-tools && pnpm run build:dic && pnpm run build:tauri",
     "build:ext": "nx run subs2clipboard-native-messenger:build",
     "build:tauri": "nx run jp-learning-tools:build",
