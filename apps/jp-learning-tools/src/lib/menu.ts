@@ -4,6 +4,8 @@ import { goto } from "$app/navigation";
 import { externalBinaryDir, openDevTools, openTmpLog } from "./commands";
 import { appDataDir, resourceDir } from "@tauri-apps/api/path";
 import { openPath } from "@tauri-apps/plugin-opener";
+import Settings from "../stores/settings.svelte";
+import type { Menu } from "custom-tauri-titlebar/dist/types/menu";
 
 export default async () => {
   const titlebar = new Titlebar({
@@ -48,7 +50,8 @@ export default async () => {
     ],
   });
 
-  await titlebar.addMenu({
+  let debugMenuAdded = false;
+  const debugMenu: Menu = {
     label: "Debug",
     items: [
       {
@@ -62,21 +65,21 @@ export default async () => {
         label: "Resource Directory",
         type: "item",
         action: async () => {
-          await openPath(await resourceDir())
+          await openPath(await resourceDir());
         },
       },
       {
         label: "External Binary Directory",
         type: "item",
         action: async () => {
-          await openPath(await externalBinaryDir())
+          await openPath(await externalBinaryDir());
         },
       },
       {
         label: "App Data Directory",
         type: "item",
         action: async () => {
-          await openPath(await appDataDir())
+          await openPath(await appDataDir());
         },
       },
       {
@@ -84,9 +87,23 @@ export default async () => {
         type: "item",
         action: async () => {
           await openTmpLog();
-        }
-      }
+        },
+      },
     ],
+  };
+
+  if (await Settings.get("debugMode")) {
+    await titlebar.addMenu(debugMenu);
+    debugMenuAdded = true;
+  }
+
+  Settings.onChange("debugMode", async (newValue) => {
+    // TODO: Remove menu if false
+    if (newValue && !debugMenuAdded) {
+      await titlebar.addMenu(debugMenu);
+      debugMenuAdded = true;
+    }
   });
+
   return titlebar;
 };

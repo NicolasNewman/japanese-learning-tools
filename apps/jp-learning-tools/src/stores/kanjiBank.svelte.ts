@@ -1,4 +1,5 @@
-import KanjiBank, { type KanjiBankData, type KanjiBankEntry } from "$lib/importer/kanji-bank";
+import KanjiBank from "$lib/importer/kanji-bank";
+import type { KanjiBankEntry } from "@nicolasnewman/kanji-bank-types";
 
 let _kanjiState: [key: string, value: KanjiBankEntry<unknown>][] = $state([]);
 
