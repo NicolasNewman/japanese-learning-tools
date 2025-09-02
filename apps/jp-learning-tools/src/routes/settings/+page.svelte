@@ -1,51 +1,51 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { importerSettingsPage } from "$lib/importer";
-  import {
-    Tabs,
-    TabItem,
-    AccordionItem,
-    Accordion,
-    Checkbox,
-  } from "flowbite-svelte";
-  import { HomeSolid } from "flowbite-svelte-icons";
+  import * as Tabs from "$lib/components/ui/tabs/index.js";
   import Settings from "../../stores/settings.svelte";
+  import { Checkbox } from "$lib/components/ui/checkbox/index.js";
+  import { Label } from "$lib/components/ui/label/index.js";
+  import * as Accordion from "$lib/components/ui/accordion/index.js";
 
   const settings = Settings.getAll();
+  let activeTab = $state("general");
 </script>
 
-<Tabs tabStyle="underline">
-  <TabItem>
-    {#snippet titleSlot()}
-      <button onclick={() => goto("/")} class="flex items-center gap-2">
-        <HomeSolid size="md" />
-      </button>
-    {/snippet}
-  </TabItem>
-  <TabItem open title="General">
+<Tabs.Root bind:value={activeTab} class="mx-2">
+  <Tabs.List class="mb-2 -mx-2">
+    <Tabs.Trigger value="general">General</Tabs.Trigger>
+    <Tabs.Trigger value="import">Importers</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="general">
     {#await settings}
       <p>Loading settings...</p>
     {:then settings}
-      <Checkbox
-        checked={settings.debugMode}
-        onchange={(e) => Settings.set("debugMode", e.currentTarget.checked)}
-        >Enable Debug Mode</Checkbox
-      >
+      <div class="flex items-center gap-3">
+        <Checkbox
+          id="debugMode"
+          checked={settings.debugMode}
+          onCheckedChange={(v) => Settings.set("debugMode", v)}
+        />
+        <Label for="debugMode">Enable debug mode</Label>
+      </div>
     {/await}
-  </TabItem>
-  <TabItem title="Importers">
-    <Accordion flush>
-      <AccordionItem>
-        {#snippet header()}WaniKani{/snippet}
-        <svelte:component this={importerSettingsPage["wanikani"]} />
-      </AccordionItem>
-      <AccordionItem>
-        {#snippet header()}Anki{/snippet}
-        <p class="mb-2 text-gray-500 dark:text-gray-400">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab
-          necessitatibus sint explicabo ...
-        </p>
-      </AccordionItem>
-    </Accordion>
-  </TabItem>
-</Tabs>
+  </Tabs.Content>
+  <Tabs.Content value="import">
+    <Accordion.Root type="single" class="w-full">
+      <Accordion.Item value="wanikani">
+        <Accordion.Trigger>WaniKani</Accordion.Trigger>
+        <Accordion.Content class="flex flex-col gap-4 text-balance">
+          <svelte:component this={importerSettingsPage["wanikani"]} />
+        </Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item value="anki">
+        <Accordion.Trigger>Anki</Accordion.Trigger>
+        <Accordion.Content class="flex flex-col gap-4 text-balance">
+          <p class="mb-2 text-gray-500 dark:text-gray-400">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab
+            necessitatibus sint explicabo ...
+          </p>
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Root>
+  </Tabs.Content>
+</Tabs.Root>

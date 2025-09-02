@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { Input, Label, Helper, Button, Skeleton } from "flowbite-svelte";
+  import { Skeleton } from "$lib/components/ui/skeleton/index.js";
+  import { Input } from "$lib/components/ui/input/index.js";
+  import { Button } from "$lib/components/ui/button/index.js";
+  import { Label } from "$lib/components/ui/label/index.js";
+  import Loader2Icon from "@lucide/svelte/icons/loader-2";
   import { set, get, save } from "./store";
   import { openUrl } from "@tauri-apps/plugin-opener";
   import { kanjiImporter } from "..";
@@ -44,29 +48,32 @@
   }}
 >
   {#if apiKey === undefined || lastSync === undefined}
-    <Skeleton size="sm" class="my-8" />
+    <!-- <Skeleton size="sm" class="my-8" /> -->
+    <Skeleton class="h-[20px] w-[100px] rounded-full my-8" />
   {:else}
-    <div>
+    <div class="flex w-full max-w-sm flex-col gap-1.5">
       <Label for="api-key" class="mb-2">API Key</Label>
       <Input
         type="text"
         id="api-key"
         name="api-key"
+        placeholder="WaniKani API Key"
         required
-        clearable
         bind:value={inputValue}
       />
-      <Helper class="text-sm">
+      <p class="text-muted-foreground text-sm">
         Your API key can be found <button
           onclick={async () =>
             openUrl("https://www.wanikani.com/settings/personal_access_tokens")}
-          class="text-primary-600 dark:text-primary-500 font-medium hover:underline"
-          >here</button
+          class="text-blue-400 font-medium hover:underline">here</button
         >.
-      </Helper>
+      </p>
     </div>
     <div class="flex items-center mt-4 gap-x-4">
-      <Button type="submit" disabled={isSaveDisabled}>Save</Button>
+      <Button
+        class={`${isSaveDisabled ? "" : "bg-green-500 hover:bg-green-600"}`}
+        disabled={isSaveDisabled}>Save</Button
+      >
       <Button
         disabled={saveState !== "IDLE" || !apiKey}
         onclick={async () => {
@@ -99,8 +106,11 @@
             saveState = "IDLE";
           }, 750);
         }}
-        color="green"
+        class="bg-blue-400 hover:bg-blue-600"
       >
+        {#if saveState !== "IDLE"}
+          <Loader2Icon class="animate-spin" />
+        {/if}
         Update
       </Button>
       <p>Last updated: {formatDate(lastSync) ?? "never"}</p>
