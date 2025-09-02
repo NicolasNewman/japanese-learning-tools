@@ -27,7 +27,8 @@ Translate text from Japanese to English using Helsinki-NLP/opus-mt-ja-en
 OPTIONS
   --sentence TEXT       The text to translate (required)
   --spoiler             Black out the translation with a spoiler box
-  -h, --help        Print this help screen
+  --no-html             Output plain text without HTML formatting
+  -h, --help            Print this help screen
 
 EXAMPLES
 gd-tools translate --sentence "こんにちはお元気ですか" --spoiler
@@ -73,6 +74,11 @@ pub fn translate_text(args: &[String]) {
     };
 
     let spoiler = parsed_args.get("spoiler").is_some();
+    let no_html = parsed_args.get("no-html").is_some();
+    if no_html && spoiler {
+        eprintln!("Error: --spoiler cannot be used with --no-html");
+        return;
+    }
 
     let arguments = Args {
         cpu: true,
@@ -82,6 +88,10 @@ pub fn translate_text(args: &[String]) {
     let translated_text = run_model(arguments);
     match translated_text {
         Ok(result) => {
+            if no_html {
+                println!("{}", result);
+                return;
+            }
             let html = format!(
                 r#"<div{}>{}</div>"#,
                 if spoiler { " class=\"spoiler\"" } else { "" },
