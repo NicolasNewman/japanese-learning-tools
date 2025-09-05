@@ -6,6 +6,8 @@ use tauri::Manager;
 use tauri::Runtime;
 use tauri::Window;
 
+use tauri_plugin_shell::ShellExt;
+
 #[tauri::command]
 fn external_binary_dir<R: Runtime>(app: AppHandle<R>, window: Window<R>) -> String {
     current_exe()
@@ -33,9 +35,31 @@ fn open_devtools<R: Runtime>(app: AppHandle<R>, window: Window<R>) {
     window.open_devtools();
 }
 
+#[tauri::command]
+async fn translate_jp_en<R: Runtime>(text: String, app: AppHandle<R>) -> Result<String, String> {
+    let shell = app.shell();
+    let output = shell
+        .command("gd-tools")
+        .args(vec!["translate", "--sentence", &text, "--no-html"])
+        .output()
+        .await
+        .map_err(|e| format!("Failed to execute command: {}", e))?;
+
+    if output.status.success() {
+        Ok(String::from_utf8_lossy(&output.stdout).into_owned())
+    } else {
+        Err(format!(
+            "Command failed with exit code: {:?}\nStderr: {}",
+            output.status.code(),
+            String::from_utf8_lossy(&output.stderr)
+        ))
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_store::Builder::new().build())
@@ -43,7 +67,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             external_binary_dir,
             open_devtools,
-            open_tmp_log
+            open_tmp_log,
+            translate_jp_en
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -20,6 +20,7 @@
     "@tauri-apps/plugin-fs": "~2.3.0",
     "@tauri-apps/plugin-opener": "^2.3.0",
     "@tauri-apps/plugin-os": "~2.2.1",
+    "@tauri-apps/plugin-shell": "~2.3.1",
     "@tauri-apps/plugin-store": "~2.2.0",
     "custom-tauri-titlebar": "^0.3.2",
     "mode-watcher": "^1.1.0",
