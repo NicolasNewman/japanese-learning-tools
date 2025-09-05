@@ -1,10 +1,15 @@
-# v0.9.0
+# v0.10.0
 
-## repo
+## jp-learning-tools
 
-- ci: dev script for ext added to root
+- feat: added translation tab
+- chore: better manifest error handling
+- chore: added shadcn/textarea
+- chore: increased alert top spacing
+- feat: transitioned from flowbite to shadcn
+- feat: added debug setting toggle
 
-## subs2clipboard
+## gd-tools
 
-- feat: improved menu styling
-- chore: added bs6
+- feat: --no-html flag added to translate tool
+- fix: help text typo for translate command

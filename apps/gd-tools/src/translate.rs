@@ -17,8 +17,8 @@
  */
 // extern crate intel_mkl_src;
 
-use crate::util::{parse_args, html_wrapper};
 use crate::marian_mt::{run_model, Args};
+use crate::util::{html_wrapper, parse_args};
 
 const HELP_TEXT: &str = r#"usage: gd-translate [OPTIONS]
 
@@ -27,10 +27,11 @@ Translate text from Japanese to English using Helsinki-NLP/opus-mt-ja-en
 OPTIONS
   --sentence TEXT       The text to translate (required)
   --spoiler             Black out the translation with a spoiler box
-  -h, --help        Print this help screen
+  --no-html             Output plain text without HTML formatting
+  -h, --help            Print this help screen
 
 EXAMPLES
-gd-translate --sentence "こんにちはお元気ですか" --spoiler
+gd-tools translate --sentence "こんにちはお元気ですか" --spoiler
 "#;
 
 const CSS_STYLE: &str = r#"
@@ -53,13 +54,16 @@ fn print_help() {
 }
 
 pub fn translate_text(args: &[String]) {
-    if args.is_empty() || args.contains(&String::from("--help")) || args.contains(&String::from("-h")) {
+    if args.is_empty()
+        || args.contains(&String::from("--help"))
+        || args.contains(&String::from("-h"))
+    {
         print_help();
         return;
     }
-    
+
     let parsed_args = parse_args(args);
-    
+
     let text = match parsed_args.get("sentence") {
         Some(t) => t,
         None => {
@@ -70,6 +74,11 @@ pub fn translate_text(args: &[String]) {
     };
 
     let spoiler = parsed_args.get("spoiler").is_some();
+    let no_html = parsed_args.get("no-html").is_some();
+    if no_html && spoiler {
+        eprintln!("Error: --spoiler cannot be used with --no-html");
+        return;
+    }
 
     let arguments = Args {
         cpu: true,
@@ -79,20 +88,21 @@ pub fn translate_text(args: &[String]) {
     let translated_text = run_model(arguments);
     match translated_text {
         Ok(result) => {
-          let html = format!(
-              r#"<div{}>{}</div>"#,
-              if spoiler { " class=\"spoiler\"" } else { "" },
-              result
-          );
-          println!("{}", html_wrapper(&html, Some(CSS_STYLE)));
+            if no_html {
+                println!("{}", result);
+                return;
+            }
+            let html = format!(
+                r#"<div{}>{}</div>"#,
+                if spoiler { " class=\"spoiler\"" } else { "" },
+                result
+            );
+            println!("{}", html_wrapper(&html, Some(CSS_STYLE)));
         }
         Err(e) => {
-            let html = format!(
-              r#"<div class="error">{}</div>"#,
-              e.to_string()
-          );
-          println!("{}", html_wrapper(&html, Some(CSS_STYLE)));
+            let html = format!(r#"<div class="error">{}</div>"#, e.to_string());
+            println!("{}", html_wrapper(&html, Some(CSS_STYLE)));
         }
     }
-   return;
+    return;
 }
