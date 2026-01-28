@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:kanji_scanner/core/env.dart';
+import 'package:kanji_scanner/services/storage/persistence.dart';
 import 'package:kanji_scanner/shared/models/sudachi.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,8 +12,7 @@ part 'state.g.dart';
 class RawSentence extends _$RawSentence {
   @override
   String? build() {
-    // return "は美人の代名詞とされる。は美人の代名詞とされる。";
-    return null;
+    return EnvConfig.rawSentence;
   }
 
   void update(String? newSentence) {
@@ -25,8 +26,9 @@ Future<SudachiResponse> parsedSentence(Ref ref) async {
   if (sentence == null) {
     return SudachiResponse(response: null);
   }
+  final endpoint = await ref.read(sudachiEndpointProvider.future);
   final response = await http.post(
-    Uri.parse('http://10.0.0.249:8020/api/sudachi'),
+    Uri.parse(endpoint),
     headers: {'Content-Type': 'application/json'},
     body: jsonEncode({'input': sentence, "wakati": true}),
   );
