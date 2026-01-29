@@ -41,6 +41,11 @@ enum KanjiSource {
   }
 }
 
+class KanjiType {
+  static const String kanji = 'kanji';
+  static const String vocabulary = 'vocabulary';
+}
+
 class KanjiBankEntry<T> {
   final Level level;
   final String type; // 'kanji' or 'vocabulary'

@@ -74,7 +74,7 @@ final class SudachiEndpointProvider
   SudachiEndpoint create() => SudachiEndpoint();
 }
 
-String _$sudachiEndpointHash() => r'8428356db3ef68564cdb7cf62ce4d7150e289b67';
+String _$sudachiEndpointHash() => r'e74672923152421fb8e924ac84007cebeae0a2cf';
 
 abstract class _$SudachiEndpoint extends $AsyncNotifier<String> {
   FutureOr<String> build();
@@ -118,7 +118,7 @@ final class WaniKaniAPIKeyProvider
   WaniKaniAPIKey create() => WaniKaniAPIKey();
 }
 
-String _$waniKaniAPIKeyHash() => r'5222780d6f89c33569d8f56a04d784605db37474';
+String _$waniKaniAPIKeyHash() => r'49d505dd873e5eb3c3fb5a4ebf84e6f9d230c5be';
 
 abstract class _$WaniKaniAPIKey extends $AsyncNotifier<String> {
   FutureOr<String> build();
@@ -163,7 +163,7 @@ final class WaniKaniLastUpdatedProvider
 }
 
 String _$waniKaniLastUpdatedHash() =>
-    r'bf26c46ee596f09cbb5d041c3e87b52db6030f3e';
+    r'4a08f32a0280825ca2fe1e22a2a9ab07a46e888d';
 
 abstract class _$WaniKaniLastUpdated extends $AsyncNotifier<String> {
   FutureOr<String> build();
@@ -207,7 +207,7 @@ final class KanjiBankProvider
   KanjiBank create() => KanjiBank();
 }
 
-String _$kanjiBankHash() => r'3ab9ee37be65151ed58acae460880ac9433c4ee7';
+String _$kanjiBankHash() => r'd8ee88f6f67270124c6d1ffeaf826715c2adffc1';
 
 abstract class _$KanjiBank extends $AsyncNotifier<KanjiBankData<dynamic>> {
   FutureOr<KanjiBankData<dynamic>> build();

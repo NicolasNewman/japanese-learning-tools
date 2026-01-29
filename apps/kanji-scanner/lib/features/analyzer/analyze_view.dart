@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kanji_scanner/features/analyzer/widgets/jisho.dart';
 import 'package:kanji_scanner/features/analyzer/widgets/list_view.dart';
+import 'package:kanji_scanner/services/storage/persistence.dart';
+import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
+import 'package:kanji_scanner/shared/models/sudachi.dart';
 import 'package:kanji_scanner/shared/providers/state.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'analyze_view.g.dart';
 
 class AnalyzerView extends ConsumerStatefulWidget {
   @override
@@ -12,6 +18,13 @@ class AnalyzerView extends ConsumerStatefulWidget {
 }
 
 enum SwipeAction { jisho, anki }
+
+@riverpod
+Future<(SudachiResponse, KanjiBankData)> analyzedData(Ref ref) async {
+  final parsedSentence = await ref.watch(parsedSentenceProvider.future);
+  final kanjiBank = await ref.watch(kanjiBankProvider.future);
+  return (parsedSentence, kanjiBank);
+}
 
 class _AnalyzerViewState extends ConsumerState<AnalyzerView> {
   String? _selectedItem;
@@ -41,7 +54,7 @@ class _AnalyzerViewState extends ConsumerState<AnalyzerView> {
   @override
   Widget build(BuildContext context) {
     final rawSentence = ref.watch(rawSentenceProvider);
-    final parsedSentence = ref.watch(parsedSentenceProvider);
+    final data = ref.watch(analyzedDataProvider);
 
     if (rawSentence == null) {
       return Center(
@@ -49,8 +62,9 @@ class _AnalyzerViewState extends ConsumerState<AnalyzerView> {
       );
     }
 
-    return parsedSentence.when(
-      data: (parsedSentence) {
+    return data.when(
+      data: (tuple) {
+        final (parsedSentence, kanjiBank) = tuple;
         return Card(
           shadowColor: Colors.transparent,
           margin: const EdgeInsets.all(8.0),
@@ -58,6 +72,7 @@ class _AnalyzerViewState extends ConsumerState<AnalyzerView> {
             body: _action == null
                 ? ListViewWidget(
                     parsedSentence: parsedSentence,
+                    kanjiBank: kanjiBank,
                     triggerJisho: triggerJisho,
                     triggerAnki: triggerAnki,
                   )

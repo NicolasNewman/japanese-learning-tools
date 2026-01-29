@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
 import 'package:kanji_scanner/shared/models/sudachi.dart';
+import 'package:kanji_scanner/shared/widgets/kanji_bank_text.dart';
 
 class ListViewWidget extends StatelessWidget {
   final SudachiResponse parsedSentence;
+  final KanjiBankData kanjiBank;
   final void Function(String term) triggerJisho;
   final void Function(String term) triggerAnki;
 
   const ListViewWidget({
     super.key,
     required this.parsedSentence,
+    required this.kanjiBank,
     required this.triggerJisho,
     required this.triggerAnki,
   });
@@ -63,7 +67,12 @@ class ListViewWidget extends StatelessWidget {
                 }
                 return Future.value(false);
               },
-              child: ListTile(title: Text(item.toString())),
+              child: ListTile(
+                title: KanjiBankText(
+                  text: item.toString(),
+                  kanjiBank: kanjiBank,
+                ),
+              ),
             );
           },
         ),
