@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kanji_scanner/navigation.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
+import 'package:kanji_scanner/shared/models/kanji/wanikani.dart';
 
 Future<void> main() async {
+  MetadataRegistry.register(
+    KanjiSource.wanikani.registryKey,
+    WaniKaniMetadata.fromJson,
+  );
   runApp(const ProviderScope(child: KanjiScanner()));
 }
 

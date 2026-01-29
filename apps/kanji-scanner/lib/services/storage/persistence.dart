@@ -18,7 +18,7 @@ class SudachiEndpoint extends _$SudachiEndpoint {
 
   @override
   Future<String> build() async {
-    prefs = await (ref.watch(sharedPrefsProvider.future));
+    prefs = await (ref.read(sharedPrefsProvider.future));
     final endpoint = prefs!.getString('sudachi_endpoint');
     if (endpoint != null && endpoint.isNotEmpty) {
       return endpoint;
@@ -38,7 +38,7 @@ class WaniKaniAPIKey extends _$WaniKaniAPIKey {
 
   @override
   Future<String> build() async {
-    prefs = await (ref.watch(sharedPrefsProvider.future));
+    prefs = await (ref.read(sharedPrefsProvider.future));
     final apiKey = prefs!.getString('wanikani_api_key');
     if (apiKey != null && apiKey.isNotEmpty) {
       return apiKey;
@@ -53,21 +53,44 @@ class WaniKaniAPIKey extends _$WaniKaniAPIKey {
 }
 
 @riverpod
-class KanjiBank<T> extends _$KanjiBank<T> {
+class WaniKaniLastUpdated extends _$WaniKaniLastUpdated {
   SharedPreferences? prefs;
 
   @override
-  Future<KanjiBankData<T>> build() async {
-    prefs = await (ref.watch(sharedPrefsProvider.future));
+  Future<String> build() async {
+    prefs = await (ref.read(sharedPrefsProvider.future));
+    final lastUpdated = prefs!.getString('wanikani_last_updated');
+    if (lastUpdated != null && lastUpdated.isNotEmpty) {
+      return lastUpdated;
+    }
+    return "never";
+  }
+
+  Future<void> setLastUpdated(String newLastUpdated) async {
+    await prefs!.setString('wanikani_last_updated', newLastUpdated);
+    state = AsyncValue.data(newLastUpdated);
+  }
+}
+
+@riverpod
+class KanjiBank extends _$KanjiBank {
+  SharedPreferences? prefs;
+
+  @override
+  Future<KanjiBankData> build() async {
+    prefs = await (ref.read(sharedPrefsProvider.future));
     final jsonString = prefs!.getString('kanji_bank_data');
+
     if (jsonString != null && jsonString.isNotEmpty) {
-      return jsonDecode(jsonString);
+      final decoded = jsonDecode(jsonString) as Map<String, dynamic>;
+      return kanjiBankDataFromJson(decoded);
     }
     return {};
   }
 
-  Future<void> setKanjiBankData(KanjiBankData<T> newData) async {
-    final jsonString = jsonEncode(newData);
+  Future<void> setKanjiBankData(KanjiBankData newData) async {
+    final jsonData = kanjiBankDataToJson(newData);
+    final jsonString = jsonEncode(jsonData);
     await prefs!.setString('kanji_bank_data', jsonString);
     state = AsyncValue.data(newData);
   }
