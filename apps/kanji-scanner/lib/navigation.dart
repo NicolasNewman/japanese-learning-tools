@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:kanji_scanner/features/analyzer/analyze_view.dart';
+import 'package:kanji_scanner/features/home/home_view.dart';
 import 'package:kanji_scanner/features/scanner/scanner_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kanji_scanner/features/settings/settings_view.dart';
 import 'package:kanji_scanner/shared/providers/state.dart';
 
 class Navigation extends ConsumerStatefulWidget {
@@ -17,9 +18,8 @@ class _NavigationState extends ConsumerState<Navigation> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     final parsedSentence = ref.watch(parsedSentenceProvider);
-    
+
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -48,25 +48,25 @@ class _NavigationState extends ConsumerState<Navigation> {
               error: (error, stack) => false,
             ),
           ),
+          const NavigationDestination(
+            selectedIcon: Icon(Icons.settings),
+            icon: Icon(Icons.settings_outlined),
+            label: 'Settings',
+          ),
         ],
       ),
       body: <Widget>[
         /// Home page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text("Home", style: theme.textTheme.titleLarge),
-            ),
-          ),
-        ),
+        HomeView(),
 
         /// Scan page
         TextRecognizerView(),
 
         /// Analyze page
         AnalyzerView(),
+
+        /// Settings page
+        SettingsView(),
       ][currentPageIndex],
     );
   }

@@ -74,7 +74,7 @@ final class SudachiEndpointProvider
   SudachiEndpoint create() => SudachiEndpoint();
 }
 
-String _$sudachiEndpointHash() => r'f748a54b39b0dcf6be20d9a9c0bb4dd0b9e32ba6';
+String _$sudachiEndpointHash() => r'8428356db3ef68564cdb7cf62ce4d7150e289b67';
 
 abstract class _$SudachiEndpoint extends $AsyncNotifier<String> {
   FutureOr<String> build();
@@ -118,7 +118,7 @@ final class WaniKaniAPIKeyProvider
   WaniKaniAPIKey create() => WaniKaniAPIKey();
 }
 
-String _$waniKaniAPIKeyHash() => r'0c2e1c226691079509ada8cb7cfbcf73f3e0948b';
+String _$waniKaniAPIKeyHash() => r'5222780d6f89c33569d8f56a04d784605db37474';
 
 abstract class _$WaniKaniAPIKey extends $AsyncNotifier<String> {
   FutureOr<String> build();
@@ -138,13 +138,59 @@ abstract class _$WaniKaniAPIKey extends $AsyncNotifier<String> {
   }
 }
 
-@ProviderFor(KanjiBank)
-final kanjiBankProvider = KanjiBankFamily._();
+@ProviderFor(WaniKaniLastUpdated)
+final waniKaniLastUpdatedProvider = WaniKaniLastUpdatedProvider._();
 
-final class KanjiBankProvider<T>
-    extends $AsyncNotifierProvider<KanjiBank<T>, KanjiBankData<T>> {
-  KanjiBankProvider._({required KanjiBankFamily super.from})
+final class WaniKaniLastUpdatedProvider
+    extends $AsyncNotifierProvider<WaniKaniLastUpdated, String> {
+  WaniKaniLastUpdatedProvider._()
     : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'waniKaniLastUpdatedProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$waniKaniLastUpdatedHash();
+
+  @$internal
+  @override
+  WaniKaniLastUpdated create() => WaniKaniLastUpdated();
+}
+
+String _$waniKaniLastUpdatedHash() =>
+    r'bf26c46ee596f09cbb5d041c3e87b52db6030f3e';
+
+abstract class _$WaniKaniLastUpdated extends $AsyncNotifier<String> {
+  FutureOr<String> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<String>, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<String>, String>,
+              AsyncValue<String>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
+@ProviderFor(KanjiBank)
+final kanjiBankProvider = KanjiBankProvider._();
+
+final class KanjiBankProvider
+    extends $AsyncNotifierProvider<KanjiBank, KanjiBankData<dynamic>> {
+  KanjiBankProvider._()
+    : super(
+        from: null,
         argument: null,
         retry: null,
         name: r'kanjiBankProvider',
@@ -156,93 +202,29 @@ final class KanjiBankProvider<T>
   @override
   String debugGetCreateSourceHash() => _$kanjiBankHash();
 
-  @override
-  String toString() {
-    return r'kanjiBankProvider'
-        '<${T}>'
-        '()';
-  }
-
   @$internal
   @override
-  KanjiBank<T> create() => KanjiBank<T>();
-
-  $R _captureGenerics<$R>($R Function<T>() cb) {
-    return cb<T>();
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is KanjiBankProvider &&
-        other.runtimeType == runtimeType &&
-        other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, argument);
-  }
+  KanjiBank create() => KanjiBank();
 }
 
-String _$kanjiBankHash() => r'aba87f2d1e21f988a3d998eec0f3a3fe76f18893';
+String _$kanjiBankHash() => r'3ab9ee37be65151ed58acae460880ac9433c4ee7';
 
-final class KanjiBankFamily extends $Family {
-  KanjiBankFamily._()
-    : super(
-        retry: null,
-        name: r'kanjiBankProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  KanjiBankProvider<T> call<T>() => KanjiBankProvider<T>._(from: this);
-
-  @override
-  String toString() => r'kanjiBankProvider';
-
-  /// {@macro riverpod.override_with}
-  Override overrideWith(KanjiBank<T> Function<T>() create) => $FamilyOverride(
-    from: this,
-    createElement: (pointer) {
-      final provider = pointer.origin as KanjiBankProvider;
-      return provider._captureGenerics(<T>() {
-        provider as KanjiBankProvider<T>;
-        return provider.$view(create: create<T>).$createElement(pointer);
-      });
-    },
-  );
-
-  /// {@macro riverpod.override_with_build}
-  Override overrideWithBuild(
-    FutureOr<KanjiBankData<T>> Function<T>(Ref ref, KanjiBank<T> notifier)
-    build,
-  ) => $FamilyOverride(
-    from: this,
-    createElement: (pointer) {
-      final provider = pointer.origin as KanjiBankProvider;
-      return provider._captureGenerics(<T>() {
-        provider as KanjiBankProvider<T>;
-        return provider
-            .$view(runNotifierBuildOverride: build<T>)
-            .$createElement(pointer);
-      });
-    },
-  );
-}
-
-abstract class _$KanjiBank<T> extends $AsyncNotifier<KanjiBankData<T>> {
-  FutureOr<KanjiBankData<T>> build();
+abstract class _$KanjiBank extends $AsyncNotifier<KanjiBankData<dynamic>> {
+  FutureOr<KanjiBankData<dynamic>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final ref =
-        this.ref as $Ref<AsyncValue<KanjiBankData<T>>, KanjiBankData<T>>;
+        this.ref
+            as $Ref<AsyncValue<KanjiBankData<dynamic>>, KanjiBankData<dynamic>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<KanjiBankData<T>>, KanjiBankData<T>>,
-              AsyncValue<KanjiBankData<T>>,
+              AnyNotifier<
+                AsyncValue<KanjiBankData<dynamic>>,
+                KanjiBankData<dynamic>
+              >,
+              AsyncValue<KanjiBankData<dynamic>>,
               Object?,
               Object?
             >;

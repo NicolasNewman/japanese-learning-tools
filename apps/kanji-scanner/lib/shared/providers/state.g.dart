@@ -41,7 +41,7 @@ final class RawSentenceProvider
   }
 }
 
-String _$rawSentenceHash() => r'e9f57fd23dbfec2f186c12a3336c28ce6efb3215';
+String _$rawSentenceHash() => r'af50ac5097b3cedd4769586f17a33732e1f70657';
 
 abstract class _$RawSentence extends $Notifier<String?> {
   String? build();
