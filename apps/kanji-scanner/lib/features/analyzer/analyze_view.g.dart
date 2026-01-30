@@ -15,13 +15,13 @@ final analyzedDataProvider = AnalyzedDataProvider._();
 final class AnalyzedDataProvider
     extends
         $FunctionalProvider<
-          AsyncValue<(SudachiResponse, KanjiBankData<dynamic>)>,
-          (SudachiResponse, KanjiBankData<dynamic>),
-          FutureOr<(SudachiResponse, KanjiBankData<dynamic>)>
+          AsyncValue<(List<TokenInfo>?, KanjiBankData<dynamic>)>,
+          (List<TokenInfo>?, KanjiBankData<dynamic>),
+          FutureOr<(List<TokenInfo>?, KanjiBankData<dynamic>)>
         >
     with
-        $FutureModifier<(SudachiResponse, KanjiBankData<dynamic>)>,
-        $FutureProvider<(SudachiResponse, KanjiBankData<dynamic>)> {
+        $FutureModifier<(List<TokenInfo>?, KanjiBankData<dynamic>)>,
+        $FutureProvider<(List<TokenInfo>?, KanjiBankData<dynamic>)> {
   AnalyzedDataProvider._()
     : super(
         from: null,
@@ -38,13 +38,13 @@ final class AnalyzedDataProvider
 
   @$internal
   @override
-  $FutureProviderElement<(SudachiResponse, KanjiBankData<dynamic>)>
+  $FutureProviderElement<(List<TokenInfo>?, KanjiBankData<dynamic>)>
   $createElement($ProviderPointer pointer) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<(SudachiResponse, KanjiBankData<dynamic>)> create(Ref ref) {
+  FutureOr<(List<TokenInfo>?, KanjiBankData<dynamic>)> create(Ref ref) {
     return analyzedData(ref);
   }
 }
 
-String _$analyzedDataHash() => r'9994520c0e2293657393f26b31d38905ad4eba92';
+String _$analyzedDataHash() => r'6b781bc24900f2702af0c9ea4b342a7491e98739';

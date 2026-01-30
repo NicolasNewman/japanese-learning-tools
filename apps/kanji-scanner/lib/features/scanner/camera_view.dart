@@ -275,7 +275,7 @@ class _CameraViewState extends State<CameraView> {
       ),
     ),
   );
-  
+
   Future _startLiveFeed() async {
     final camera = _cameras[_cameraIndex];
     _controller = CameraController(

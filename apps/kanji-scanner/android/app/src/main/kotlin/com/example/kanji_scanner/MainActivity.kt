@@ -1,4 +1,4 @@
-package com.example.kanji_scanner
+package com.nicolasnewman.kanji_scanner
 
 import io.flutter.embedding.android.FlutterActivity
 

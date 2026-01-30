@@ -137,7 +137,7 @@ class _TextRecognizerViewState extends ConsumerState<TextRecognizerView> {
         inputImage.metadata!.rotation,
         _cameraLensDirection,
       );
-      _currentPainter = painter; 
+      _currentPainter = painter;
       _customPaint = CustomPaint(painter: painter);
     } else {
       _text = 'Recognized text:\n\n${recognizedText.text}';

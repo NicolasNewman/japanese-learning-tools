@@ -48,6 +48,9 @@ dependencies:
   fwfh_webview: ^0.15.0
   shared_preferences: ^2.5.4
   intl: ^0.20.2
+  rust_lib_kanji_scanner:
+    path: rust_builder
+  flutter_rust_bridge: 2.11.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,6 +78,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - rust/resources/system.dic
 
   # To add assets to your application, add an assets section, like this:
   # assets:
