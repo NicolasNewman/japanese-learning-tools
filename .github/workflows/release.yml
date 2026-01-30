@@ -144,6 +144,7 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
+      pull-requests: read
     name: "Build Kanji Scanner"
     runs-on: macos-latest
     # runs-on: ubuntu-22.04
@@ -163,6 +164,10 @@ jobs:
         #   (github.event_name == 'pull_request' && steps.changes.outputs.subs2clipboard == 'true') ||
         #   (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
         uses: ./.github/actions/build-kanji-scanner
+        with:
+          keystore-base64: ${{ secrets.KEYSTORE_BASE64 }}
+          keystore-password: ${{ secrets.KEYSTORE_PASSWORD }}
+          key-alias: ${{ secrets.KEY_ALIAS }}
   build-web-extention:
     if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
     permissions:
