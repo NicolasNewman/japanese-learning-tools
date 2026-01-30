@@ -13,5 +13,6 @@
     "svelte.enable-ts-plugin": true,
     "python.analysis.extraPaths": [
         "apps/gd-sudachi/gd_sudachi"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

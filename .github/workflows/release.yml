@@ -1,15 +1,15 @@
 # docker ps | awk 'NR>1 {print $1}'
 # docker exec -t -i $(docker ps | awk 'NR>1 {print $1}' | head -n1) /bin/bash
-name: 'Release Desktop App'
+name: "Release Desktop App"
 on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: 'Release version (without v prefix, e.g. 1.2.3)'
+        description: "Release version (without v prefix, e.g. 1.2.3)"
         required: true
         type: string
       build_web_ext:
-        description: 'Build and release web extension'
+        description: "Build and release web extension"
         required: false
         default: false
         type: boolean
@@ -23,7 +23,7 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
-    name: 'Build mecab-ipadic-neologd'
+    name: "Build mecab-ipadic-neologd"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
     needs: build-mecab-ipadic-neologd
     permissions:
       contents: write
-    name: 'Build Desktop App'
+    name: "Build Desktop App"
     strategy:
       fail-fast: false
       matrix:
@@ -64,13 +64,13 @@ jobs:
           # - name: macos
           #   image: macos-latest
           #   shell: bash
-          #   args: '--target x86_64-apple-darwin' 
+          #   args: '--target x86_64-apple-darwin'
           - name: linux
             image: ubuntu-22.04
             shell: bash
             installer: |
               dist/target/release/bundle/deb/*.deb
-              dist/target/release/bundle/rpm/*.rpm          
+              dist/target/release/bundle/rpm/*.rpm
           - name: windows
             image: windows-2022
             shell: cmd
@@ -93,7 +93,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: "pnpm"
       - name: Install NodeJS dependencies
         # shell: ${{ matrix.shell }}
         run: |
@@ -119,7 +119,7 @@ jobs:
             BRANCH_NAME="${{ github.head_ref }}"
             VERSION=${BRANCH_NAME#release/}
           fi
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT      
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
       - name: Build CLI Tooling
         uses: ./.github/actions/build-cli
         with:
@@ -140,12 +140,35 @@ jobs:
             ${{matrix.os.installer}}
           retention-days: 1
           if-no-files-found: error
+  build-kanji-scanner:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+    name: "Build Kanji Scanner"
+    runs-on: macos-latest
+    # runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Check for kanji-scanner changes
+        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            kanji-scanner:
+              - 'apps/kanji-scanner/**'
+      - name: Build Kanji Scanner
+        # if: |
+        #   (github.event_name == 'pull_request' && steps.changes.outputs.subs2clipboard == 'true') ||
+        #   (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
+        uses: ./.github/actions/build-kanji-scanner
   build-web-extention:
     if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
     permissions:
       contents: write
       pull-requests: read
-    name: 'Build Web Extention'
+    name: "Build Web Extention"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -161,8 +184,8 @@ jobs:
       # TODO: copy previous version if this does not run
       - name: Build Web Extention
         if: |
-            (github.event_name == 'pull_request' && steps.changes.outputs.subs2clipboard == 'true') ||
-            (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
+          (github.event_name == 'pull_request' && steps.changes.outputs.subs2clipboard == 'true') ||
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.build_web_ext == 'true')
         uses: ./.github/actions/build-web-extention
         with:
           web-ext-api-key: ${{ secrets.WEB_EXT_API_KEY }}
@@ -172,16 +195,21 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
-    name: 'Publish Release'
+    name: "Publish Release"
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4      
+      - uses: actions/checkout@v4
       - name: Download desktop app artifacts
         uses: actions/download-artifact@v4
         with:
           pattern: jp-learning-tools-*
           path: release-files
           merge-multiple: true
+      - name: Download kanji-scanner artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: kanji-scanner
+          path: release-files
       - name: Download web extension artifact
         uses: actions/download-artifact@v4
         with:
@@ -197,7 +225,7 @@ jobs:
             BRANCH_NAME="${{ github.head_ref }}"
             VERSION=${BRANCH_NAME#release/}
           fi
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT      
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:

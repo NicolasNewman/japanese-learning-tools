@@ -4,7 +4,7 @@ import { exit } from 'process';
 
 type CommitType = 'feat' | 'fix' | 'docs' | 'style' | 'refactor' | 'perf' | 'test' | 'build' | 'chore' | 'revert';
 type VersionType = 'major' | 'minor' | 'patch';
-type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'jp-learning-tools' | 'gd-sudachi' | 'gd-tools' | 'kanji-bank-types';
+type ProjectType = 'subs2clipboard-native-messenger' | 'subs2clipboard' | 'jp-learning-tools' | 'gd-sudachi' | 'gd-tools' | 'kanji-bank-types' | 'kanji-scanner';
 
 const commitTypeToVersion: Record<CommitType, VersionType> = {
     feat: 'minor',
@@ -28,7 +28,8 @@ const projectTypeToSourceDir: Record<ProjectType, string | Record<'js' | 'toml',
     'subs2clipboard': ['apps/subs2clipboard/package.json', 'apps/subs2clipboard/manifest.json'],
     'gd-sudachi': 'apps/gd-sudachi/pyproject.toml',
     'gd-tools': 'apps/gd-tools/Cargo.toml',
-    'kanji-bank-types': 'packages/kanji-bank-types/package.json'
+    'kanji-bank-types': 'packages/kanji-bank-types/package.json',
+    'kanji-scanner': 'apps/kanji-scanner/pubspec.yaml'
 }
 
 const bumpVersion = (version: [number, number, number], bumpType: VersionType): [number, number, number] => {
@@ -92,6 +93,26 @@ const resolveTomlVersion = (projectType: ProjectType, bumpType: VersionType): [s
     return versionFromTo;
 }
 
+const resolveFlutterVersion = (projectType: ProjectType, bumpType: VersionType): [string, string] => {
+    const src = projectTypeToSourceDir[projectType]
+    const resolvedSrc = typeof src === 'string' ? src : (src as Record<'js' | 'toml', string>).toml;
+    const metadata = readFileSync(resolvedSrc, 'utf8');
+    const versionFromTo: [string, string] = ["", ""]
+    const lines = metadata.split('\n').map(line => {
+        const match = line.match(/^version: ([^ ]*)$/)
+        if (match) {
+            versionFromTo[0] = match[1];
+            const versionPart = match[1].split('+')[0];
+            const version = versionPart.split('.').map(Number) as [number, number, number];
+            bumpVersion(version, bumpType);
+            versionFromTo[1] = version.join('.') + '+' + (Number(match[1].split('+')[1] || '0') + 1).toString();
+        }
+        return line;
+    }).join('\n');
+    writeFileSync(resolvedSrc, lines);
+    return versionFromTo;
+}
+
 const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersion> = {
     'jp-learning-tools': (projectType: ProjectType, bumpType: VersionType) => {
         const jsChange = resolveJavaScriptVersion(projectType, bumpType);
@@ -102,7 +123,8 @@ const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersio
     'subs2clipboard': resolveJavaScriptVersion,
     'gd-sudachi': resolveTomlVersion,
     'gd-tools': resolveTomlVersion,
-    'kanji-bank-types': resolveJavaScriptVersion
+    'kanji-bank-types': resolveJavaScriptVersion,
+    'kanji-scanner': resolveFlutterVersion
 }
 
 try {
@@ -129,7 +151,7 @@ try {
             };
             // Re-organize commits by scope
         }).reduce((prev, commit) => {
-            const scope = commit.scope || 'repo'; // Default to 'repo' if no scope is provided
+            const scope = (commit.scope || 'repo') as ProjectType | 'repo'; // Default to 'repo' if no scope is provided
             prev[scope] ??= [];
             prev[scope].push({
                 type: commit.type,
@@ -137,7 +159,7 @@ try {
             });
 
             return prev;
-        }, {} as Record<ProjectType, { type: string, subject: string }[]>);
+        }, {} as Record<ProjectType | 'repo', { type: string, subject: string }[]>);
 
     console.log('Commits:', commits);
 
@@ -187,6 +209,6 @@ try {
     writeFileSync('.changelog/CHANGELOG.md', `# v${newVersion}\n\n${patchNotes.join('\n\n')}\n`);
 
     console.log(newVersion);
-} catch (error) {
+} catch (error: any) {
     console.error('Error executing git command:', error.message);
 }

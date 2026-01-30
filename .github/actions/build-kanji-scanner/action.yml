@@ -1,0 +1,64 @@
+name: Build Android
+description: This action builds the Android application.
+inputs:
+  keystore-base64:
+    description: "Base64 encoded keystore file"
+    required: true
+  keystore-password:
+    description: "Keystore password"
+    required: true
+  key-alias:
+    description: "Key alias"
+    required: true
+runs:
+  using: composite
+  steps:
+      - name: Install dependencies
+        shell: bash
+        run: |
+          pnpm add -g nx
+          pnpm install --frozen-lockfile
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.2'
+          channel: 'stable'
+      - name: Install Flutter Dependencies
+        shell: bash
+        run: |
+          nx run kanji-scanner:pub-get
+      - name: Decode Keystore
+        shell: bash
+        run: |
+          echo "${{ inputs.keystore-base64 }}" | base64 --decode > apps/kanji-scanner/android/app/keystore.jks
+      - name: Create key.properties
+        shell: bash
+        run: |
+          echo "storePassword=${{ inputs.keystore-password }}" > apps/kanji-scanner/android/key.properties
+          echo "keyPassword=${{ inputs.keystore-password }}" >> apps/kanji-scanner/android/key.properties
+          echo "keyAlias=${{ inputs.key-alias }}" >> apps/kanji-scanner/android/key.properties
+          echo "storeFile=keystore.jks" >> apps/kanji-scanner/android/key.properties
+      - name: Build APK
+        shell: bash
+        run: |
+          nx run kanji-scanner:build:apk
+      - name: Build AAB
+        shell: bash
+        run: |
+          nx run kanji-scanner:build:aab
+      # - name: Build IPA
+      #   shell: bash
+      #   run: |
+      #     nx run kanji-scanner:build:ipa
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: kanji-scanner
+          path: |
+            dist/kanji-scanner/*
+          retention-days: 1

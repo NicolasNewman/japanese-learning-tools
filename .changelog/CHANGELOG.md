@@ -1,15 +1,15 @@
-# v0.10.0
+# v0.11.0
 
-## jp-learning-tools
+## kanji-scanner
 
-- feat: added translation tab
-- chore: better manifest error handling
-- chore: added shadcn/textarea
-- chore: increased alert top spacing
-- feat: transitioned from flowbite to shadcn
-- feat: added debug setting toggle
+- ci: ci infra for kanji-scanner
+- feat: scanned results SRS coloring
+- feat: added settings view
+- feat:  updated home page to display bank size
+- feat: implemented kanji bank
+- chore: added vsc launch config
+- feat: added persistence
 
-## gd-tools
+## repo
 
-- feat: --no-html flag added to translate tool
-- fix: help text typo for translate command
+- feat: added kanji-scanner flutter app
