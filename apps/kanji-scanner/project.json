@@ -3,5 +3,48 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/kanji-scanner/src",
-  "tags": []
+  "tags": [],
+  "targets": {
+    "build:apk": {
+      "executor": "nx:run-commands",
+        "outputs": [
+          "{workspaceRoot}/dist/kanji-scanner"
+        ],
+      "options": {
+        "commands": [
+          "cd apps/kanji-scanner && flutter build apk --release",
+          "mkdir -p dist/kanji-scanner",
+          "cp -r apps/kanji-scanner/build/app/outputs/flutter-apk/app-release.apk dist/kanji-scanner/"
+        ],
+        "parallel": false
+      }
+    },
+    "build:aab": {
+      "executor": "nx:run-commands",
+        "outputs": [
+          "{workspaceRoot}/dist/kanji-scanner"
+        ],
+      "options": {
+        "commands": [
+          "cd apps/kanji-scanner && flutter build aab --release",
+          "mkdir -p dist/kanji-scanner",
+          "cp -r apps/kanji-scanner/build/app/outputs/flutter-apk/app-release.aab dist/kanji-scanner/"
+        ],
+        "parallel": false
+      }
+    },
+    "build:ipa": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/dist/kanji-scanner"
+      ],
+      "options": {
+        "commands": [
+          "cd apps/kanji-scanner && flutter build ipa --no-codesign",
+          "tar -czf dist/kanji-scanner/ios_build.tar.gz apps/kanji-scanner/build/ios"
+        ],
+        "parallel": false
+      }
+    }
+  }
 }
