@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
-import 'package:kanji_scanner/shared/models/sudachi.dart';
 import 'package:kanji_scanner/shared/widgets/kanji_bank_text.dart';
+import 'package:kanji_scanner/src/rust/api/sudachi_api.dart';
 
 class ListViewWidget extends StatelessWidget {
-  final SudachiResponse parsedSentence;
+  final List<TokenInfo>? parsedSentence;
   final KanjiBankData kanjiBank;
   final void Function(String term) triggerJisho;
   final void Function(String term) triggerAnki;
@@ -22,18 +22,18 @@ class ListViewWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          parsedSentence.response?.join(" ") ?? "",
+          parsedSentence?.map((token) => token.surface).join(" ") ?? "",
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: Scrollbar(
         child: ListView.separated(
-          itemCount: parsedSentence.response?.length ?? 0,
+          itemCount: parsedSentence?.length ?? 0,
           separatorBuilder: (context, index) => Divider(),
           itemBuilder: (context, index) {
-            final item = parsedSentence.response![index];
+            final item = parsedSentence![index];
             return Dismissible(
-              key: Key(item.toString() + index.toString()),
+              key: Key(item.surface + index.toString()),
               background: Container(
                 color: Colors.green,
                 alignment: Alignment.centerLeft,
@@ -61,17 +61,14 @@ class ListViewWidget extends StatelessWidget {
               ),
               confirmDismiss: (direction) {
                 if (direction == DismissDirection.startToEnd) {
-                  triggerJisho(item.toString());
+                  triggerJisho(item.surface);
                 } else {
-                  triggerAnki(item.toString());
+                  triggerAnki(item.surface);
                 }
                 return Future.value(false);
               },
               child: ListTile(
-                title: KanjiBankText(
-                  text: item.toString(),
-                  kanjiBank: kanjiBank,
-                ),
+                title: KanjiBankText(text: item.surface, kanjiBank: kanjiBank),
               ),
             );
           },

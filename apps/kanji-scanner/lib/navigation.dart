@@ -43,7 +43,7 @@ class _NavigationState extends ConsumerState<Navigation> {
             icon: const Badge(child: Icon(Icons.language)),
             label: 'Analyze',
             enabled: parsedSentence.when(
-              data: (data) => data.response != null,
+              data: (data) => data != null,
               loading: () => false,
               error: (error, stack) => false,
             ),

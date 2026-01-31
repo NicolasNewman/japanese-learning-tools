@@ -4,8 +4,8 @@ import 'package:kanji_scanner/features/analyzer/widgets/jisho.dart';
 import 'package:kanji_scanner/features/analyzer/widgets/list_view.dart';
 import 'package:kanji_scanner/services/storage/persistence.dart';
 import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
-import 'package:kanji_scanner/shared/models/sudachi.dart';
 import 'package:kanji_scanner/shared/providers/state.dart';
+import 'package:kanji_scanner/src/rust/api/sudachi_api.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'analyze_view.g.dart';
@@ -20,7 +20,7 @@ class AnalyzerView extends ConsumerStatefulWidget {
 enum SwipeAction { jisho, anki }
 
 @riverpod
-Future<(SudachiResponse, KanjiBankData)> analyzedData(Ref ref) async {
+Future<(List<TokenInfo>?, KanjiBankData)> analyzedData(Ref ref) async {
   final parsedSentence = await ref.watch(parsedSentenceProvider.future);
   final kanjiBank = await ref.watch(kanjiBankProvider.future);
   return (parsedSentence, kanjiBank);

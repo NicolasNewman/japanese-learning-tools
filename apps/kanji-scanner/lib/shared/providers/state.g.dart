@@ -67,11 +67,11 @@ final parsedSentenceProvider = ParsedSentenceProvider._();
 final class ParsedSentenceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<SudachiResponse>,
-          SudachiResponse,
-          FutureOr<SudachiResponse>
+          AsyncValue<List<TokenInfo>?>,
+          List<TokenInfo>?,
+          FutureOr<List<TokenInfo>?>
         >
-    with $FutureModifier<SudachiResponse>, $FutureProvider<SudachiResponse> {
+    with $FutureModifier<List<TokenInfo>?>, $FutureProvider<List<TokenInfo>?> {
   ParsedSentenceProvider._()
     : super(
         from: null,
@@ -88,14 +88,14 @@ final class ParsedSentenceProvider
 
   @$internal
   @override
-  $FutureProviderElement<SudachiResponse> $createElement(
+  $FutureProviderElement<List<TokenInfo>?> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<SudachiResponse> create(Ref ref) {
+  FutureOr<List<TokenInfo>?> create(Ref ref) {
     return parsedSentence(ref);
   }
 }
 
-String _$parsedSentenceHash() => r'456863258ff9c7171a82f3009c745d05d0e77678';
+String _$parsedSentenceHash() => r'cb71ab35f3b552dcac7b370cdc16738ce88df2f3';

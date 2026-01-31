@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
 import 'package:kanji_scanner/core/env.dart';
-import 'package:kanji_scanner/services/storage/persistence.dart';
-import 'package:kanji_scanner/shared/models/sudachi.dart';
+import 'package:kanji_scanner/src/rust/api/sudachi_api.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'state.g.dart';
@@ -21,20 +17,34 @@ class RawSentence extends _$RawSentence {
 }
 
 @riverpod
-Future<SudachiResponse> parsedSentence(Ref ref) async {
+Future<List<TokenInfo>?> parsedSentence(Ref ref) async {
   final sentence = ref.watch(rawSentenceProvider);
   if (sentence == null) {
-    return SudachiResponse(response: null);
+    return null;
   }
-  final endpoint = await ref.read(sudachiEndpointProvider.future);
-  final response = await http.post(
-    Uri.parse(endpoint),
-    headers: {'Content-Type': 'application/json'},
-    body: jsonEncode({'input': sentence, "wakati": true}),
-  );
-
-  if (response.statusCode != 200) {
-    throw Exception('Failed to analyze text');
+  try {
+    final tokens = await sudachiRs(text: sentence);
+    return tokens;
+  } catch (e) {
+    throw Exception('Failed to analyze text: $e');
   }
-  return SudachiResponse.fromJson(jsonDecode(response.body));
 }
+
+// @riverpod
+// Future<SudachiResponse> parsedSentence(Ref ref) async {
+//   final sentence = ref.watch(rawSentenceProvider);
+//   if (sentence == null) {
+//     return SudachiResponse(response: null);
+//   }
+//   final endpoint = await ref.read(sudachiEndpointProvider.future);
+//   final response = await http.post(
+//     Uri.parse(endpoint),
+//     headers: {'Content-Type': 'application/json'},
+//     body: jsonEncode({'input': sentence, "wakati": true}),
+//   );
+
+//   if (response.statusCode != 200) {
+//     throw Exception('Failed to analyze text');
+//   }
+//   return SudachiResponse.fromJson(jsonDecode(response.body));
+// }
