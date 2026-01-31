@@ -1,5 +1,6 @@
-# v0.11.1
+# v0.12.0
 
-## repo
+## kanji-scanner
 
-- fix: ci permission fixes
+- fix: fixed ci failure
+- feat: baked sudachi into kanji-scanner
