@@ -1,6 +1,5 @@
-# v0.12.0
+# v0.12.1
 
-## kanji-scanner
+## repo
 
-- fix: fixed ci failure
-- feat: baked sudachi into kanji-scanner
+- fix: windows cli build
