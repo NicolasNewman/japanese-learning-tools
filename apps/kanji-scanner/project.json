@@ -28,7 +28,7 @@
         "commands": [
           "cd apps/kanji-scanner && flutter build aab --release",
           "mkdir -p dist/kanji-scanner",
-          "cp -r apps/kanji-scanner/build/app/outputs/flutter-apk/app-release.aab dist/kanji-scanner/"
+          "cp -r apps/kanji-scanner/build/app/outputs/bundle/release/app-release.aab dist/kanji-scanner/"
         ],
         "parallel": false
       }
@@ -42,6 +42,15 @@
         "commands": [
           "cd apps/kanji-scanner && flutter build ipa --no-codesign",
           "tar -czf dist/kanji-scanner/ios_build.tar.gz apps/kanji-scanner/build/ios"
+        ],
+        "parallel": false
+      }
+    },
+    "download-system-dictionary": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "cd apps/kanji-scanner/rust && ./fetch_dictionary.sh"
         ],
         "parallel": false
       }

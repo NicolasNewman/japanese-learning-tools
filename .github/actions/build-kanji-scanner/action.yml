@@ -32,6 +32,10 @@ runs:
         shell: bash
         run: |
           nx run kanji-scanner:pub-get
+      - name: Download system dictionary
+        shell: bash
+        run: |
+          nx run kanji-scanner:download-system-dictionary
       - name: Decode Keystore
         shell: bash
         run: |
