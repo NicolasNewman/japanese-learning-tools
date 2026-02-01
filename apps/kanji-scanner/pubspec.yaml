@@ -51,6 +51,7 @@ dependencies:
   rust_lib_kanji_scanner:
     path: rust_builder
   flutter_rust_bridge: 2.11.1
+  flutter_launcher_icons: ^0.14.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

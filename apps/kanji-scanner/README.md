@@ -20,6 +20,7 @@ https://pub.dev/packages/google_mlkit_text_recognition
 ```
 dart run build_runner watch
 flutter_rust_bridge_codegen generate --watch
+flutter pub run flutter_launcher_icons
 
 adb connect 10.0.0.xxx:yyy
 flutter run -d 10.0.0.xxx:yyy
