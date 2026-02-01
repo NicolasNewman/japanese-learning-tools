@@ -1,5 +1,9 @@
-# v0.12.1
+# v0.13.0
 
-## repo
+## kanji-scanner
 
-- fix: windows cli build
+- feat: app icon
+- chore: set proper app name
+- feat: dynamic text size when scanning text
+- feat: dark mode
+- chore: added camera permission

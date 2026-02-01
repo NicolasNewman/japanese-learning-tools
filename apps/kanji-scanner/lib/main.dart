@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kanji_scanner/navigation.dart';
+import 'package:kanji_scanner/services/storage/persistence.dart';
 import 'dart:io';
 
 import 'package:kanji_scanner/src/rust/api/sudachi_api.dart';
@@ -60,16 +61,29 @@ Future<void> main() async {
   runApp(const ProviderScope(child: KanjiScanner()));
 }
 
-class KanjiScanner extends StatelessWidget {
+class KanjiScanner extends ConsumerWidget {
   const KanjiScanner({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ThemeMode themeMode = ref
+        .watch(themeModeSettingProvider)
+        .maybeWhen(data: (mode) => mode, orElse: () => ThemeMode.system);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.light,
+        ),
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ),
+      ),
+      themeMode: themeMode,
       home: Navigation(),
     );
   }

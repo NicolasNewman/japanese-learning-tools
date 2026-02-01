@@ -31,6 +31,63 @@ class TextRecognizerPainter extends CustomPainter {
             0.25;
   }
 
+  double _calculateOptimalFontSize(
+    String text,
+    double boxWidth,
+    double boxHeight,
+    int detectedLineCount,
+    Paint background,
+  ) {
+    const double minFontSize = 8.0;
+    const double maxFontSize = 32.0;
+
+    // Use detected line count to estimate initial font size
+    // Line height is typically fontSize * 1.2, so fontSize ≈ boxHeight / lineCount / 1.2
+    final double estimatedFontSize = (boxHeight / detectedLineCount / 1.2)
+        .clamp(minFontSize, maxFontSize);
+
+    // Binary search for optimal font size
+    double low = minFontSize;
+    double high = estimatedFontSize * 1.5; // Search up to 1.5x the estimate
+    high = high.clamp(minFontSize, maxFontSize);
+    double optimalFontSize = minFontSize;
+
+    // Binary search with 0.5pt precision
+    while (high - low > 0.5) {
+      final double candidateFontSize = (low + high) / 2;
+
+      // Test this font size by creating a paragraph
+      final ParagraphBuilder testBuilder = ParagraphBuilder(
+        ParagraphStyle(
+          textAlign: TextAlign.left,
+          fontSize: candidateFontSize,
+          textDirection: TextDirection.ltr,
+        ),
+      );
+      testBuilder.pushStyle(
+        ui.TextStyle(color: Colors.lightGreenAccent, background: background),
+      );
+      testBuilder.addText(text);
+      testBuilder.pop();
+
+      final Paragraph testParagraph = testBuilder.build();
+      testParagraph.layout(ParagraphConstraints(width: boxWidth));
+
+      // Check if it fits both width and height
+      if (testParagraph.height <= boxHeight &&
+          testParagraph.longestLine <= boxWidth) {
+        // Fits! Try larger
+        optimalFontSize = candidateFontSize;
+        low = candidateFontSize;
+      } else {
+        // Too big! Try smaller
+        high = candidateFontSize;
+      }
+    }
+
+    return optimalFontSize;
+  }
+
   TextBlock? getBlockAtPosition(Offset position, Size canvasSize) {
     for (final entry in _screenBlocks) {
       if (entry.value.contains(position)) {
@@ -53,19 +110,6 @@ class TextRecognizerPainter extends CustomPainter {
 
     for (final textBlock in recognizedText.blocks) {
       if (!_containsJapanese(textBlock.text)) continue;
-
-      final ParagraphBuilder builder = ParagraphBuilder(
-        ParagraphStyle(
-          textAlign: TextAlign.left,
-          fontSize: 16,
-          textDirection: TextDirection.ltr,
-        ),
-      );
-      builder.pushStyle(
-        ui.TextStyle(color: Colors.lightGreenAccent, background: background),
-      );
-      builder.addText(textBlock.text);
-      builder.pop();
 
       final left = translateX(
         textBlock.boundingBox.left,
@@ -102,6 +146,36 @@ class TextRecognizerPainter extends CustomPainter {
       );
 
       canvas.drawRect(Rect.fromLTRB(left, top, right, bottom), paint);
+
+      // Calculate bounding box dimensions
+      final double boxWidth = (right - left).abs();
+      final double boxHeight = (bottom - top).abs();
+      final int detectedLineCount = textBlock.lines.isNotEmpty
+          ? textBlock.lines.length
+          : 1;
+
+      // Calculate optimal font size
+      final double fontSize = _calculateOptimalFontSize(
+        textBlock.text,
+        boxWidth,
+        boxHeight,
+        detectedLineCount,
+        background,
+      );
+
+      // Build paragraph with dynamic font size
+      final ParagraphBuilder builder = ParagraphBuilder(
+        ParagraphStyle(
+          textAlign: TextAlign.left,
+          fontSize: fontSize,
+          textDirection: TextDirection.ltr,
+        ),
+      );
+      builder.pushStyle(
+        ui.TextStyle(color: Colors.lightGreenAccent, background: background),
+      );
+      builder.addText(textBlock.text);
+      builder.pop();
 
       final List<Offset> cornerPoints = <Offset>[];
       for (final point in textBlock.cornerPoints) {
@@ -193,8 +267,7 @@ class TextRecognizerPainter extends CustomPainter {
       canvas.drawPoints(PointMode.polygon, cornerPoints, paint);
 
       canvas.drawParagraph(
-        builder.build()
-          ..layout(ParagraphConstraints(width: (right - left).abs())),
+        builder.build()..layout(ParagraphConstraints(width: boxWidth)),
         Offset(
           Platform.isAndroid && cameraLensDirection == CameraLensDirection.front
               ? right

@@ -26,7 +26,7 @@ class KanjiBankText extends StatelessWidget {
                 ? (entry.type == KanjiType.vocabulary
                       ? Colors.purple
                       : Colors.pink)
-                : Colors.black;
+                : Theme.of(context).colorScheme.onSurface;
             return TextSpan(
               text: char,
               style: TextStyle(color: color),
@@ -35,6 +35,9 @@ class KanjiBankText extends StatelessWidget {
         ),
       );
     }
-    return Text(text, style: const TextStyle(color: Colors.black));
+    return Text(
+      text,
+      style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+    );
   }
 }
