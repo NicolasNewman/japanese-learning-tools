@@ -42,7 +42,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
         ),
         body: TabBarView(
           children: <Widget>[
-            GeneralTab(getController: _getController),
+            GeneralTab(),
             WanikaniTab(getController: _getController),
           ],
         ),

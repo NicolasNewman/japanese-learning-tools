@@ -231,3 +231,47 @@ abstract class _$KanjiBank extends $AsyncNotifier<KanjiBankData<dynamic>> {
     element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(ThemeModeSetting)
+final themeModeSettingProvider = ThemeModeSettingProvider._();
+
+final class ThemeModeSettingProvider
+    extends $AsyncNotifierProvider<ThemeModeSetting, ThemeMode> {
+  ThemeModeSettingProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'themeModeSettingProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$themeModeSettingHash();
+
+  @$internal
+  @override
+  ThemeModeSetting create() => ThemeModeSetting();
+}
+
+String _$themeModeSettingHash() => r'8a70aa30cc7a6fa576ef7af7014aaf823edc68f5';
+
+abstract class _$ThemeModeSetting extends $AsyncNotifier<ThemeMode> {
+  FutureOr<ThemeMode> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<ThemeMode>, ThemeMode>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<ThemeMode>, ThemeMode>,
+              AsyncValue<ThemeMode>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

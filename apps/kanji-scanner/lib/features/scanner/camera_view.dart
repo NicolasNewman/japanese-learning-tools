@@ -84,23 +84,17 @@ class _CameraViewState extends State<CameraView> {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          // Center(
-          //   child: _changingCameraLens
-          //       ? Center(child: const Text('Changing camera lens'))
-          //       : GestureDetector(
-          //           // Wrap CameraPreview
-          //           onTapDown: (details) {
-          //             if (widget.onTap != null) {
-          //               final size = context.size ?? Size.zero;
-          //               widget.onTap!(details.localPosition, size);
-          //             }
-          //           },
-          //           child: CameraPreview(
-          //             _controller!,
-          //             child: widget.customPaint,
-          //           ),
-          //         ),
-          // ),
+          Center(
+            child: GestureDetector(
+              onTapDown: (details) {
+                if (widget.onTap != null) {
+                  final size = context.size ?? Size.zero;
+                  widget.onTap!(details.localPosition, size);
+                }
+              },
+              child: CameraPreview(_controller!, child: widget.customPaint),
+            ),
+          ),
           _backButton(),
           _pauseButton(),
           _detectionViewModeToggle(),

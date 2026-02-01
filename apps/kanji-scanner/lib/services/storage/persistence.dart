@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:kanji_scanner/core/env.dart';
 import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -93,5 +94,28 @@ class KanjiBank extends _$KanjiBank {
     final jsonString = jsonEncode(jsonData);
     await prefs!.setString('kanji_bank_data', jsonString);
     state = AsyncValue.data(newData);
+  }
+}
+
+@riverpod
+class ThemeModeSetting extends _$ThemeModeSetting {
+  SharedPreferences? prefs;
+
+  @override
+  Future<ThemeMode> build() async {
+    prefs = await (ref.read(sharedPrefsProvider.future));
+    final themeModeString = prefs!.getString('theme_mode_setting');
+    if (themeModeString != null && themeModeString.isNotEmpty) {
+      return ThemeMode.values.firstWhere(
+        (mode) => mode.toString() == themeModeString,
+        orElse: () => ThemeMode.system,
+      );
+    }
+    return ThemeMode.system;
+  }
+
+  Future<void> setThemeMode(ThemeMode themeMode) async {
+    await prefs!.setString('theme_mode_setting', themeMode.toString());
+    state = AsyncValue.data(themeMode);
   }
 }
