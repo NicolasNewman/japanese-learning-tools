@@ -1,0 +1,11 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "region-selector",
+  "description": "Capability for the region select window",
+  "windows": [
+    "region-selector"
+  ],
+  "permissions": [
+    "core:window:allow-close"
+  ]
+}

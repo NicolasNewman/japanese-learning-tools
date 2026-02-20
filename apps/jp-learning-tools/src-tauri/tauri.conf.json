@@ -23,6 +23,7 @@
       "csp": null,
       "capabilities": [
         "default",
+        "region-selector",
         "linux",
         "macos",
         "windows"
@@ -42,7 +43,8 @@
     "resources": {
       "../../gd-tools/resources/**/*": "resources/",
       "../../subs2clipboard-native-messenger/manifest/**/*": "resources/manifest",
-      "../../../dist/target/mecab-ipadic-neologd/**/*": "resources/mecab-ipadic-neologd"
+      "../../../dist/target/mecab-ipadic-neologd/**/*": "resources/mecab-ipadic-neologd",
+      "ocr/**/*": "resources/ocr"
     },
     "externalBin": [
       "../../../dist/target/gd-tools/gd-tools",
