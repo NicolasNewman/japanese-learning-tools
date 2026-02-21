@@ -1,27 +1,28 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use std::env::current_exe;
 
-use image::buffer::ConvertBuffer;
-use image::{DynamicImage, ImageBuffer, Rgb, Rgba, RgbaImage};
-use std::path::PathBuf;
-use std::sync::Mutex;
+use image::{DynamicImage, RgbImage};
+use oar_ocr::core::config::{OrtExecutionProvider, OrtSessionConfig};
+use std::sync::{Arc, Mutex};
 use tauri::AppHandle;
 use tauri::Manager;
 use tauri::Runtime;
 use tauri::Window;
 use tauri_plugin_shell::ShellExt;
-use tesseract_rs::TesseractAPI;
 use xcap::Monitor;
 
 use oar_ocr::prelude::*;
 
+use tokio::runtime::Runtime as TokioRuntime;
+
 struct AppData {
     monitor: Mutex<Monitor>,
-    ocr: Mutex<OAROCR>,
+    ocr: Arc<OAROCR>,
+    ocr_runtime: TokioRuntime,
 }
 
 #[tauri::command]
-fn capture<R: Runtime>(
+async fn capture<R: Runtime>(
     x: u32,
     y: u32,
     width: u32,
@@ -29,38 +30,41 @@ fn capture<R: Runtime>(
     app: AppHandle<R>,
     window: Window<R>,
     state: tauri::State<'_, AppData>,
-) -> Result<String, String> {
-    let monitor = state.monitor.lock().map_err(|e| e.to_string())?;
-    let image = monitor
-        .capture_region(x, y, width, height)
-        .map_err(|e| e.to_string())?;
-    drop(monitor);
+) -> Result<Vec<String>, String> {
+    let image = {
+        let monitor = state.monitor.lock().map_err(|e| e.to_string())?;
+        monitor
+            .capture_region(x, y, width, height)
+            .map_err(|e| e.to_string())?
+    };
 
-    let image = RgbaImage::from_raw(image.width(), image.height(), image.into_raw())
-        .ok_or_else(|| "Failed to convert captured image to RGBA format".to_string())
-        .and_then(|rgba_image| Ok(rgba_image.convert()))?;
+    let mut image: RgbImage = DynamicImage::ImageRgba8(image).into_rgb8();
+    let scale_factor = 0.5;
+    if width > 800 || height > 600 {
+        let new_width = (width as f32 * scale_factor) as u32;
+        let new_height = (height as f32 * scale_factor) as u32;
+        image = image::imageops::resize(&image, new_width, new_height, image::imageops::FilterType::Triangle);
+    }
 
-    let ocr = state.ocr.lock().map_err(|e| e.to_string())?;
-    let result = ocr
-        .predict(vec![image])
+    let ocr = state.ocr.clone();
+    let results = state.ocr_runtime.spawn_blocking(move || ocr.predict(vec![image]))
+        .await
+        .map_err(|e| format!("Task join error: {}", e))?
         .map_err(|e| format!("OCR prediction failed: {}", e))?;
-    // tess.set_image(
-    //     &image,
-    //     image.width() as i32,
-    //     image.height() as i32,
-    //     4,
-    //     4 * image.width() as i32,
-    // )
-    // .map_err(|e| e.to_string())?;
 
-    // let text = tess.get_utf8_text().map_err(|e| e.to_string())?;
-    println!("Recognized text: {}", result.len());
+    for text_region in &results[0].text_regions {
+        if let Some((text, confidence)) = text_region.text_with_confidence() {
+            println!("Text: {} ({:.2})", text, confidence);
+        }
+    }
+    println!("Recognized text: {}", results.len());
     println!(
         "Region: x={}, y={}, width={}, height={}",
         x, y, width, height
     );
-
-    Ok("".to_string())
+    Ok(results[0].text_regions.iter()
+        .filter_map(|r| r.text_with_confidence().map(|(t, _)| t.to_string()))
+        .collect::<Vec<_>>())
 }
 
 #[tauri::command]
@@ -153,8 +157,6 @@ pub fn run() {
                 .find(|m| m.is_primary().unwrap_or(false))
                 .expect("No primary monitor found");
 
-            // let tess = TesseractAPI::new();
-
             let ocr_dir = app
                 .path()
                 .resource_dir()
@@ -162,24 +164,34 @@ pub fn run() {
                 .join("resources")
                 .join("ocr");
 
-            // let tessdata_path = app
-            //     .path()
-            //     .resource_dir()
-            //     .expect("Failed to get resource dir")
-            //     .join("resources")
-            //     .join("tessdata");
-            // tess.init(tessdata_path, "jpn")
-            //     .expect("Failed to initialize TesseractAPI");
+            let ort_config = OrtSessionConfig::new().with_execution_providers(vec![
+                OrtExecutionProvider::CUDA {
+                    device_id: Some(0),
+                    gpu_mem_limit: None,
+                    arena_extend_strategy: None,
+                    cudnn_conv_algo_search: None,
+                    cudnn_conv_use_max_workspace: None,
+                },
+                OrtExecutionProvider::CPU
+            ]);
+
 
             let ocr = OAROCRBuilder::new(
-                ocr_dir.join("japan_pp-ocrv3_mobile_det.onnx"),
+                ocr_dir.join("pp-ocrv5_mobile_det.onnx"),
                 ocr_dir.join("pp-ocrv5_mobile_rec.onnx"),
                 ocr_dir.join("ppocrv5_dict.txt"),
             )
+            .ort_session(ort_config)
             .build()?;
+
             app.manage(AppData {
                 monitor: Mutex::new(monitor),
-                ocr: Mutex::new(ocr),
+                ocr: Arc::new(ocr),
+                ocr_runtime: tokio::runtime::Builder::new_multi_thread()
+                    .worker_threads(2)
+                    .thread_name("ocr-worker")
+                    .build()
+                    .expect("Failed to create OCR runtime"),
             });
             Ok(())
         })

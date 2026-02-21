@@ -6,6 +6,8 @@
     "region-selector"
   ],
   "permissions": [
-    "core:window:allow-close"
+    "core:window:allow-close",
+    "core:event:allow-emit",
+    "core:event:allow-emit-to"
   ]
 }

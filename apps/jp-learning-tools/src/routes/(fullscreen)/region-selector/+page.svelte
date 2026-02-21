@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { invoke } from "@tauri-apps/api/core";
+    import { emit } from "@tauri-apps/api/event";
+  // import { invoke } from "@tauri-apps/api/core";
   import { getCurrentWindow } from "@tauri-apps/api/window";
 
   let isDrawing = false;
@@ -14,6 +15,7 @@
   let height = $derived.by(() => Math.abs(currentY - startY));
 
   function handleMouseDown(e: MouseEvent) {
+    if (e.button !== 0) return; // Only respond to left-click
     console.log("handleMouseDown", e.clientX, e.clientY);
     isDrawing = true;
     startX = e.clientX;
@@ -39,16 +41,21 @@
     //     const width = Math.abs(endX - startX);
     //     const height = Math.abs(endY - startY);
     // Close this window
-    //     const window = getCurrentWindow();
-    //     await window.close();
-    // Perform OCR on selected region
-    try {
-      const text = await invoke<string>("capture", { x, y, width, height });
-      console.log("Recognized text:", text);
-      // You can emit an event or store the result
-    } catch (error) {
-      console.error("OCR failed:", error);
-    }
+    // setRegion({x, y, width, height});
+    await emit("region-selected", { x, y, width, height });
+
+    const window = getCurrentWindow();
+    await window.close();
+    // await window.hide();
+    // // Perform OCR on selected region
+    // try {
+    //   const text = await invoke<string>("capture", { x, y, width, height });
+    //   console.log("Recognized text:", text);
+    //   // You can emit an event or store the result
+    // } catch (error) {
+    //   console.error("OCR failed:", error);
+    // }
+
   }
 
   function handleKeyDown(e: KeyboardEvent) {
@@ -85,6 +92,7 @@
     <Rect bind:x bind:y {width} {height} stroke="#00ff00" strokeWidth={2} />
   </Layer>
 </Stage> -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   class="canvas"
   onmousedown={handleMouseDown}
