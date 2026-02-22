@@ -1,9 +1,11 @@
 [package]
 name = "jp-learning-tools-backend"
+build = "build.rs"
 version = "0.9.0"
 description = "A Tauri App"
 authors = ["you"]
-edition.workspace = true
+edition = "2021"
+# edition.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -26,3 +28,11 @@ tauri-plugin-os = "2"
 tauri-plugin-fs = "2"
 tauri-plugin-store = "2"
 tauri-plugin-shell = "2"
+xcap = "0.8.2"
+oar-ocr = { version = "0.6.1", features = ["cuda"] }
+image = "0.25.5"
+tokio = { version = "1.49.0", features = ["rt"] }
+
+[dev-dependencies]
+image = "0.25.5"
+imageproc = "0.25.0"
