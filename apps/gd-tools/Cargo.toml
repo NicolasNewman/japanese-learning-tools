@@ -27,7 +27,7 @@ base64 = "0.21"
 dirs = "5.0"
 hf-hub = "0.4.3"
 tokenizers = "0.21.4"
-candle-core = { git = "https://github.com/huggingface/candle.git", version = "0.9.1"}
-candle-transformers = { git = "https://github.com/huggingface/candle.git", version = "0.9.1"}
-candle-nn = { git = "https://github.com/huggingface/candle.git", version = "0.9.1"}
-candle-examples = { git = "https://github.com/huggingface/candle.git", version = "0.9.1"}
+candle-core = { git = "https://github.com/huggingface/candle.git", version = "0.9.1" }
+candle-transformers = { git = "https://github.com/huggingface/candle.git", version = "0.9.1" }
+candle-nn = { git = "https://github.com/huggingface/candle.git", version = "0.9.1" }
+candle-examples = { git = "https://github.com/huggingface/candle.git", version = "0.9.1" }
