@@ -1,9 +1,13 @@
-# v0.13.0
+# v0.14.0
 
-## kanji-scanner
+## repo
 
-- feat: app icon
-- chore: set proper app name
-- feat: dynamic text size when scanning text
-- feat: dark mode
-- chore: added camera permission
+- chore: hard-code development branch target for tag-release action
+- chore: ignore merge commits when generating changelog
+
+## jp-learning-tools
+
+- chore: removed tesseract ocr engine
+- feat: live capture of region
+- feat: functional ocr
+- feat: initial ocr implementation
