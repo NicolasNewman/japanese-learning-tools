@@ -1,6 +1,6 @@
 {
   "name": "jp-learning-tools",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "",
   "type": "module",
   "scripts": {
@@ -10,6 +10,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "tauri": "tauri",
+    "tauri:dev": "WEBKIT_DISABLE_COMPOSITING_MODE=1 tauri dev",
     "tauri:dev:xquartz": "LIBGL_ALWAYS_INDIRECT=1 LIBGL_ALWAYS_SOFTWARE=1 TAURI_ALLOW_GPU=0 tauri dev"
   },
   "license": "MIT",

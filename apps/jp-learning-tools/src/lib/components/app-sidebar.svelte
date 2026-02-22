@@ -3,10 +3,12 @@
   import HouseIcon from "@lucide/svelte/icons/house";
   import SettingsIcon from "@lucide/svelte/icons/settings";
   import LanguageIcon from "@lucide/svelte/icons/languages";
+  import CameraIcon from "@lucide/svelte/icons/camera";
 
   const items = [
     { title: "Home", url: "/", icon: HouseIcon },
     { title: "Translate", url: "/translate", icon: LanguageIcon },
+    {title: "Capture", url: "/ocr", icon: CameraIcon},
     { title: "Settings", url: "/settings", icon: SettingsIcon },
   ];
 </script>

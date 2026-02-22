@@ -128,7 +128,7 @@ const projectTypeToVersionResolver: Record<ProjectType, typeof resolveTomlVersio
 }
 
 try {
-    const output = execSync('git log origin/main..HEAD --oneline --no-decorate', {
+    const output = execSync('git log --no-merges origin/main..HEAD --oneline --no-decorate', {
         encoding: 'utf8',
         cwd: process.cwd()
     });
