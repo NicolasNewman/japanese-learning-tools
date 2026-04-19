@@ -53,6 +53,7 @@ dependencies:
   flutter_rust_bridge: 2.11.1
   flutter_launcher_icons: ^0.14.4
 dev_dependencies:
+  pigeon: ^26.3.2
   flutter_test:
     sdk: flutter
 
