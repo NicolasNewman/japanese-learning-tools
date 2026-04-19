@@ -26,7 +26,7 @@
 </script>
 
 <ModeWatcher defaultMode="system" />
-<div class="mt-[30px] overflow-y-hidden">
+<div class="mt-[30px] h-[calc(100vh-30px)] overflow-y-hidden">
   <Sidebar.Provider
     style="--sidebar-width: 8rem; --sidebar-width-mobile: 8rem;"
     class="h-[calc(100vh-30px)]"
