@@ -28,7 +28,7 @@ tauri-plugin-os = "2"
 tauri-plugin-fs = "2"
 tauri-plugin-store = "2"
 tauri-plugin-shell = "2"
-xcap = "0.8.2"
+xcap = "0.9.4"
 oar-ocr = { version = "0.6.1", features = ["cuda"] }
 image = "0.25.5"
 tokio = { version = "1.49.0", features = ["rt"] }
