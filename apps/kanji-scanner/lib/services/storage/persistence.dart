@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kanji_scanner/core/env.dart';
+import 'package:kanji_scanner/shared/models/enums.dart';
 import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -117,5 +118,28 @@ class ThemeModeSetting extends _$ThemeModeSetting {
   Future<void> setThemeMode(ThemeMode themeMode) async {
     await prefs!.setString('theme_mode_setting', themeMode.toString());
     state = AsyncValue.data(themeMode);
+  }
+}
+
+@riverpod
+class DictionaryBackend extends _$DictionaryBackend {
+  SharedPreferences? prefs;
+
+  @override
+  Future<DictionaryBackendType> build() async {
+    prefs = await (ref.read(sharedPrefsProvider.future));
+    final backendString = prefs!.getString('dictionary_backend');
+    if (backendString != null && backendString.isNotEmpty) {
+      return DictionaryBackendType.values.firstWhere(
+        (backend) => backend.toString() == backendString,
+        orElse: () => DictionaryBackendType.jisho,
+      );
+    }
+    return DictionaryBackendType.jisho;
+  }
+
+  Future<void> setDictionaryBackend(DictionaryBackendType backend) async {
+    await prefs!.setString('dictionary_backend', backend.toString());
+    state = AsyncValue.data(backend);
   }
 }
