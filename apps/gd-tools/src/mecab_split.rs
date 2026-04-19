@@ -60,7 +60,7 @@ const CSS_STYLE: &str = r#"
 </style>
 "#;
 
-const HELP_TEXT: &str = r#"usage: gd-mecab [OPTIONS]
+const HELP_TEXT: &str = r#"usage: gd-tools mecab [OPTIONS]
 
 Echo input back to GoldenDict as HTML with sentence split into parts.
 

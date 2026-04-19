@@ -16,12 +16,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-use crate::util::{GdToolsError, Result, parse_args};
+use crate::util::{parse_args, GdToolsError, Result};
 use std::process;
 
 // In C++ CharByteLen::THREE * 5UL is used, which is 3 bytes per character * 5 characters
 const DEFAULT_LEN: usize = 3 * 5;
-const HELP_TEXT: &str = r#"usage: gd-echo [OPTIONS]
+const HELP_TEXT: &str = r#"usage: gd-tools echo [OPTIONS]
 
 Echo input back to GoldenDict as HTML with the KanjiStrokeOrders font applied.
 
@@ -32,8 +32,8 @@ OPTIONS
   --word WORD       text to print.
 
 EXAMPLES
-  gd-echo --max-len 5 --font-size 10rem --word "書"
-  gd-echo --max-len 3 --font-size 120px --word "薔薇"
+  gd-tools echo --max-len 5 --font-size 10rem --word "書"
+  gd-tools echo --max-len 3 --font-size 120px --word "薔薇"
 "#;
 
 struct StrokeOrderParams {
@@ -52,7 +52,7 @@ impl StrokeOrderParams {
             max_len: DEFAULT_LEN,
         }
     }
-    
+
     fn assign(&mut self, key: &str, value: &str) {
         if key == "max-len" {
             if let Ok(len) = value.parse::<usize>() {
@@ -78,7 +78,12 @@ fn print_css(params: &StrokeOrderParams) {
   }}
   </style>
   "#;
-    println!("{}", css.replace("{}", &pid.to_string()).replace("{}", &params.font_size).replace("{}", &params.font_family));
+    println!(
+        "{}",
+        css.replace("{}", &pid.to_string())
+            .replace("{}", &params.font_size)
+            .replace("{}", &params.font_family)
+    );
 }
 
 fn print_with_stroke_order(params: &StrokeOrderParams) {
@@ -91,30 +96,33 @@ fn print_with_stroke_order(params: &StrokeOrderParams) {
 
 fn parse_params(args: &[String]) -> Result<StrokeOrderParams> {
     let mut params = StrokeOrderParams::new();
-    
+
     let parsed_args = parse_args(args);
-    
+
     for (key, value) in parsed_args {
         params.assign(&key, &value);
     }
-    
+
     if params.gd_word.is_empty() {
         return Err(GdToolsError::MissingArgument("--word".into()));
     }
-    
+
     Ok(params)
 }
 
 pub fn show_stroke_order(args: &[String]) {
-    if args.is_empty() || args.contains(&String::from("--help")) || args.contains(&String::from("-h")) {
+    if args.is_empty()
+        || args.contains(&String::from("--help"))
+        || args.contains(&String::from("-h"))
+    {
         println!("{}", HELP_TEXT);
         return;
     }
-    
+
     match parse_params(args) {
         Ok(params) => {
             print_with_stroke_order(&params);
-        },
+        }
         Err(e) => {
             eprintln!("{}", e);
             println!("{}", HELP_TEXT);

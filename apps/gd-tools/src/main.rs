@@ -23,10 +23,10 @@ mod anki_search;
 mod echo;
 mod images;
 mod kana_conv;
+mod marian_mt;
 mod mecab_split;
 mod translate;
 mod util;
-mod marian_mt;
 
 use std::env;
 
@@ -46,8 +46,8 @@ OPTIONS
 
 EXAMPLES
 gd-tools ankisearch --field-name VocabKanji %GDWORD%
-gd-ankisearch --field-name VocabKanji %GDWORD%
-gd-ankisearch --deck-name Mining %GDWORD%
+gd-tools ankisearch --field-name VocabKanji %GDWORD%
+gd-tools ankisearch --deck-name Mining %GDWORD%
 "#;
 
 fn print_help() {
