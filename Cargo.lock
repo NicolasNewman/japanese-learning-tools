@@ -3410,7 +3410,7 @@ dependencies = [
 
 [[package]]
 name = "jp-learning-tools-backend"
-version = "0.10.2"
+version = "0.10.1"
 dependencies = [
  "image",
  "imageproc 0.25.0",
@@ -9028,13 +9028,12 @@ checksum = "ec107c4503ea0b4a98ef47356329af139c0a4f7750e621cf2973cd3385ebcb3d"
 
 [[package]]
 name = "xcap"
-version = "0.8.3"
+version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1bdf4c8d4c33dfab96fb585cdf991a7bd86d754ac35edd4b80477a9b739892b2"
+checksum = "03d20dc4057d755e2b78da287f9057065a89c507af69e1a5eac19e868c21cd8a"
 dependencies = [
  "dispatch2",
  "image",
- "lazy_static",
  "libwayshot-xcap",
  "log",
  "objc2 0.6.4",
