@@ -3410,7 +3410,7 @@ dependencies = [
 
 [[package]]
 name = "jp-learning-tools-backend"
-version = "0.10.1"
+version = "0.10.2"
 dependencies = [
  "image",
  "imageproc 0.25.0",
