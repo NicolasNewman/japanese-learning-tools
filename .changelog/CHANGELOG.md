@@ -1,13 +1,23 @@
-# v0.14.0
+# v0.15.0
 
-## repo
+## subs2clipboard-native-messenger
 
-- chore: hard-code development branch target for tag-release action
-- chore: ignore merge commits when generating changelog
+- chore: log text data on json conversion failure
 
 ## jp-learning-tools
 
-- chore: removed tesseract ocr engine
-- feat: live capture of region
-- feat: functional ocr
-- feat: initial ocr implementation
+- fix: overflow fix
+
+## kanji-scanner
+
+- feat: added alternate dictionary backends
+- chore: added pigeon, ankidroid-api as dep
+
+## gd-tools
+
+- fix: fixed incorrect commands in helper text
+- fix: fixed gd-tools mecab dic discovery
+
+## repo
+
+- fix: xcap deps to release build
