@@ -1,5 +1,5 @@
-# v0.15.2
+# v0.15.3
 
-## jp-learning-tools
+## repo
 
-- chore: downgraded xcap
+- chore: bump ubuntu version
