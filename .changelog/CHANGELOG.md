@@ -1,5 +1,5 @@
-# v0.15.3
+# v0.15.4
 
 ## repo
 
-- chore: bump ubuntu version
+- chore: added dep to ubuntu builder
