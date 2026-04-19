@@ -1,5 +1,5 @@
-# v0.15.1
+# v0.15.2
 
 ## jp-learning-tools
 
-- chore: update xcap
+- chore: downgraded xcap
