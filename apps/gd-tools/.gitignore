@@ -21,3 +21,4 @@ ehthumbs.db
 
 resources/*
 !resources/*.ttf
+!resources/*.dic

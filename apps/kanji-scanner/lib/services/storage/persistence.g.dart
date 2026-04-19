@@ -275,3 +275,53 @@ abstract class _$ThemeModeSetting extends $AsyncNotifier<ThemeMode> {
     element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(DictionaryBackend)
+final dictionaryBackendProvider = DictionaryBackendProvider._();
+
+final class DictionaryBackendProvider
+    extends $AsyncNotifierProvider<DictionaryBackend, DictionaryBackendType> {
+  DictionaryBackendProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'dictionaryBackendProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$dictionaryBackendHash();
+
+  @$internal
+  @override
+  DictionaryBackend create() => DictionaryBackend();
+}
+
+String _$dictionaryBackendHash() => r'c06a116f98ca4fb99cce019551a7944c36d7742a';
+
+abstract class _$DictionaryBackend
+    extends $AsyncNotifier<DictionaryBackendType> {
+  FutureOr<DictionaryBackendType> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref =
+        this.ref
+            as $Ref<AsyncValue<DictionaryBackendType>, DictionaryBackendType>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<DictionaryBackendType>,
+                DictionaryBackendType
+              >,
+              AsyncValue<DictionaryBackendType>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

@@ -42,6 +42,7 @@ class ListViewWidget extends StatelessWidget {
                   children: [
                     Icon(Icons.check, color: Colors.white),
                     SizedBox(width: 8),
+                    // TODO: dynamic text
                     Text('Jisho', style: TextStyle(color: Colors.white)),
                   ],
                 ),

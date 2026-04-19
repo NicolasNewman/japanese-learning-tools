@@ -20,7 +20,7 @@
 use crate::marian_mt::{run_model, Args};
 use crate::util::{html_wrapper, parse_args};
 
-const HELP_TEXT: &str = r#"usage: gd-translate [OPTIONS]
+const HELP_TEXT: &str = r#"usage: gd-tools translate [OPTIONS]
 
 Translate text from Japanese to English using Helsinki-NLP/opus-mt-ja-en
 

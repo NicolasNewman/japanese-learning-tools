@@ -72,14 +72,19 @@ fn read_message_from_stdin() -> Result<BrowserMessage> {
         .context("Failed to read message")?;
 
     // Parse the JSON message
-    let message: BrowserMessage =
-        serde_json::from_slice(&input).context("Failed to parse JSON message")?;
+    let message: BrowserMessage = serde_json::from_slice(&input).context(format!(
+        "Failed to parse JSON message: {:?}",
+        String::from_utf8_lossy(&input)
+    ))?;
 
     Ok(message)
 }
 
 fn write_message_to_stdout(message: &ResponseMessage) -> Result<()> {
-    let json = serde_json::to_vec(message).context("Failed to serialize response to JSON")?;
+    let json = serde_json::to_vec(message).context(format!(
+        "Failed to serialize response to JSON: {:?}",
+        message
+    ))?;
 
     let message_length = json.len() as u32;
     let length_bytes = message_length.to_ne_bytes();
