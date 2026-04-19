@@ -16,7 +16,7 @@ use oar_ocr::prelude::*;
 use tokio::runtime::Runtime as TokioRuntime;
 
 struct AppData {
-    monitor: Mutex<Monitor>,
+    monitor_id: Mutex<u32>,
     ocr: Arc<OAROCR>,
     ocr_runtime: TokioRuntime,
 }
@@ -32,7 +32,13 @@ async fn capture<R: Runtime>(
     state: tauri::State<'_, AppData>,
 ) -> Result<Vec<String>, String> {
     let image = {
-        let monitor = state.monitor.lock().map_err(|e| e.to_string())?;
+        let monitor_id = *state.monitor_id.lock().map_err(|e| e.to_string())?;
+        let monitor = Monitor::all()
+            .map_err(|e| e.to_string())?
+            .into_iter()
+            .find(|m| m.id().ok() == Some(monitor_id))
+            .ok_or_else(|| "Monitor not found".to_string())?;
+
         monitor
             .capture_region(x, y, width, height)
             .map_err(|e| e.to_string())?
@@ -43,11 +49,18 @@ async fn capture<R: Runtime>(
     if width > 800 || height > 600 {
         let new_width = (width as f32 * scale_factor) as u32;
         let new_height = (height as f32 * scale_factor) as u32;
-        image = image::imageops::resize(&image, new_width, new_height, image::imageops::FilterType::Triangle);
+        image = image::imageops::resize(
+            &image,
+            new_width,
+            new_height,
+            image::imageops::FilterType::Triangle,
+        );
     }
 
     let ocr = state.ocr.clone();
-    let results = state.ocr_runtime.spawn_blocking(move || ocr.predict(vec![image]))
+    let results = state
+        .ocr_runtime
+        .spawn_blocking(move || ocr.predict(vec![image]))
         .await
         .map_err(|e| format!("Task join error: {}", e))?
         .map_err(|e| format!("OCR prediction failed: {}", e))?;
@@ -62,7 +75,9 @@ async fn capture<R: Runtime>(
         "Region: x={}, y={}, width={}, height={}",
         x, y, width, height
     );
-    Ok(results[0].text_regions.iter()
+    Ok(results[0]
+        .text_regions
+        .iter()
         .filter_map(|r| r.text_with_confidence().map(|(t, _)| t.to_string()))
         .collect::<Vec<_>>())
 }
@@ -157,6 +172,8 @@ pub fn run() {
                 .find(|m| m.is_primary().unwrap_or(false))
                 .expect("No primary monitor found");
 
+            let monitor_id = monitor.id()?;
+
             let ocr_dir = app
                 .path()
                 .resource_dir()
@@ -172,9 +189,8 @@ pub fn run() {
                     cudnn_conv_algo_search: None,
                     cudnn_conv_use_max_workspace: None,
                 },
-                OrtExecutionProvider::CPU
+                OrtExecutionProvider::CPU,
             ]);
-
 
             let ocr = OAROCRBuilder::new(
                 ocr_dir.join("pp-ocrv5_mobile_det.onnx"),
@@ -185,7 +201,7 @@ pub fn run() {
             .build()?;
 
             app.manage(AppData {
-                monitor: Mutex::new(monitor),
+                monitor_id: Mutex::new(monitor_id),
                 ocr: Arc::new(ocr),
                 ocr_runtime: tokio::runtime::Builder::new_multi_thread()
                     .worker_threads(2)
