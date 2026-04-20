@@ -14,7 +14,7 @@ struct BrowserMessage {
     text: String,
     #[serde(default)]
     id: String,
-    tabId: isize,
+    tabId: Option<isize>,
 }
 
 #[derive(Debug, Serialize)]
@@ -149,7 +149,13 @@ fn main() -> Result<()> {
                         }
                     }
                     "SEND_SUDACHI" => {
-                        if let Err(e) = run_sudachi(&message.text, &message.id, message.tabId) {
+                        if message.tabId.is_none() {
+                            error!("Missing tabId for SEND_SUDACHI event");
+                            continue;
+                        }
+                        if let Err(e) =
+                            run_sudachi(&message.text, &message.id, message.tabId.unwrap())
+                        {
                             error!("Failed to run sudachi: {}", e);
                         }
                     }
