@@ -1,5 +1,5 @@
-# v0.15.4
+# v0.15.5
 
-## repo
+## jp-learning-tools
 
-- chore: added dep to ubuntu builder
+- fix: xcap mutex error on win
