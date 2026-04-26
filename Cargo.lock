@@ -2064,8 +2064,10 @@ dependencies = [
  "html-escape",
  "image",
  "lazy_static",
+ "rdrirs",
  "regex",
  "reqwest",
+ "rsmarisa",
  "serde",
  "serde_json",
  "thiserror 1.0.69",
@@ -5695,6 +5697,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "rdrirs"
+version = "0.1.0"
+
+[[package]]
 name = "reborrow"
 version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5846,6 +5852,16 @@ dependencies = [
  "libc",
  "untrusted",
  "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "rsmarisa"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbb8faa8d19e79a31e62e7856e16cd5c2d8ba71629910ce3ba1db287f968954d"
+dependencies = [
+ "clap",
+ "memmap2",
 ]
 
 [[package]]

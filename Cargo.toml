@@ -5,6 +5,7 @@ members = [
 	'apps/gd-tools',
 	'apps/subs2clipboard-native-messenger',
 	'apps/jp-learning-tools/src-tauri',
+	'packages/rdrirs',
 ]
 
 [workspace.package]

@@ -129,6 +129,7 @@ fn find_dic_dir() -> PathBuf {
     let mut possible_dirs =
         vec![
         get_resource_dir().join("mecab-ipadic-neologd"),
+        // TODO: remove user home hardcoding
         PathBuf::from("/home/dev-env/repos/japanese-learning-tools/apps/gd-tools/res/mecab-ipadic-neologd"), // neologd is preferred if available
         PathBuf::from("/usr/lib/mecab/dic/mecab-ipadic-neologd"), // neologd is preferred if available
         PathBuf::from("/usr/lib/mecab/dic"),
