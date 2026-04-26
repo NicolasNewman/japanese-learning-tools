@@ -18,7 +18,11 @@ const initializePort = () => {
     (port.onMessage as OnPortMessageListener).addListener((response) => {
       if (response.type === "RECEIVE_SUDACHI") {
         console.log("SUDACHI response received:", response);
-        sendMessageToTab(response.tabId, { type: "UPDATE_SUDACHI", text: response.text, id: response.id });
+        sendMessageToTab(response.tabId, {
+          type: "UPDATE_SUDACHI",
+          text: response.text,
+          id: response.id,
+        });
       }
     });
   }
@@ -32,6 +36,7 @@ onRuntimeMessage((msg) => {
   initializePort();
   if (port) {
     if (msg.type === "COPY_TO_CLIPBOARD") {
+      console.log("Sending COPY_TO_CLIPBOARD message to native app:", msg);
       port.postMessage({
         event: msg.type,
         text: msg.text,

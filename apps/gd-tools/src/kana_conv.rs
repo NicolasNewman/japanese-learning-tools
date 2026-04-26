@@ -16,12 +16,15 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-use std::collections::HashMap;
+use std::{
+    cmp::Ordering,
+    collections::{BTreeSet, HashMap},
+};
 
 /// Convert hiragana to katakana
 pub fn hiragana_to_katakana(text: &str) -> String {
     let mut result = String::with_capacity(text.len());
-    
+
     for c in text.chars() {
         let code = c as u32;
         // Hiragana range is U+3041 to U+3096
@@ -32,14 +35,14 @@ pub fn hiragana_to_katakana(text: &str) -> String {
             result.push(c);
         }
     }
-    
+
     result
 }
 
 /// Convert katakana to hiragana
 pub fn katakana_to_hiragana(text: &str) -> String {
     let mut result = String::with_capacity(text.len());
-    
+
     for c in text.chars() {
         let code = c as u32;
         // Katakana range is U+30A1 to U+30F6
@@ -50,14 +53,14 @@ pub fn katakana_to_hiragana(text: &str) -> String {
             result.push(c);
         }
     }
-    
+
     result
 }
 
 /// Convert full-width characters to half-width
 pub fn full_to_half_width(text: &str) -> String {
     let mut result = String::with_capacity(text.len());
-    
+
     for c in text.chars() {
         let code = c as u32;
         // Full-width characters are in various ranges
@@ -71,14 +74,14 @@ pub fn full_to_half_width(text: &str) -> String {
             result.push(c);
         }
     }
-    
+
     result
 }
 
 /// Convert half-width characters to full-width
 pub fn half_to_full_width(text: &str) -> String {
     let mut result = String::with_capacity(text.len());
-    
+
     for c in text.chars() {
         let code = c as u32;
         // ASCII printable characters
@@ -92,7 +95,7 @@ pub fn half_to_full_width(text: &str) -> String {
             result.push(c);
         }
     }
-    
+
     result
 }
 
@@ -101,70 +104,70 @@ pub fn romaji_to_hiragana(text: &str) -> String {
     // This is a simplified implementation
     // In a real implementation, you'd need a more comprehensive mapping table
     // and proper handling of special cases
-    
+
     lazy_static::lazy_static! {
         static ref ROMAJI_TO_HIRAGANA: HashMap<&'static str, &'static str> = {
             let mut m = HashMap::new();
             // Basic hiragana
             m.insert("a", "あ"); m.insert("i", "い"); m.insert("u", "う");
             m.insert("e", "え"); m.insert("o", "お");
-            
+
             // K row
             m.insert("ka", "か"); m.insert("ki", "き"); m.insert("ku", "く");
             m.insert("ke", "け"); m.insert("ko", "こ");
-            
+
             // S row
             m.insert("sa", "さ"); m.insert("shi", "し"); m.insert("su", "す");
             m.insert("se", "せ"); m.insert("so", "そ");
-            
+
             // T row
             m.insert("ta", "た"); m.insert("chi", "ち"); m.insert("tsu", "つ");
             m.insert("te", "て"); m.insert("to", "と");
-            
+
             // N row
             m.insert("na", "な"); m.insert("ni", "に"); m.insert("nu", "ぬ");
             m.insert("ne", "ね"); m.insert("no", "の");
-            
+
             // H row
             m.insert("ha", "は"); m.insert("hi", "ひ"); m.insert("fu", "ふ");
             m.insert("he", "へ"); m.insert("ho", "ほ");
-            
+
             // M row
             m.insert("ma", "ま"); m.insert("mi", "み"); m.insert("mu", "む");
             m.insert("me", "め"); m.insert("mo", "も");
-            
+
             // Y row
             m.insert("ya", "や"); m.insert("yu", "ゆ"); m.insert("yo", "よ");
-            
+
             // R row
             m.insert("ra", "ら"); m.insert("ri", "り"); m.insert("ru", "る");
             m.insert("re", "れ"); m.insert("ro", "ろ");
-            
+
             // W row
             m.insert("wa", "わ"); m.insert("wo", "を");
-            
+
             // N
             m.insert("n", "ん");
-            
+
             // Add more mappings as needed
-            
+
             m
         };
     }
-    
+
     // Very simplified conversion (a real implementation would be more complex)
     // This doesn't handle combinatorics like きゃ (kya)
     let lower = text.to_lowercase();
     let mut result = String::new();
     let mut i = 0;
-    
+
     while i < lower.len() {
         let mut found = false;
-        
+
         // Try to match longer sequences first
         for len in (1..=3).rev() {
             if i + len <= lower.len() {
-                let substr = &lower[i..i+len];
+                let substr = &lower[i..i + len];
                 if let Some(&hiragana) = ROMAJI_TO_HIRAGANA.get(&substr) {
                     result.push_str(hiragana);
                     i += len;
@@ -173,13 +176,84 @@ pub fn romaji_to_hiragana(text: &str) -> String {
                 }
             }
         }
-        
+
         if !found {
             // If no match found, keep the original character
             result.push(text.chars().nth(i).unwrap());
             i += 1;
         }
     }
-    
+
     result
 }
+
+#[derive(Debug, Clone, Copy)]
+pub struct Utf8CharView<'a> {
+    pub idx: usize,
+    pub ch: &'a str,
+}
+
+impl<'a> Utf8CharView<'a> {
+    pub fn new(idx: usize, ch: &'a str) -> Self {
+        Utf8CharView { idx, ch }
+    }
+}
+
+/// Enumerate UTF-8 characters with their byte positions
+/// Returns an iterator of (index, character_slice) tuples
+pub fn enum_unicode_chars(text: &'_ str) -> impl Iterator<Item = Utf8CharView<'_>> {
+    text.char_indices().map(move |(idx, c)| {
+        let char_len = c.len_utf8();
+        let ch = &text[idx..idx + char_len];
+        Utf8CharView::new(idx, ch)
+    })
+}
+
+/// Iterate over UTF-8 characters without their positions
+/// Returns an iterator of character slices
+pub fn iter_unicode_chars(text: &str) -> impl Iterator<Item = &str> {
+    enum_unicode_chars(text).map(|v| v.ch)
+}
+
+#[derive(Debug, Clone)]
+pub struct KanaInsensitiveMore {
+    pub value: String,
+}
+
+impl KanaInsensitiveMore {
+    pub fn new(value: String) -> Self {
+        KanaInsensitiveMore { value }
+    }
+}
+
+impl Ord for KanaInsensitiveMore {
+    fn cmp(&self, other: &Self) -> Ordering {
+        // First compare by length (longer strings come first - descending)
+        match other.value.len().cmp(&self.value.len()) {
+            Ordering::Equal => {
+                // If lengths are equal, compare by katakana conversion (descending)
+                let lhs_kata = hiragana_to_katakana(&self.value);
+                let rhs_kata = hiragana_to_katakana(&other.value);
+                rhs_kata.cmp(&lhs_kata)
+            }
+            other_ordering => other_ordering,
+        }
+    }
+}
+
+impl PartialOrd for KanaInsensitiveMore {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Eq for KanaInsensitiveMore {}
+
+impl PartialEq for KanaInsensitiveMore {
+    fn eq(&self, other: &Self) -> bool {
+        self.value.len() == other.value.len()
+            && hiragana_to_katakana(&self.value) == hiragana_to_katakana(&other.value)
+    }
+}
+
+pub type JpSet = BTreeSet<KanaInsensitiveMore>;

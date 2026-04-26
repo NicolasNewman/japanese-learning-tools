@@ -24,6 +24,7 @@ mod echo;
 mod images;
 mod kana_conv;
 mod marian_mt;
+mod marisa_split;
 mod mecab_split;
 mod translate;
 mod util;
@@ -38,6 +39,7 @@ ACTIONS
   images      Get images from Bing.
   translate   Translate text using argostranslate.
   mecab       Split search string using Mecab.
+  marisa      Split search string using MARISA.
   strokeorder Show stroke order of a word.
   handwritten Display the handwritten form of a word.
 
@@ -48,6 +50,7 @@ EXAMPLES
 gd-tools ankisearch --field-name VocabKanji %GDWORD%
 gd-tools ankisearch --field-name VocabKanji %GDWORD%
 gd-tools ankisearch --deck-name Mining %GDWORD%
+gd-tools marisa --word %GDWORD% --sentence %GDSENTENCE%
 "#;
 
 fn print_help() {
@@ -81,6 +84,10 @@ fn main() {
         "mecab" => {
             let cmd_args = args[2..].to_vec();
             mecab_split::split_mecab(&cmd_args);
+        }
+        "marisa" => {
+            let cmd_args = args[2..].to_vec();
+            marisa_split::split_marisa(&cmd_args);
         }
         "strokeorder" => {
             let cmd_args = args[2..].to_vec();
