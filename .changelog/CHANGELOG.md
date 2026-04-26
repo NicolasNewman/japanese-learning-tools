@@ -1,5 +1,5 @@
-# v0.16.1
+# v0.16.2
 
 ## repo
 
-- fix: windows action fix
+- chore: bump nx version
