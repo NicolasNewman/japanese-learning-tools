@@ -1,6 +1,6 @@
 [package]
 name = "gd-tools"
-version = "0.4.1"
+version = "0.5.0"
 edition.workspace = true
 authors = ["NicolasNewman, Ajatt-Tools"]
 description = "A set of programs to enhance GoldenDict for immersion learning"

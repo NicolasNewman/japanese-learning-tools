@@ -1,5 +1,9 @@
-# v0.15.5
+# v0.16.0
 
-## jp-learning-tools
+## gd-tools
 
-- fix: xcap mutex error on win
+- feat: implemented marisa_split
+
+## subs2clipboard-native-messenger
+
+- fix: wayland clipboard support
