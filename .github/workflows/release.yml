@@ -73,7 +73,7 @@ jobs:
               dist/target/release/bundle/rpm/*.rpm
           - name: windows
             image: windows-2022
-            shell: cmd
+            shell: pwsh
             installer: dist/target/release/bundle/msi/*.msi
     runs-on: ${{ matrix.os.image }}
     steps:
