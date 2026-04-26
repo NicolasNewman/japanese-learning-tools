@@ -1,9 +1,5 @@
-# v0.16.0
+# v0.16.1
 
-## gd-tools
+## repo
 
-- feat: implemented marisa_split
-
-## subs2clipboard-native-messenger
-
-- fix: wayland clipboard support
+- fix: windows action fix
