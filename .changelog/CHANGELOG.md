@@ -1,5 +1,5 @@
-# v0.16.2
+# v0.16.3
 
-## repo
+## gd-sudachi
 
-- chore: bump nx version
+- chore: update deps
