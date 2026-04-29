@@ -2,7 +2,7 @@ import json
 import os
 import platform
 from abc import ABC
-from typing import Generic, Literal, Optional, TypeGuard, TypeVar, TypedDict
+from typing import Generic, Literal, Optional, TypedDict, TypeGuard, TypeVar
 
 Level = Literal["Apprentice", "Guru", "Master", "Enlightened", "Burned"]
 KanjiType = Literal["kanji", "vocabulary"]
