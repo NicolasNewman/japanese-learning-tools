@@ -16,7 +16,11 @@ const sveltekitFix = async () => {
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
   plugins: [tailwindcss(), sveltekitFix()],
-
+  build: {
+    rollupOptions: {
+      external: ['open'],
+    },
+  },
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
   // 1. prevent vite from obscuring rust errors

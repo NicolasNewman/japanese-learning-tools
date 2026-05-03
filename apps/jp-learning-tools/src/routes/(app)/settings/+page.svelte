@@ -34,16 +34,15 @@
       <Accordion.Item value="wanikani">
         <Accordion.Trigger>WaniKani</Accordion.Trigger>
         <Accordion.Content class="flex flex-col gap-4 text-balance">
-          <svelte:component this={importerSettingsPage["wanikani"]} />
+          {@const Settings = importerSettingsPage["wanikani"]}
+          <Settings />
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="anki">
         <Accordion.Trigger>Anki</Accordion.Trigger>
         <Accordion.Content class="flex flex-col gap-4 text-balance">
-          <p class="mb-2 text-gray-500 dark:text-gray-400">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab
-            necessitatibus sint explicabo ...
-          </p>
+          {@const Settings = importerSettingsPage["anki"]}
+          <Settings />
         </Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>

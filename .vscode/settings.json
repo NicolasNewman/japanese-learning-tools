@@ -14,5 +14,7 @@
     "python.analysis.extraPaths": [
         "apps/gd-sudachi/gd_sudachi"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "python-envs.defaultEnvManager": "ms-python.python:poetry",
+    "python-envs.defaultPackageManager": "ms-python.python:poetry"
 }

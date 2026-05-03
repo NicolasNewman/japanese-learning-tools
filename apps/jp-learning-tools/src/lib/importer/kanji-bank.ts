@@ -1,5 +1,8 @@
 import { load, Store } from "@tauri-apps/plugin-store";
-import type { KanjiBankData, KanjiBankEntry } from "@nicolasnewman/kanji-bank-types";
+import type {
+  KanjiBankData,
+  KanjiBankEntry,
+} from "@nicolasnewman/kanji-bank-types";
 
 export default class KanjiBank {
   private static instance: KanjiBank | null = null;
@@ -9,26 +12,33 @@ export default class KanjiBank {
 
   public static async setKanji<T>(
     kanji: string,
-    data: KanjiBankEntry<T>
+    data: KanjiBankEntry<T>,
   ): Promise<void> {
     (await KanjiBank.getInstance()).set(kanji, data);
   }
 
-  public static async batchKanji<T>(kanjiData: KanjiBankData<T>): Promise<KanjiBankData<T>> {
+  public static async batchKanji<T>(
+    kanjiData: KanjiBankData<T>,
+  ): Promise<KanjiBankData<T>> {
     const storedKanji = (
       await (await KanjiBank.getInstance()).entries<KanjiBankData<T>[""]>()
     ).reduce((prev, [key, value]) => {
       prev[key] = value;
       return prev;
     }, {} as KanjiBankData<T>);
-    const changelog: KanjiBankData<T> = {}
+    const changelog: KanjiBankData<T> = {};
     const updatePromises: Promise<void>[] = [];
     Object.entries(kanjiData).forEach(([kanji, data]) => {
       const storedVersion = storedKanji[kanji];
-      if (!storedVersion || (storedVersion.source === data.source && storedVersion.level < data.level)) {
+      if (
+        !storedVersion ||
+        (storedVersion.source === data.source &&
+          storedVersion.level < data.level) ||
+        (storedVersion.source !== "wanikani" && data.source === "wanikani")
+      ) {
         changelog[kanji] = data;
         updatePromises.push(KanjiBank.setKanji(kanji, data));
-        storedKanji[kanji] = data
+        storedKanji[kanji] = data;
       }
     });
     await Promise.all(updatePromises);
@@ -37,13 +47,14 @@ export default class KanjiBank {
   }
 
   public static async getKanji<T>(
-    kanji: string
+    kanji: string,
   ): Promise<KanjiBankData<T> | undefined> {
     return (await KanjiBank.getInstance()).get<KanjiBankData<T>>(kanji);
   }
 
-  public static async getAll<T>(
-  ): Promise<[key: string, value: KanjiBankEntry<T>][] | undefined> {
+  public static async getAll<T>(): Promise<
+    [key: string, value: KanjiBankEntry<T>][] | undefined
+  > {
     return (await KanjiBank.getInstance()).entries<KanjiBankEntry<T>>();
   }
 

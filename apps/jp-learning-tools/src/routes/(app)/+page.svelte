@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import KanjiBank from "$lib/importer/kanji-bank";
   import kanjiState from "../../stores/kanjiBank.svelte";
   import { statusState } from "../../stores/statusState.svelte";
 
@@ -11,7 +9,10 @@
   <div class="mb-4">
     <p>Kanji known: {kanji.kanji.length}</p>
     <p>Vocab known: {kanji.vocab.length}</p>
-    <p>Total: {kanji.total}</p>
+    <p>
+      Total: {kanji.total} (Anki: {kanji.totalSource.anki}, WaniKani: {kanji
+        .totalSource.wanikani})
+    </p>
   </div>
   {#if statusState.manifestStatus === "error"}
     <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
