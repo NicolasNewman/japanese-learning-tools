@@ -37,6 +37,20 @@ class WaniKaniMetadata(MetadataBase):
     vocabulary_data: Optional[VocabularyData] = None
 
 
+class AnkiStats:
+    interval: int
+    reps: int
+    lapses: int
+
+
+class AnkiMetadata(MetadataBase):
+    card_id: int
+    model_name: str
+    deck_name: str
+    stats: AnkiStats
+    fields: dict[str, str]
+
+
 class KanjiBankEntry(Generic[T], TypedDict):
     level: Level
     type: KanjiType
@@ -47,6 +61,7 @@ class KanjiBankEntry(Generic[T], TypedDict):
 
 KanjiBankData = dict[str, KanjiBankEntry[T]]
 WaniKaniKanjiBankData = dict[str, KanjiBankEntry[WaniKaniMetadata]]
+AnkiKanjiBankData = dict[str, KanjiBankEntry[AnkiMetadata]]
 
 
 def is_wanikani_entry(
@@ -54,6 +69,13 @@ def is_wanikani_entry(
 ) -> TypeGuard[KanjiBankEntry[WaniKaniMetadata]]:
     """Type guard to check if entry has WaniKani metadata"""
     return entry.get("source") == "wanikani"
+
+
+def is_anki_entry(
+    entry: KanjiBankEntry,
+) -> TypeGuard[KanjiBankEntry[AnkiMetadata]]:
+    """Type guard to check if entry has Anki metadata"""
+    return entry.get("source") == "anki"
 
 
 def is_kanji(char):

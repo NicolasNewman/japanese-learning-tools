@@ -2,6 +2,8 @@ import contextlib
 import locale
 import sys
 
+from kanji_bank import KanjiBankData
+
 if sys.platform == "win32":
     # Force UTF-8 encoding on Windows
     sys.stdout.reconfigure(encoding="utf-8")
@@ -66,7 +68,7 @@ def create_tokenizer():
 
 
 def process_text_to_html(
-    text, tokenizer_obj, kanji_bank, debug=False, styles=False, spoiler=False
+    text, tokenizer_obj, kanji_bank: KanjiBankData, debug=False, styles=False, spoiler=False
 ):
     """Process text and return HTML with POS tagging"""
     tree = HTMLParser(text)
