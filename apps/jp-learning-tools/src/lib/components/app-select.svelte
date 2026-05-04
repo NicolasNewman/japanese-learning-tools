@@ -4,12 +4,14 @@
   const {
     options,
     name,
+    style = "w-[180px] ",
     value = $bindable(),
     disabled = false,
     onValueChange = () => {},
   }: {
     options: { value: string; label: string }[];
     name: string;
+    style?: string;
     value?: string;
     disabled?: boolean;
     onValueChange?: (value: string) => void;
@@ -21,7 +23,7 @@
 </script>
 
 <Select.Root type="single" {name} {value} {disabled} {onValueChange}>
-  <Select.Trigger class="w-[180px]">
+  <Select.Trigger class={style}>
     {triggerContent}
   </Select.Trigger>
   <Select.Content>

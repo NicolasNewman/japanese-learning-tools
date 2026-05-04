@@ -7,13 +7,17 @@ import type {
   Level,
 } from "@nicolasnewman/kanji-bank-types";
 import { YankiConnect } from "yanki-connect";
+import type { AnkiSettingsStore } from "./store";
 
 export default class AnkiImporter extends Importer<AnkiMetadata> {
-  private models: { [key: string]: string };
+  private models: NonNullable<AnkiSettingsStore["syncedModels"]>;
   private deckNames: string[];
   version = 1;
 
-  constructor(models: { [key: string]: string }, deckNames: string[]) {
+  constructor(
+    models: NonNullable<AnkiSettingsStore["syncedModels"]>,
+    deckNames: string[],
+  ) {
     super();
     this.models = models;
     this.deckNames = deckNames;

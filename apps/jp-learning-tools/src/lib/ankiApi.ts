@@ -4,6 +4,7 @@ import {
   type KanjiBankEntry,
 } from "@nicolasnewman/kanji-bank-types";
 import { YankiConnect } from "yanki-connect";
+import type { AnkiSettingsStore } from "./importer/anki/store";
 
 class DeckTreeNode {
   name: string;
@@ -54,7 +55,7 @@ export default class AnkiConnectClient {
   };
 
   public static getCards = async (
-    models: { [key: string]: string },
+    models: NonNullable<AnkiSettingsStore["syncedModels"]>,
     deckNames: string[],
   ) => {
     const client = AnkiConnectClient.getInstance();
@@ -73,13 +74,16 @@ export default class AnkiConnectClient {
 
     const cards = (await client.card.cardsInfo({ cards: cardIds })).reduce(
       (prev, card) => {
-        const fieldName = models[card.modelName];
-        const fieldValue = (card.fields[fieldName]?.value ?? "")
+        const kanjiFieldName = models[card.modelName].kanji;
+        const fieldValue = (card.fields[kanjiFieldName]?.value ?? "")
           .replace(/\[.*\]/g, "")
           .replace(/\<.*\>/g, "")
           // TODO: this is a hack to handle cases where the field contains multiple values separated by commas. We should ideally allow users to customize this behavior.
           .split(",")
           .filter((str) => containsKanji(str));
+
+        const meaningFieldName = models[card.modelName].meaning;
+        const meaningValue = card.fields[meaningFieldName]?.value ?? "";
 
         const obj = {
           source: "anki",
@@ -106,7 +110,7 @@ export default class AnkiConnectClient {
             prev[value] = {
               ...obj,
               type: value.length === 1 ? "kanji" : "vocabulary",
-              meaning: "", // TODO: we should ideally allow users to specify which field contains the meaning as well
+              meaning: meaningValue,
             };
             return prev;
           }, {} as Record<string, Omit<KanjiBankEntry<AnkiMetadata>, "level">>),

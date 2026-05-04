@@ -1,9 +1,14 @@
 import { LazyStore } from "@tauri-apps/plugin-store";
 
 const STORE_KEY = "anki-settings";
-type AnkiSettingsStore = {
+export type AnkiSettingsStore = {
   lastSync: Date | null;
-  syncedModels: { [key: string]: string } | null;
+  syncedModels: {
+    [key: string]: {
+      kanji: string;
+      meaning: string;
+    };
+  } | null;
   syncedDecks: string[] | null;
 };
 const store = new LazyStore(STORE_KEY);
