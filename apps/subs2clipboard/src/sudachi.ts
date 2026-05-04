@@ -212,7 +212,9 @@ onRuntimeMessage((msg) => {
     log("Element map:", elementMap[id].innerHTML);
     elementMap[id].innerHTML = text;
     elementMap[id]
-      .querySelectorAll(`span[data-source="wanikani"]`)
+      .querySelectorAll(
+        `span[data-source="wanikani"], span[data-source="anki"]`,
+      )
       .forEach((el) => {
         let timeout: number | undefined = undefined;
         let popup: HTMLDivElement | null = null;
