@@ -1,7 +1,7 @@
 <script lang="ts">
   import Checkbox from "$lib/components/ui/checkbox/checkbox.svelte";
+  import type { SaveState } from "..";
 
-  type SaveState = "IDLE" | "SAVING" | "SAVED";
   let {
     decks,
     syncedDecks = $bindable(),

@@ -11,8 +11,8 @@
   import { alertState } from "../../../stores/alertState.svelte";
   import KanjiBank from "../kanji-bank";
   import { formatDate } from "$lib/date";
+  import type { SaveState } from "..";
 
-  type SaveState = "IDLE" | "SAVING" | "SAVED";
   let saveState: SaveState = $state("IDLE");
 
   let apiKey: string | null | undefined = $state(undefined);

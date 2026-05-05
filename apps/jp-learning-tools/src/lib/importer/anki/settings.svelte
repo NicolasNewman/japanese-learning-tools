@@ -11,8 +11,8 @@
   import AnkiConnectClient from "$lib/ankiApi";
   import ModelColumn from "./model-column.svelte";
   import DeckColumn from "./deck-column.svelte";
+  import type { SaveState } from "..";
 
-  type SaveState = "IDLE" | "SAVING" | "SAVED";
   let saveState: SaveState = $state("IDLE");
 
   let lastSync: Date | null | undefined = $state(undefined);

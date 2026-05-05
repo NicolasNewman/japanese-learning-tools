@@ -2,8 +2,8 @@
   import { type AnkiSettingsStore } from "./store";
   import Checkbox from "$lib/components/ui/checkbox/checkbox.svelte";
   import Select from "$lib/components/app-select.svelte";
+  import type { SaveState } from "..";
 
-  type SaveState = "IDLE" | "SAVING" | "SAVED";
   let {
     models,
     syncedModels = $bindable(),
@@ -98,5 +98,6 @@
       disabled={saveState !== "IDLE" ||
         !(syncedModels?.hasOwnProperty(modelName) ?? false)}
     />
+    <!-- TODO: Reading -->
   </div>
 {/each}

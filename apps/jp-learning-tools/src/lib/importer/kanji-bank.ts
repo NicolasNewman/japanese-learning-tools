@@ -34,6 +34,7 @@ export default class KanjiBank {
         !storedVersion ||
         (storedVersion.source === data.source &&
           storedVersion.level < data.level) ||
+        // TODO: This is a temporary measure to prioritize WaniKani data over other sources. We should implement a more robust system for handling multiple sources in the future.
         (storedVersion.source !== "wanikani" && data.source === "wanikani")
       ) {
         changelog[kanji] = data;

@@ -8,7 +8,9 @@ import type {
   Level,
   WaniKaniMetadata,
 } from "@nicolasnewman/kanji-bank-types";
-import { YankiConnect } from "yanki-connect";
+import type { AnkiSettingsStore } from "./anki/store";
+
+export type SaveState = "IDLE" | "SAVING" | "SAVED";
 
 const WaniKaniImporter = import("./wanikani/index");
 const AnkiImporter = import("./anki/index");
@@ -31,8 +33,10 @@ const kanjiImporter: Record<
 > = {
   wanikani: async (apiKey: string) =>
     new (await WaniKaniImporter).default(apiKey),
-  anki: async (models: { [key: string]: string }, deckNames: string[]) =>
-    new (await AnkiImporter).default(models, deckNames),
+  anki: async (
+    models: NonNullable<AnkiSettingsStore["syncedModels"]>,
+    deckNames: string[],
+  ) => new (await AnkiImporter).default(models, deckNames),
 };
 
 export { Importer };
