@@ -183,6 +183,97 @@ abstract class _$WaniKaniLastUpdated extends $AsyncNotifier<String> {
   }
 }
 
+@ProviderFor(AnkiLastUpdated)
+final ankiLastUpdatedProvider = AnkiLastUpdatedProvider._();
+
+final class AnkiLastUpdatedProvider
+    extends $AsyncNotifierProvider<AnkiLastUpdated, String> {
+  AnkiLastUpdatedProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'ankiLastUpdatedProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$ankiLastUpdatedHash();
+
+  @$internal
+  @override
+  AnkiLastUpdated create() => AnkiLastUpdated();
+}
+
+String _$ankiLastUpdatedHash() => r'ae4d4ec606ef8cdc6a6068f37e9be34137a76085';
+
+abstract class _$AnkiLastUpdated extends $AsyncNotifier<String> {
+  FutureOr<String> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<String>, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<String>, String>,
+              AsyncValue<String>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
+@ProviderFor(AnkiSelectedModels)
+final ankiSelectedModelsProvider = AnkiSelectedModelsProvider._();
+
+final class AnkiSelectedModelsProvider
+    extends $AsyncNotifierProvider<AnkiSelectedModels, Set<ModelSelection>> {
+  AnkiSelectedModelsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'ankiSelectedModelsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$ankiSelectedModelsHash();
+
+  @$internal
+  @override
+  AnkiSelectedModels create() => AnkiSelectedModels();
+}
+
+String _$ankiSelectedModelsHash() =>
+    r'94519bfb6376773a668cacf40080afb07e934d90';
+
+abstract class _$AnkiSelectedModels
+    extends $AsyncNotifier<Set<ModelSelection>> {
+  FutureOr<Set<ModelSelection>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref =
+        this.ref as $Ref<AsyncValue<Set<ModelSelection>>, Set<ModelSelection>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<Set<ModelSelection>>, Set<ModelSelection>>,
+              AsyncValue<Set<ModelSelection>>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(KanjiBank)
 final kanjiBankProvider = KanjiBankProvider._();
 

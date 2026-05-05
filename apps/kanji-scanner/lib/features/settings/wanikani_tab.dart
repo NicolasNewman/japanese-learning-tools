@@ -55,7 +55,7 @@ class _WanikaniTabState extends ConsumerState<WanikaniTab> {
 
                             ref
                                 .read(kanjiBankProvider.notifier)
-                                .setKanjiBankData(data);
+                                .updateKanjiBankData(data);
                             ref
                                 .read(waniKaniLastUpdatedProvider.notifier)
                                 .setLastUpdated(

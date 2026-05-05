@@ -377,7 +377,7 @@ data class GetModelFields (
 data class NoteWithFields (
   val noteId: Long,
   val modelId: Long,
-  val fields: Map<String, String>,
+  val kanji: String,
   val tags: List<String>
 )
  {
@@ -385,16 +385,16 @@ data class NoteWithFields (
     fun fromList(pigeonVar_list: List<Any?>): NoteWithFields {
       val noteId = pigeonVar_list[0] as Long
       val modelId = pigeonVar_list[1] as Long
-      val fields = pigeonVar_list[2] as Map<String, String>
+      val kanji = pigeonVar_list[2] as String
       val tags = pigeonVar_list[3] as List<String>
-      return NoteWithFields(noteId, modelId, fields, tags)
+      return NoteWithFields(noteId, modelId, kanji, tags)
     }
   }
   fun toList(): List<Any?> {
     return listOf(
       noteId,
       modelId,
-      fields,
+      kanji,
       tags,
     )
   }
@@ -406,14 +406,14 @@ data class NoteWithFields (
       return true
     }
     val other = other as NoteWithFields
-    return MessagesPigeonUtils.deepEquals(this.noteId, other.noteId) && MessagesPigeonUtils.deepEquals(this.modelId, other.modelId) && MessagesPigeonUtils.deepEquals(this.fields, other.fields) && MessagesPigeonUtils.deepEquals(this.tags, other.tags)
+    return MessagesPigeonUtils.deepEquals(this.noteId, other.noteId) && MessagesPigeonUtils.deepEquals(this.modelId, other.modelId) && MessagesPigeonUtils.deepEquals(this.kanji, other.kanji) && MessagesPigeonUtils.deepEquals(this.tags, other.tags)
   }
 
   override fun hashCode(): Int {
     var result = javaClass.hashCode()
     result = 31 * result + MessagesPigeonUtils.deepHash(this.noteId)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.modelId)
-    result = 31 * result + MessagesPigeonUtils.deepHash(this.fields)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.kanji)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.tags)
     return result
   }
@@ -461,8 +461,11 @@ data class CardInfo (
   val question: String,
   val answer: String,
   val modelId: Long,
-  val fields: Map<String, String>,
-  val tags: List<String>
+  val kanji: String,
+  val tags: List<String>,
+  val reps: Long,
+  val lapses: Long,
+  val type: Long
 )
  {
   companion object {
@@ -473,9 +476,12 @@ data class CardInfo (
       val question = pigeonVar_list[3] as String
       val answer = pigeonVar_list[4] as String
       val modelId = pigeonVar_list[5] as Long
-      val fields = pigeonVar_list[6] as Map<String, String>
+      val kanji = pigeonVar_list[6] as String
       val tags = pigeonVar_list[7] as List<String>
-      return CardInfo(noteId, cardOrd, deckId, question, answer, modelId, fields, tags)
+      val reps = pigeonVar_list[8] as Long
+      val lapses = pigeonVar_list[9] as Long
+      val type = pigeonVar_list[10] as Long
+      return CardInfo(noteId, cardOrd, deckId, question, answer, modelId, kanji, tags, reps, lapses, type)
     }
   }
   fun toList(): List<Any?> {
@@ -486,8 +492,11 @@ data class CardInfo (
       question,
       answer,
       modelId,
-      fields,
+      kanji,
       tags,
+      reps,
+      lapses,
+      type,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -498,7 +507,7 @@ data class CardInfo (
       return true
     }
     val other = other as CardInfo
-    return MessagesPigeonUtils.deepEquals(this.noteId, other.noteId) && MessagesPigeonUtils.deepEquals(this.cardOrd, other.cardOrd) && MessagesPigeonUtils.deepEquals(this.deckId, other.deckId) && MessagesPigeonUtils.deepEquals(this.question, other.question) && MessagesPigeonUtils.deepEquals(this.answer, other.answer) && MessagesPigeonUtils.deepEquals(this.modelId, other.modelId) && MessagesPigeonUtils.deepEquals(this.fields, other.fields) && MessagesPigeonUtils.deepEquals(this.tags, other.tags)
+    return MessagesPigeonUtils.deepEquals(this.noteId, other.noteId) && MessagesPigeonUtils.deepEquals(this.cardOrd, other.cardOrd) && MessagesPigeonUtils.deepEquals(this.deckId, other.deckId) && MessagesPigeonUtils.deepEquals(this.question, other.question) && MessagesPigeonUtils.deepEquals(this.answer, other.answer) && MessagesPigeonUtils.deepEquals(this.modelId, other.modelId) && MessagesPigeonUtils.deepEquals(this.kanji, other.kanji) && MessagesPigeonUtils.deepEquals(this.tags, other.tags) && MessagesPigeonUtils.deepEquals(this.reps, other.reps) && MessagesPigeonUtils.deepEquals(this.lapses, other.lapses) && MessagesPigeonUtils.deepEquals(this.type, other.type)
   }
 
   override fun hashCode(): Int {
@@ -509,8 +518,11 @@ data class CardInfo (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.question)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.answer)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.modelId)
-    result = 31 * result + MessagesPigeonUtils.deepHash(this.fields)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.kanji)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.tags)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.reps)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.lapses)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.type)
     return result
   }
 }
@@ -648,8 +660,8 @@ interface NativeApi {
   fun getModels(): GetModels
   fun getModelsWithInfo(): GetModelsWithInfo
   fun getModelFields(modelId: Long): GetModelFields
-  fun getNotesWithFieldsForModel(modelId: Long): GetNotesWithFieldsForModel
-  fun getCardsForModel(modelId: Long): GetCardsForModel
+  fun getNotesWithFieldsForModel(modelId: Long, fieldName: String): GetNotesWithFieldsForModel
+  fun getCardsForModel(modelId: Long, fieldName: String, offset: Long, limit: Long): GetCardsForModel
 
   companion object {
     /** The codec used by NativeApi. */
@@ -728,8 +740,9 @@ interface NativeApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val modelIdArg = args[0] as Long
+            val fieldNameArg = args[1] as String
             val wrapped: List<Any?> = try {
-              listOf(api.getNotesWithFieldsForModel(modelIdArg))
+              listOf(api.getNotesWithFieldsForModel(modelIdArg, fieldNameArg))
             } catch (exception: Throwable) {
               MessagesPigeonUtils.wrapError(exception)
             }
@@ -745,8 +758,11 @@ interface NativeApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val modelIdArg = args[0] as Long
+            val fieldNameArg = args[1] as String
+            val offsetArg = args[2] as Long
+            val limitArg = args[3] as Long
             val wrapped: List<Any?> = try {
-              listOf(api.getCardsForModel(modelIdArg))
+              listOf(api.getCardsForModel(modelIdArg, fieldNameArg, offsetArg, limitArg))
             } catch (exception: Throwable) {
               MessagesPigeonUtils.wrapError(exception)
             }

@@ -47,12 +47,14 @@ class GetModelFields {
 class NoteWithFields {
   final int noteId;
   final int modelId;
-  final Map<String, String> fields;
+  // final Map<String, String> fields;
+  final String kanji;
   final List<String> tags;
   NoteWithFields({
     required this.noteId,
     required this.modelId,
-    required this.fields,
+    // required this.fields,
+    required this.kanji,
     required this.tags,
   });
 }
@@ -69,8 +71,12 @@ class CardInfo {
   final String question;
   final String answer;
   final int modelId;
-  final Map<String, String> fields;
+  final String kanji;
+  // final Map<String, String> fields;
   final List<String> tags;
+  final int reps;
+  final int lapses;
+  final int type;
 
   CardInfo({
     required this.noteId,
@@ -79,8 +85,12 @@ class CardInfo {
     required this.question,
     required this.answer,
     required this.modelId,
-    required this.fields,
+    required this.kanji,
+    // required this.fields,
     required this.tags,
+    required this.reps,
+    required this.lapses,
+    required this.type,
   });
 }
 
@@ -95,6 +105,14 @@ abstract class NativeApi {
   GetModels getModels();
   GetModelsWithInfo getModelsWithInfo();
   GetModelFields getModelFields(int modelId);
-  GetNotesWithFieldsForModel getNotesWithFieldsForModel(int modelId);
-  GetCardsForModel getCardsForModel(int modelId);
+  GetNotesWithFieldsForModel getNotesWithFieldsForModel(
+    int modelId,
+    String fieldName,
+  );
+  GetCardsForModel getCardsForModel(
+    int modelId,
+    String fieldName,
+    int offset,
+    int limit,
+  );
 }

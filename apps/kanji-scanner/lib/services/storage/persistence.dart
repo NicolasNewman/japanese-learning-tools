@@ -75,6 +75,97 @@ class WaniKaniLastUpdated extends _$WaniKaniLastUpdated {
 }
 
 @riverpod
+class AnkiLastUpdated extends _$AnkiLastUpdated {
+  SharedPreferences? prefs;
+
+  @override
+  Future<String> build() async {
+    prefs = await (ref.read(sharedPrefsProvider.future));
+    final lastUpdated = prefs!.getString('anki_last_updated');
+    if (lastUpdated != null && lastUpdated.isNotEmpty) {
+      return lastUpdated;
+    }
+    return "never";
+  }
+
+  Future<void> setLastUpdated(String newLastUpdated) async {
+    await prefs!.setString('anki_last_updated', newLastUpdated);
+    state = AsyncValue.data(newLastUpdated);
+  }
+}
+
+class ModelSelection {
+  final int modelId;
+  final String? selectedField;
+
+  ModelSelection({required this.modelId, this.selectedField});
+}
+
+@riverpod
+class AnkiSelectedModels extends _$AnkiSelectedModels {
+  SharedPreferences? prefs;
+
+  Set<ModelSelection> _cache = {};
+
+  @override
+  Future<Set<ModelSelection>> build() async {
+    prefs = await (ref.read(sharedPrefsProvider.future));
+    final selectedModels = prefs!.getStringList('anki_selected_models');
+    if (selectedModels != null && selectedModels.isNotEmpty) {
+      _cache = selectedModels.map((e) {
+        final parts = e.split(':');
+        final modelId = int.tryParse(parts[0]) ?? 0;
+        final selectedField = parts.length > 1 ? parts[1] : null;
+        return ModelSelection(modelId: modelId, selectedField: selectedField);
+      }).toSet();
+      return _cache;
+    }
+    _cache = {};
+    return _cache;
+  }
+
+  Set<ModelSelection> get current => _cache;
+
+  Future<void> setSelectedModels(Set<ModelSelection> newSelectedModels) async {
+    _cache = newSelectedModels;
+    final stringList = newSelectedModels
+        .map((e) => '${e.modelId.toString()}:${e.selectedField ?? ""}')
+        .toList();
+    await prefs!.setStringList('anki_selected_models', stringList);
+    state = AsyncValue.data(newSelectedModels);
+  }
+
+  void toggleModel(int modelId) {
+    final newSet = Set<ModelSelection>.from(_cache);
+    final existing = newSet.firstWhere(
+      (model) => model.modelId == modelId,
+      orElse: () => ModelSelection(modelId: modelId),
+    );
+    if (newSet.contains(existing)) {
+      newSet.remove(existing);
+    } else {
+      newSet.add(existing);
+    }
+    setSelectedModels(newSet);
+  }
+
+  void setField(int modelId, String field) {
+    final newSet = Set<ModelSelection>.from(_cache);
+    final existing = newSet.firstWhere(
+      (model) => model.modelId == modelId,
+      orElse: () => ModelSelection(modelId: modelId),
+    );
+    if (newSet.contains(existing)) {
+      newSet.remove(existing);
+      newSet.add(ModelSelection(modelId: modelId, selectedField: field));
+    } else {
+      newSet.add(ModelSelection(modelId: modelId, selectedField: field));
+    }
+    setSelectedModels(newSet);
+  }
+}
+
+@riverpod
 class KanjiBank extends _$KanjiBank {
   SharedPreferences? prefs;
 
@@ -95,6 +186,30 @@ class KanjiBank extends _$KanjiBank {
     final jsonString = jsonEncode(jsonData);
     await prefs!.setString('kanji_bank_data', jsonString);
     state = AsyncValue.data(newData);
+  }
+
+  Future<void> updateKanjiBankData(KanjiBankData newData) async {
+    final currentData = state.value ?? {};
+    newData.entries.forEach((entry) {
+      final key = entry.key;
+      final newEntry = entry.value;
+
+      final existingEntry = currentData[key];
+
+      if (existingEntry != null && existingEntry.source != newEntry.source) {
+        if (existingEntry.source != KanjiSource.wanikani &&
+            newEntry.source == KanjiSource.wanikani) {
+          currentData[key] = newEntry;
+        }
+      } else {
+        currentData[key] = newEntry;
+      }
+    });
+    final mergedData = {...currentData, ...newData};
+    final jsonData = kanjiBankDataToJson(mergedData);
+    final jsonString = jsonEncode(jsonData);
+    await prefs!.setString('kanji_bank_data', jsonString);
+    state = AsyncValue.data(mergedData);
   }
 }
 

@@ -316,7 +316,7 @@ class NoteWithFields {
   NoteWithFields({
     required this.noteId,
     required this.modelId,
-    required this.fields,
+    required this.kanji,
     required this.tags,
   });
 
@@ -324,7 +324,7 @@ class NoteWithFields {
 
   int modelId;
 
-  Map<String, String> fields;
+  String kanji;
 
   List<String> tags;
 
@@ -332,7 +332,7 @@ class NoteWithFields {
     return <Object?>[
       noteId,
       modelId,
-      fields,
+      kanji,
       tags,
     ];
   }
@@ -345,7 +345,7 @@ class NoteWithFields {
     return NoteWithFields(
       noteId: result[0]! as int,
       modelId: result[1]! as int,
-      fields: (result[2]! as Map<Object?, Object?>).cast<String, String>(),
+      kanji: result[2]! as String,
       tags: (result[3]! as List<Object?>).cast<String>(),
     );
   }
@@ -359,7 +359,7 @@ class NoteWithFields {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(noteId, other.noteId) && _deepEquals(modelId, other.modelId) && _deepEquals(fields, other.fields) && _deepEquals(tags, other.tags);
+    return _deepEquals(noteId, other.noteId) && _deepEquals(modelId, other.modelId) && _deepEquals(kanji, other.kanji) && _deepEquals(tags, other.tags);
   }
 
   @override
@@ -415,8 +415,11 @@ class CardInfo {
     required this.question,
     required this.answer,
     required this.modelId,
-    required this.fields,
+    required this.kanji,
     required this.tags,
+    required this.reps,
+    required this.lapses,
+    required this.type,
   });
 
   int noteId;
@@ -431,9 +434,15 @@ class CardInfo {
 
   int modelId;
 
-  Map<String, String> fields;
+  String kanji;
 
   List<String> tags;
+
+  int reps;
+
+  int lapses;
+
+  int type;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -443,8 +452,11 @@ class CardInfo {
       question,
       answer,
       modelId,
-      fields,
+      kanji,
       tags,
+      reps,
+      lapses,
+      type,
     ];
   }
 
@@ -460,8 +472,11 @@ class CardInfo {
       question: result[3]! as String,
       answer: result[4]! as String,
       modelId: result[5]! as int,
-      fields: (result[6]! as Map<Object?, Object?>).cast<String, String>(),
+      kanji: result[6]! as String,
       tags: (result[7]! as List<Object?>).cast<String>(),
+      reps: result[8]! as int,
+      lapses: result[9]! as int,
+      type: result[10]! as int,
     );
   }
 
@@ -474,7 +489,7 @@ class CardInfo {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(noteId, other.noteId) && _deepEquals(cardOrd, other.cardOrd) && _deepEquals(deckId, other.deckId) && _deepEquals(question, other.question) && _deepEquals(answer, other.answer) && _deepEquals(modelId, other.modelId) && _deepEquals(fields, other.fields) && _deepEquals(tags, other.tags);
+    return _deepEquals(noteId, other.noteId) && _deepEquals(cardOrd, other.cardOrd) && _deepEquals(deckId, other.deckId) && _deepEquals(question, other.question) && _deepEquals(answer, other.answer) && _deepEquals(modelId, other.modelId) && _deepEquals(kanji, other.kanji) && _deepEquals(tags, other.tags) && _deepEquals(reps, other.reps) && _deepEquals(lapses, other.lapses) && _deepEquals(type, other.type);
   }
 
   @override
@@ -678,14 +693,14 @@ class NativeApi {
     return pigeonVar_replyValue! as GetModelFields;
   }
 
-  Future<GetNotesWithFieldsForModel> getNotesWithFieldsForModel(int modelId) async {
+  Future<GetNotesWithFieldsForModel> getNotesWithFieldsForModel(int modelId, String fieldName) async {
     final pigeonVar_channelName = 'dev.flutter.pigeon.kanji_scanner.NativeApi.getNotesWithFieldsForModel$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[modelId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[modelId, fieldName]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
@@ -697,14 +712,14 @@ class NativeApi {
     return pigeonVar_replyValue! as GetNotesWithFieldsForModel;
   }
 
-  Future<GetCardsForModel> getCardsForModel(int modelId) async {
+  Future<GetCardsForModel> getCardsForModel(int modelId, String fieldName, int offset, int limit) async {
     final pigeonVar_channelName = 'dev.flutter.pigeon.kanji_scanner.NativeApi.getCardsForModel$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[modelId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[modelId, fieldName, offset, limit]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
