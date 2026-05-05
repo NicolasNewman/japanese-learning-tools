@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kanji_scanner/features/settings/general_tab.dart';
 import 'package:kanji_scanner/features/settings/wanikani_tab.dart';
+import 'package:kanji_scanner/features/settings/anki_tab.dart';
 
 class SettingsView extends ConsumerStatefulWidget {
   const SettingsView({super.key});
@@ -28,7 +29,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -37,6 +38,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
             tabs: [
               Tab(text: 'General'),
               Tab(text: 'WaniKani'),
+              Tab(text: 'Anki'),
             ],
           ),
         ),
@@ -44,6 +46,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
           children: <Widget>[
             GeneralTab(),
             WanikaniTab(getController: _getController),
+            AnkiTab(getController: _getController),
           ],
         ),
       ),

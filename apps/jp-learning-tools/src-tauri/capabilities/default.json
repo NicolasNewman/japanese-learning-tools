@@ -15,6 +15,15 @@
     "core:window:allow-close",
     "core:event:allow-listen",
     "core:event:allow-emit",
+    "cors-fetch:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "http://127.0.0.1:*"
+        }
+      ]
+    },
     {
       "identifier": "fs:scope",
       "allow": [
@@ -33,6 +42,7 @@
           "path": "$APPDATA/"
         }
       ]
-    }
+    },
+    "http:default"
   ]
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kanji_scanner/navigation.dart';
 import 'package:kanji_scanner/services/storage/persistence.dart';
+import 'package:kanji_scanner/shared/models/kanji/anki.dart';
 import 'dart:io';
 
 import 'package:kanji_scanner/src/rust/api/sudachi_api.dart';
@@ -58,6 +59,12 @@ Future<void> main() async {
     KanjiSource.wanikani.registryKey,
     WaniKaniMetadata.fromJson,
   );
+
+  MetadataRegistry.register(
+    KanjiSource.anki.registryKey,
+    AnkiMetadata.fromJson,
+  );
+
   runApp(const ProviderScope(child: KanjiScanner()));
 }
 

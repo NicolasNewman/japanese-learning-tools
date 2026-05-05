@@ -71,10 +71,11 @@ jobs:
             installer: |
               dist/target/release/bundle/deb/*.deb
               dist/target/release/bundle/rpm/*.rpm
-          - name: windows
-            image: windows-2022
-            shell: pwsh
-            installer: dist/target/release/bundle/msi/*.msi
+          # TODO: windows build failing
+          # - name: windows
+          #   image: windows-2022
+          #   shell: pwsh
+          #   installer: dist/target/release/bundle/msi/*.msi
     runs-on: ${{ matrix.os.image }}
     steps:
       - uses: actions/checkout@v4

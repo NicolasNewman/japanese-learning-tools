@@ -2,6 +2,8 @@ import contextlib
 import locale
 import sys
 
+from kanji_bank import KanjiBankData
+
 if sys.platform == "win32":
     # Force UTF-8 encoding on Windows
     sys.stdout.reconfigure(encoding="utf-8")
@@ -65,7 +67,9 @@ def create_tokenizer():
         return Dictionary().create()
 
 
-def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
+def process_text_to_html(
+    text, tokenizer_obj, kanji_bank: KanjiBankData, debug=False, styles=False, spoiler=False
+):
     """Process text and return HTML with POS tagging"""
     tree = HTMLParser(text)
 
@@ -232,6 +236,29 @@ def process_text_to_html(text, tokenizer_obj, kanji_bank, debug=False):
                 break
     if tree.body and tree.body.html:
         result = tree.body.html.replace("<body>", "").replace("</body>", "")
+        if spoiler:
+            spoiler_tag = """<style>
+.spoiler {
+    background-color: black;
+    padding: 6px;
+    width: fit-content;
+}
+.spoiler:hover {
+    background-color: white;
+}
+</style>"""
+            result = spoiler_tag + f'<span class="spoiler">{result}</span>'
+        if styles:
+            style_tag = """<style>
+.kanji {
+    color: #FF00AA;
+}
+.vocabulary {
+    color: #AA00FF;
+}
+</style>"""
+            result = style_tag + result
+
         return result
     return ""
 
@@ -259,12 +286,16 @@ def run_as_daemon():
                 request = json.loads(line.strip())
                 text = request.get("text", "")
                 debug = request.get("debug", False)
+                styles = request.get("styles", False)
+                spoiler = request.get("spoiler", False)
 
                 if not text:
                     continue
 
                 # Process text
-                result = process_text_to_html(text, tokenizer_obj, kanji_bank, debug)
+                result = process_text_to_html(
+                    text, tokenizer_obj, kanji_bank, debug, styles, spoiler
+                )
 
                 # Send response back as JSON
                 response = {"status": "success", "result": result}
@@ -296,9 +327,10 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-    ./gd-sudachi.bin "昨日買った3つのりんごを持っています。"
-    ./gd-sudachi.bin -o output.html "日本語の文章を解析する"
-    ./gd-sudachi.bin --daemon  # Run as daemon for persistent processing
+    gd-sudachi "昨日買った3つのりんごを持っています。"
+    gd-sudachi -o output.html "日本語の文章を解析する"
+    gd-sudachi --styles --spoiler "日本語の文章を解析する"
+    gd-sudachi --daemon  # Run as daemon for persistent processing
         """,
     )
 
@@ -317,6 +349,18 @@ Examples:
         "--daemon", action="store_true", help="Run as daemon for persistent processing"
     )
 
+    parser.add_argument(
+        "--styles",
+        action="store_true",
+        help="Include default styles in the output HTML",
+    )
+
+    parser.add_argument(
+        "--spoiler",
+        action="store_true",
+        help="Include spoiler tags in the output HTML",
+    )
+
     args = parser.parse_args()
 
     # If daemon mode is requested, run as daemon
@@ -331,7 +375,9 @@ Examples:
     tokenizer_obj = create_tokenizer()
 
     # Process single text input
-    result = process_text_to_html(args.text, tokenizer_obj, kanji_bank, args.debug)
+    result = process_text_to_html(
+        args.text, tokenizer_obj, kanji_bank, args.debug, args.styles, args.spoiler
+    )
     print(result)
 
 
