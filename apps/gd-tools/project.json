@@ -19,7 +19,7 @@
       "options": {
         "commands": [
           "nx run gd-tools:_build:linux",
-          "nx run gd-tools:rename-binary --target=x86_64-unknown-linux-gnu"
+          "nx run gd-tools:rename-binary x86_64-unknown-linux-gnu"
         ],
         "parallel": false
       }
@@ -40,7 +40,7 @@
       "options": {
         "commands": [
           "nx run gd-tools:_build:windows",
-          "nx run gd-tools:rename-binary --target=x86_64-pc-windows-msvc"
+          "nx run gd-tools:rename-binary x86_64-pc-windows-msvc"
         ],
         "parallel": false
       }
@@ -61,7 +61,7 @@
       "options": {
         "commands": [
           "nx run gd-tools:_build:macos",
-          "nx run gd-tools:rename-binary --target=x86_64-apple-darwin"
+          "nx run gd-tools:rename-binary x86_64-apple-darwin"
         ],
         "parallel": false
       }
@@ -80,7 +80,7 @@
     "rename-binary": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx tsx scripts/rename-binary.ts dist/target/gd-tools {args.target}"
+        "command": "npx tsx scripts/rename-binary.ts dist/target/gd-tools {args._}"
       }
     },
     "test": {
