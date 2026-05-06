@@ -18,4 +18,5 @@ runs:
     - name: Build jp-learning-tools
       shell: ${{ inputs.shell }}
       run: |
+        nx build kanji-bank-types
         nx run jp-learning-tools:build:${{ inputs.os }}
