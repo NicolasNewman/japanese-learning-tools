@@ -1,5 +1,5 @@
-# v0.19.1
+# v0.19.2
 
 ## repo
 
-- fix: add submodules for building desktop app
+- fix: submodule missing
