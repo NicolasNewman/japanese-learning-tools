@@ -1,11 +1,17 @@
-# v0.18.0
+# v0.19.0
 
 ## repo
 
-- fix: ci fixes
+- fix: pull submodules when creating tagged release
+- chore: release v}
+- chore: version bump
+- chore: removed example from submodule
+- chore: release v}
+- fix: merge conflicts
+- chore: release v}
+- fix: ci fix for building kanji bank types
 
 ## jp-learning-tools
 
-- feat: added mpvacious instructions
-- feat: integrated mpv into jp-learning-tools
-- chore: added shad-cdn spinner
+- feat: replaced mpv osc with ModernZ
+- fix: added custom tauri-plugin-libmpv build for wrapper detection

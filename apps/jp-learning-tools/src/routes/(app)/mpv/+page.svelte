@@ -6,6 +6,7 @@
   import type { UnlistenFn } from "@tauri-apps/api/event";
   import { resourceDir, sep } from "@tauri-apps/api/path";
   import MPVacious from "$lib/components/mpv/mpvacious-instructions.svelte";
+  import { alertState } from "../../../stores/alertState.svelte";
   import * as Tabs from "$lib/components/ui/tabs/index.js";
   import {
     type MpvObservableProperty,
@@ -67,7 +68,7 @@
         `${mpvPath}scripts${sep()}mpvacious${sep()}`,
       ]);
       await command("load-script", [
-        `${mpvPath}scripts${sep()}ModernX${sep()}`,
+        `${mpvPath}scripts${sep()}ModernZ${sep()}`,
       ]);
 
       if (mediaFile) {
@@ -97,6 +98,12 @@
       isRunning = true;
       isLoading = false;
     } catch (error) {
+      alertState.alert = {
+        alertTitle: "Failed to initialize MPV",
+        alertMessage: `${error}`,
+        alertType: "error",
+      };
+
       console.error("mpv initialization failed:", error);
       isRunning = false;
       isLoading = false;
@@ -133,7 +140,7 @@
   <div class="flex gap-4 mt-2 items-center">
     <Button
       placeholder="Select video file..."
-      disabled={isLoading || isRunning}
+      disabled={isLoading}
       onclick={async () => {
         mediaFile = await open({
           multiple: false,
