@@ -4,12 +4,14 @@
   import SettingsIcon from "@lucide/svelte/icons/settings";
   import LanguageIcon from "@lucide/svelte/icons/languages";
   import CameraIcon from "@lucide/svelte/icons/camera";
+  import PopcornIcon from "@lucide/svelte/icons/popcorn";
 
   const items = [
     { title: "Home", url: "/", icon: HouseIcon },
     { title: "Translate", url: "/translate", icon: LanguageIcon },
-    {title: "Capture", url: "/ocr", icon: CameraIcon},
+    { title: "Capture", url: "/ocr", icon: CameraIcon },
     { title: "Settings", url: "/settings", icon: SettingsIcon },
+    { title: "MPV", url: "/mpv", icon: PopcornIcon },
   ];
 </script>
 

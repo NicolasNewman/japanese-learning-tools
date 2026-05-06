@@ -3,6 +3,13 @@
     "projectType": "application",
     "sourceRoot": "apps/jp-learning-tools/src",
     "targets": {
+        "setup-deps": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npx tauri-plugin-libmpv-api setup-lib",
+                "cwd": "{workspaceRoot}"
+            }
+        },
         "build:linux": {
             "executor": "nx:run-commands",
             "outputs": [

@@ -19,7 +19,7 @@
       "options": {
         "commands": [
           "nx run subs2clipboard-native-messenger:_build:linux",
-          "nx run subs2clipboard-native-messenger:rename-binary --target=x86_64-unknown-linux-gnu"
+          "nx run subs2clipboard-native-messenger:rename-binary x86_64-unknown-linux-gnu"
         ],
         "parallel": false
       }
@@ -40,7 +40,7 @@
       "options": {
         "commands": [
           "nx run subs2clipboard-native-messenger:_build:windows",
-          "nx run subs2clipboard-native-messenger:rename-binary --target=x86_64-pc-windows-msvc"
+          "nx run subs2clipboard-native-messenger:rename-binary x86_64-pc-windows-msvc"
         ],
         "parallel": false
       }
@@ -61,7 +61,7 @@
       "options": {
         "commands": [
           "nx run subs2clipboard-native-messenger:_build:macos",
-          "nx run subs2clipboard-native-messenger:rename-binary --target=x86_64-apple-darwin"
+          "nx run subs2clipboard-native-messenger:rename-binary x86_64-apple-darwin"
         ],
         "parallel": false
       }
@@ -80,7 +80,7 @@
     "rename-binary": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx tsx scripts/rename-binary.ts dist/target/subs2clipboard-native-messenger {args.target}"
+        "command": "npx tsx scripts/rename-binary.ts dist/target/subs2clipboard-native-messenger {args._}"
       }
     },
     "test": {
