@@ -21,9 +21,13 @@ jobs:
       - name: Check branch
         run: |
           if [ "${{ github.ref_name }}" != "development" ]; then
-            echo "This workflow can only be run on the development branch"
-            exit 1
+          echo "This workflow can only be run on the development branch"
+          exit 1
           fi
+      - name: Checkout submodules
+        run: |
+          git submodule init
+          git submodule update
       - uses: pnpm/action-setup@v4
       - name: Setup node & dependencies
         uses: actions/setup-node@v4
