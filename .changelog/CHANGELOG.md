@@ -1,5 +1,11 @@
-# v0.17.1
+# v0.18.0
 
-## gd-tools
+## repo
 
-- fix: fixed nx script failure after updating
+- fix: ci fixes
+
+## jp-learning-tools
+
+- feat: added mpvacious instructions
+- feat: integrated mpv into jp-learning-tools
+- chore: added shad-cdn spinner
