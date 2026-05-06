@@ -1,26 +1,21 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import { open } from "@tauri-apps/plugin-dialog";
-  import { Input } from "$lib/components/ui/input";
   import { Spinner } from "$lib/components/ui/spinner";
   import IconFile from "@lucide/svelte/icons/file";
   import type { UnlistenFn } from "@tauri-apps/api/event";
   import { resourceDir, sep } from "@tauri-apps/api/path";
-  import { onDestroy, onMount } from "svelte";
+  import MPVacious from "$lib/components/mpv/mpvacious-instructions.svelte";
+  import * as Tabs from "$lib/components/ui/tabs/index.js";
   import {
     type MpvObservableProperty,
     type MpvConfig,
     init,
     observeProperties,
     command,
-    setProperty,
-    getProperty,
     destroy,
   } from "tauri-plugin-libmpv-api";
-  // TODO: switch player
-  // Properties to observe
-  // Tip: The optional third element, 'none', signals to TypeScript that the property's value may be null
-  // (e.g., when a file is not loaded), ensuring type safety in the callback function.
+  import HowTo from "$lib/components/mpv/how-to.svelte";
   const OBSERVED_PROPERTIES = [
     ["pause", "flag"],
     ["time-pos", "double", "none"],
@@ -28,6 +23,7 @@
     ["filename", "string", "none"],
   ] as const satisfies MpvObservableProperty[];
 
+  let activeTab: "home" | "how-to" = $state("home");
   let isRunning: boolean = $state(false);
   let isLoading: boolean = $state(false);
   let mediaFile: string | null = $state(null);
@@ -40,7 +36,6 @@
       const resourcePath = await resourceDir();
       const mpvPath = `${resourcePath}${sep()}resources${sep()}mpv${sep()}`;
 
-      // mpv configuration
       const mpvConfig: MpvConfig = {
         initialOptions: {
           alang: "ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US",
@@ -117,28 +112,25 @@
       isRunning = false;
     }
   };
-
-  // onDestroy(async () => {
-  //   console.log("Cleaning up mpv resources...");
-  //   if (unlisten) {
-  //     unlisten();
-  //   }
-  //   await destroy();
-  // });
 </script>
 
-<div class="p-4">
-  <div class="grid grid-cols-2">
-    <div>
-      <h2 class="text-2xl font-bold mb-4">mpv Player Control</h2>
-      <p class="text-sm text-muted-foreground">
-        Start and stop the mpv player, and select video files to play.
-      </p>
-      <h2 class="text-2xl font-bold mb-4">mpvacious</h2>
-    </div>
-    <div>B</div>
+<div class="flex flex-col p-4 h-[calc(100vh-30px)]">
+  <div class="overflow-y-scroll mb-2">
+    <Tabs.Root bind:value={activeTab}>
+      <Tabs.List class="mb-2">
+        <Tabs.Trigger value="home">Home</Tabs.Trigger>
+        <Tabs.Trigger value="how-to">How-to</Tabs.Trigger>
+      </Tabs.List>
+      <Tabs.Content value="home">
+        <h2 class="text-2xl font-bold mb-4">MPV Player Control</h2>
+        <MPVacious />
+      </Tabs.Content>
+      <Tabs.Content value="how-to">
+        <HowTo />
+      </Tabs.Content>
+    </Tabs.Root>
   </div>
-  <div class="flex gap-4 mt-4 items-center">
+  <div class="flex gap-4 mt-2 items-center">
     <Button
       placeholder="Select video file..."
       disabled={isLoading || isRunning}
