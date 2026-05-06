@@ -34,6 +34,11 @@ image = "0.25.5"
 tokio = { version = "1.49.0", features = ["rt"] }
 tauri-plugin-http = "2"
 tauri-plugin-cors-fetch = "5.0.0"
+# tauri-plugin-libmpv = { path = "/home/quantumpie/Documents/repos/oss/tauri-plugin-libmpv" }
+tauri-plugin-libmpv = "0.3.2"
+tauri-plugin-log = "2"
+log = "0.4.29"
+tauri-plugin-dialog = "2"
 
 [dev-dependencies]
 image = "0.25.5"

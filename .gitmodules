@@ -1,3 +1,9 @@
 [submodule "packages/mecab-ipadic-neologd/mecab-ipadic-neologd"]
 	path = packages/mecab-ipadic-neologd/mecab-ipadic-neologd
 	url = https://github.com/neologd/mecab-ipadic-neologd
+[submodule "packages/mpv-scripts/mpvacious"]
+	path = packages/mpv-scripts/mpvacious
+	url = https://github.com/NicolasNewman/mpvacious
+[submodule "packages/mpv-scripts/ModernX"]
+	path = packages/mpv-scripts/ModernX
+	url = https://github.com/NicolasNewman/ModernX

@@ -43,6 +43,9 @@
         }
       ]
     },
-    "http:default"
+    "http:default",
+    "libmpv:default",
+    "log:default",
+    "dialog:default"
   ]
 }
