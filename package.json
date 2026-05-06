@@ -16,7 +16,7 @@
     "build:linux": "mkdir -p ./dist/target && nx run mecab-ipadic-neologd:build --tuiAutoExit && nx run gd-tools:build:linux --tuiAutoExit && nx run gd-sudachi:build:linux --tuiAutoExit && nx run subs2clipboard-native-messenger:build:linux --tuiAutoExit && nx run jp-learning-tools:build:linux",
     "build:android": "nx run kanji-scanner:build-apk",
     "build:ios": "nx run kanji-scanner:build-ios",
-    "act:release": "act pull_request -e act/pr-event.json --artifact-server-path ./.act-artifacts",
+    "act:release": "act pull_request -P ubuntu-24.04=catthehacker/ubuntu:act-24.04 -e act/pr-event.json --artifact-server-path ./.act-artifacts",
     "act:release:windows": "act pull_request -P windows-latest=-self-hosted -e act/pr-event.json --artifact-server-path ./.act-artifacts"
   },
   "private": true,
