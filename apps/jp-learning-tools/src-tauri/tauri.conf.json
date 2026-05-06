@@ -48,10 +48,11 @@
       "ocr/**/*": "resources/ocr",
       "lib/**/*": "",
       "../../../packages/mpv-scripts/mpvacious/mpvacious/": "resources/mpv/scripts/mpvacious/",
-      "../../../packages/mpv-scripts/ModernX/modernx.lua": "resources/mpv/scripts/ModernX/main.lua",
+      "../../../packages/mpv-scripts/ModernZ/modernz.lua": "resources/mpv/scripts/ModernZ/main.lua",
+      "../../../packages/mpv-scripts/ModernZ/modernz.conf": "resources/mpv/scripts/script-opts/modernz.conf",
       "../../../packages/mpv-scripts/script-opts/subs2srs.conf": "resources/mpv/scripts/script-opts/subs2srs.conf",
       "../../../packages/mpv-scripts/mpv.conf": "resources/mpv/mpv.conf",
-      "../../../packages/mpv-scripts/ModernX/Material-Design-Iconic-Font.ttf": "resources/mpv/fonts/Material-Design-Iconic-Font.ttf"
+      "../../../packages/mpv-scripts/ModernZ/modernz-icons.ttf": "resources/mpv/fonts/modernz-icons.ttf"
     },
     "externalBin": [
       "../../../dist/target/gd-tools/gd-tools",
@@ -72,12 +73,8 @@
       },
       "nsis": null,
       "wix": {
-        "fragmentPaths": [
-          "./windows/fragments/registry.wxs"
-        ],
-        "componentRefs": [
-          "JPLearningToolsRegistryEntries"
-        ]
+        "fragmentPaths": ["./windows/fragments/registry.wxs"],
+        "componentRefs": ["JPLearningToolsRegistryEntries"]
       }
     }
   }

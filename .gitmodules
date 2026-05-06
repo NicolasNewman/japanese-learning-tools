@@ -4,9 +4,9 @@
 [submodule "packages/mpv-scripts/mpvacious"]
 	path = packages/mpv-scripts/mpvacious
 	url = https://github.com/NicolasNewman/mpvacious
-[submodule "packages/mpv-scripts/ModernX"]
-	path = packages/mpv-scripts/ModernX
-	url = https://github.com/NicolasNewman/ModernX
 [submodule "packages/tauri-plugin-libmpv"]
 	path = packages/tauri-plugin-libmpv
 	url = https://github.com/NicolasNewman/tauri-plugin-libmpv.git
+[submodule "packages/mpv-scripts/ModernZ"]
+	path = packages/mpv-scripts/ModernZ
+	url = https://github.com/NicolasNewman/ModernZ

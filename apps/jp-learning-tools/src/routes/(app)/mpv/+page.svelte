@@ -68,7 +68,7 @@
         `${mpvPath}scripts${sep()}mpvacious${sep()}`,
       ]);
       await command("load-script", [
-        `${mpvPath}scripts${sep()}ModernX${sep()}`,
+        `${mpvPath}scripts${sep()}ModernZ${sep()}`,
       ]);
 
       if (mediaFile) {
