@@ -128,6 +128,11 @@ const createHoverPopup = (spanEl: HTMLElement) => {
       `;
     }
   }
+  
+  popup.innerHTML += `
+      <div style="display: flex; column-gap: 4px;"><a href="https://jisho.org/search/${reading}">Jisho</a><a href="https://takoboto.jp/?q=${reading}">Takoboto</a></div>
+  `;
+
   spanEl.appendChild(popup);
 
   return popup;
