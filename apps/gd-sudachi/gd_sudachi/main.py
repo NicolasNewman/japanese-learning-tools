@@ -74,7 +74,7 @@ def process_text_to_html(
     debug=False,
     styles=False,
     spoiler=False,
-    font_size=16,
+    font_size=2,
 ):
     """Process text and return HTML with POS tagging"""
     tree = HTMLParser(text)
@@ -258,7 +258,7 @@ def process_text_to_html(
         if styles:
             style_tag = f"""<style>
 .root {{
-    font-size: {font_size}px;
+    font-size: {font_size}rem;
 }}
 .kanji {{
     color: #FF00AA;
@@ -369,7 +369,7 @@ Examples:
         "--font-size",
         type=int,
         action="store",
-        help="Include font size styles in the output HTML (requires --styles)",
+        help="Include font size styles in the output HTML (requires --styles, units in rem)",
     )
 
     parser.add_argument(
