@@ -1,6 +1,7 @@
 package com.nicolasnewman.kanji_scanner
 
 import CardInfo
+import CreateTSCResult
 import ModelInfo
 import NoteWithFields
 import android.content.ContentResolver
@@ -327,5 +328,30 @@ class AnkiDroidHelper(val context: Context) {
         }
 
         return result
+    }
+
+    fun createTSC(modelId: Long, deckId: Long, kanji: String, kanjiField: String,
+                  sentence: String, sentenceField: String): CreateTSCResult {
+        val fields = mApi.getFieldList(modelId)
+        if (fields.isNullOrEmpty()) {
+            return CreateTSCResult(value = null, errorMessage = "Failed to get fields for model")
+        }
+
+        val noteFields = fields.map {
+            if (it == kanjiField) {
+                kanji
+            } else if (it == sentenceField) {
+                sentence
+            } else {
+                ""
+            }
+        }.toTypedArray()
+
+        val noteId = mApi.addNote(modelId, deckId, noteFields, emptySet())
+        return if (noteId != null) {
+            CreateTSCResult(value = noteId, errorMessage = null)
+        } else {
+            CreateTSCResult(value = null, errorMessage = "Failed to create note")
+        }
     }
 }

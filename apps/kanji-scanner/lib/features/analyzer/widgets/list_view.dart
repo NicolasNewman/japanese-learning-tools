@@ -7,7 +7,7 @@ class ListViewWidget extends StatelessWidget {
   final List<TokenInfo>? parsedSentence;
   final KanjiBankData kanjiBank;
   final void Function(String term) triggerJisho;
-  final void Function(String term) triggerAnki;
+  final void Function(String sentence, String term) triggerAnki;
 
   const ListViewWidget({
     super.key,
@@ -64,7 +64,10 @@ class ListViewWidget extends StatelessWidget {
                 if (direction == DismissDirection.startToEnd) {
                   triggerJisho(item.surface);
                 } else {
-                  triggerAnki(item.surface);
+                  triggerAnki(
+                    parsedSentence!.map((token) => token.surface).join(" "),
+                    item.surface,
+                  );
                 }
                 return Future.value(false);
               },

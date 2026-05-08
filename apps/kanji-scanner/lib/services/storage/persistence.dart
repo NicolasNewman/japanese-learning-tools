@@ -94,6 +94,91 @@ class AnkiLastUpdated extends _$AnkiLastUpdated {
   }
 }
 
+class TargetDeck {
+  final int deckId;
+  final int modelId;
+  final String fieldSentence;
+  final String fieldKanji;
+
+  TargetDeck(this.deckId, this.modelId, this.fieldSentence, this.fieldKanji);
+}
+
+@riverpod
+class AnkiTargetDeck extends _$AnkiTargetDeck {
+  SharedPreferences? prefs;
+
+  @override
+  Future<TargetDeck> build() async {
+    prefs = await (ref.read(sharedPrefsProvider.future));
+    final targetDeck = prefs!.getString('anki_target_deck');
+    if (targetDeck != null && targetDeck.isNotEmpty) {
+      final parts = targetDeck.split('#:#');
+      final deckId = int.tryParse(parts.isNotEmpty ? parts[0] : "0") ?? 0;
+      final modelId = int.tryParse(parts.length > 1 ? parts[1] : "0") ?? 0;
+      final fieldSentence = parts.length > 2 ? parts[2] : "";
+      final fieldKanji = parts.length > 3 ? parts[3] : "";
+      return TargetDeck(deckId, modelId, fieldSentence, fieldKanji);
+    }
+    return TargetDeck(0, 0, "", "");
+  }
+
+  Future<void> set(TargetDeck newTargetDeck) async {
+    final targetDeckString =
+        '${newTargetDeck.deckId}#:#${newTargetDeck.modelId}#:#${newTargetDeck.fieldSentence}#:#${newTargetDeck.fieldKanji}';
+    await prefs!.setString('anki_target_deck', targetDeckString);
+    state = AsyncValue.data(newTargetDeck);
+  }
+
+  Future<void> clear() async {
+    await prefs!.remove('anki_target_deck');
+    state = AsyncValue.data(TargetDeck(0, 0, "", ""));
+  }
+
+  Future<void> updateFieldSentence(String newFieldSentence) async {
+    final current = await future;
+    final updatedDeck = TargetDeck(
+      current.deckId,
+      current.modelId,
+      newFieldSentence,
+      current.fieldKanji,
+    );
+    await set(updatedDeck);
+  }
+
+  Future<void> updateFieldKanji(String newFieldKanji) async {
+    final current = await future;
+    final updatedDeck = TargetDeck(
+      current.deckId,
+      current.modelId,
+      current.fieldSentence,
+      newFieldKanji,
+    );
+    await set(updatedDeck);
+  }
+
+  Future<void> updateModel(int newModelId) async {
+    final current = await future;
+    final updatedDeck = TargetDeck(
+      current.deckId,
+      newModelId,
+      current.fieldSentence,
+      current.fieldKanji,
+    );
+    await set(updatedDeck);
+  }
+
+  Future<void> updateDeck(int newDeckId) async {
+    final current = await future;
+    final updatedDeck = TargetDeck(
+      newDeckId,
+      current.modelId,
+      current.fieldSentence,
+      current.fieldKanji,
+    );
+    await set(updatedDeck);
+  }
+}
+
 class ModelSelection {
   final int modelId;
   final String? selectedField;

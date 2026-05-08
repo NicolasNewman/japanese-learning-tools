@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kanji_scanner/features/analyzer/widgets/jisho.dart';
 import 'package:kanji_scanner/features/analyzer/widgets/list_view.dart';
+import 'package:kanji_scanner/services/api/anki_service.dart';
 import 'package:kanji_scanner/services/storage/persistence.dart';
 import 'package:kanji_scanner/shared/models/kanji/kanji_bank.dart';
 import 'package:kanji_scanner/shared/providers/state.dart';
@@ -37,7 +38,34 @@ class _AnalyzerViewState extends ConsumerState<AnalyzerView> {
     });
   }
 
-  void triggerAnki(String term) {
+  void triggerAnki(String sentence, String term) async {
+    final targetDeck = await ref.read(ankiTargetDeckProvider.future);
+    final result = await AnkiService().createTSC(
+      modelId: targetDeck.modelId,
+      deckId: targetDeck.deckId,
+      kanji: term,
+      kanjiField: targetDeck.fieldKanji,
+      sentence: sentence,
+      sentenceField: targetDeck.fieldSentence,
+    );
+
+    if (!mounted) return;
+
+    if (result.errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to create card: ${result.errorMessage}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Card created successfully!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    }
     setState(() {
       _selectedItem = term;
       _action = SwipeAction.anki;
@@ -69,19 +97,17 @@ class _AnalyzerViewState extends ConsumerState<AnalyzerView> {
           shadowColor: Colors.transparent,
           margin: const EdgeInsets.all(8.0),
           child: Scaffold(
-            body: _action == null
+            body: _action != SwipeAction.jisho
                 ? ListViewWidget(
                     parsedSentence: parsedSentence,
                     kanjiBank: kanjiBank,
                     triggerJisho: triggerJisho,
                     triggerAnki: triggerAnki,
                   )
-                : (_action == SwipeAction.jisho
-                      ? JishoFrame(
-                          searchTerm: _selectedItem!,
-                          clearSelection: clearSelection,
-                        )
-                      : Text("TODO: Anki integration")),
+                : JishoFrame(
+                    searchTerm: _selectedItem!,
+                    clearSelection: clearSelection,
+                  ),
           ),
         );
       },

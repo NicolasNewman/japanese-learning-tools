@@ -1,5 +1,6 @@
 package com.nicolasnewman.kanji_scanner
 
+import CreateTSCResult
 import FlutterError
 import GetCardsForModel
 import GetDecks
@@ -90,5 +91,23 @@ class NativeApiImplementation(val mAnkiDroid: AnkiDroidHelper) : NativeApi {
             val cards = mAnkiDroid.getCardsForModel(modelId, fieldName, offset, limit)
             GetCardsForModel(cards)
         }
+    }
+
+    override fun createTSC(
+        modelId: Long,
+        deckId: Long,
+        kanji: String,
+        kanjiField: String,
+        sentence: String,
+        sentenceField: String
+    ): CreateTSCResult {
+        if (!mAnkiDroid.hasPermission()) {
+            throw FlutterError(
+                "PERMISSION_DENIED",
+                "AnkiDroid permission not granted",
+                null
+            )
+        }
+        return mAnkiDroid.createTSC(modelId, deckId, kanji, kanjiField, sentence, sentenceField)
     }
 }

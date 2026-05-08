@@ -227,6 +227,50 @@ abstract class _$AnkiLastUpdated extends $AsyncNotifier<String> {
   }
 }
 
+@ProviderFor(AnkiTargetDeck)
+final ankiTargetDeckProvider = AnkiTargetDeckProvider._();
+
+final class AnkiTargetDeckProvider
+    extends $AsyncNotifierProvider<AnkiTargetDeck, TargetDeck> {
+  AnkiTargetDeckProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'ankiTargetDeckProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$ankiTargetDeckHash();
+
+  @$internal
+  @override
+  AnkiTargetDeck create() => AnkiTargetDeck();
+}
+
+String _$ankiTargetDeckHash() => r'de00d856f324d67eb15a2a73a5eb37b31669cd24';
+
+abstract class _$AnkiTargetDeck extends $AsyncNotifier<TargetDeck> {
+  FutureOr<TargetDeck> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<TargetDeck>, TargetDeck>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<TargetDeck>, TargetDeck>,
+              AsyncValue<TargetDeck>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(AnkiSelectedModels)
 final ankiSelectedModelsProvider = AnkiSelectedModelsProvider._();
 
@@ -298,7 +342,7 @@ final class KanjiBankProvider
   KanjiBank create() => KanjiBank();
 }
 
-String _$kanjiBankHash() => r'd8ee88f6f67270124c6d1ffeaf826715c2adffc1';
+String _$kanjiBankHash() => r'df4295b63d8fd5b2e6616779455e32c19b328870';
 
 abstract class _$KanjiBank extends $AsyncNotifier<KanjiBankData<dynamic>> {
   FutureOr<KanjiBankData<dynamic>> build();
