@@ -46,4 +46,24 @@ class AnkiService {
     );
     return result.cards;
   }
+
+  Future<CreateTSCResult> createTSC({
+    required int modelId,
+    required int deckId,
+    required String kanji,
+    required String kanjiField,
+    required String sentence,
+    required String sentenceField,
+  }) async {
+    final result = await _api.createTSC(
+      modelId,
+      deckId,
+      kanji,
+      kanjiField,
+      sentence,
+      sentenceField,
+    );
+
+    return result;
+  }
 }

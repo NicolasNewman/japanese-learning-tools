@@ -560,6 +560,44 @@ data class GetCardsForModel (
     return result
   }
 }
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class CreateTSCResult (
+  val value: Long? = null,
+  val errorMessage: String? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): CreateTSCResult {
+      val value = pigeonVar_list[0] as Long?
+      val errorMessage = pigeonVar_list[1] as String?
+      return CreateTSCResult(value, errorMessage)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      value,
+      errorMessage,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as CreateTSCResult
+    return MessagesPigeonUtils.deepEquals(this.value, other.value) && MessagesPigeonUtils.deepEquals(this.errorMessage, other.errorMessage)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.value)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.errorMessage)
+    return result
+  }
+}
 private open class MessagesPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -608,6 +646,11 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
           GetCardsForModel.fromList(it)
         }
       }
+      138.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          CreateTSCResult.fromList(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -649,6 +692,10 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
         stream.write(137)
         writeValue(stream, value.toList())
       }
+      is CreateTSCResult -> {
+        stream.write(138)
+        writeValue(stream, value.toList())
+      }
       else -> super.writeValue(stream, value)
     }
   }
@@ -662,6 +709,7 @@ interface NativeApi {
   fun getModelFields(modelId: Long): GetModelFields
   fun getNotesWithFieldsForModel(modelId: Long, fieldName: String): GetNotesWithFieldsForModel
   fun getCardsForModel(modelId: Long, fieldName: String, offset: Long, limit: Long): GetCardsForModel
+  fun createTSC(modelId: Long, deckId: Long, kanji: String, kanjiField: String, sentence: String, sentenceField: String): CreateTSCResult
 
   companion object {
     /** The codec used by NativeApi. */
@@ -763,6 +811,28 @@ interface NativeApi {
             val limitArg = args[3] as Long
             val wrapped: List<Any?> = try {
               listOf(api.getCardsForModel(modelIdArg, fieldNameArg, offsetArg, limitArg))
+            } catch (exception: Throwable) {
+              MessagesPigeonUtils.wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.kanji_scanner.NativeApi.createTSC$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val modelIdArg = args[0] as Long
+            val deckIdArg = args[1] as Long
+            val kanjiArg = args[2] as String
+            val kanjiFieldArg = args[3] as String
+            val sentenceArg = args[4] as String
+            val sentenceFieldArg = args[5] as String
+            val wrapped: List<Any?> = try {
+              listOf(api.createTSC(modelIdArg, deckIdArg, kanjiArg, kanjiFieldArg, sentenceArg, sentenceFieldArg))
             } catch (exception: Throwable) {
               MessagesPigeonUtils.wrapError(exception)
             }

@@ -99,6 +99,11 @@ class GetCardsForModel {
   final List<CardInfo> cards;
 }
 
+class CreateTSCResult {
+  int? value;
+  String? errorMessage;
+}
+
 @HostApi()
 abstract class NativeApi {
   GetDecks getDecks();
@@ -114,5 +119,13 @@ abstract class NativeApi {
     String fieldName,
     int offset,
     int limit,
+  );
+  CreateTSCResult createTSC(
+    int modelId,
+    int deckId,
+    String kanji,
+    String kanjiField,
+    String sentence,
+    String sentenceField,
   );
 }

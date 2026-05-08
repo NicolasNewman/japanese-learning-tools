@@ -537,6 +537,51 @@ class GetCardsForModel {
   int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
 }
 
+class CreateTSCResult {
+  CreateTSCResult({
+    this.value,
+    this.errorMessage,
+  });
+
+  int? value;
+
+  String? errorMessage;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      value,
+      errorMessage,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static CreateTSCResult decode(Object result) {
+    result as List<Object?>;
+    return CreateTSCResult(
+      value: result[0] as int?,
+      errorMessage: result[1] as String?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! CreateTSCResult || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(value, other.value) && _deepEquals(errorMessage, other.errorMessage);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -572,6 +617,9 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is GetCardsForModel) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
+    }    else if (value is CreateTSCResult) {
+      buffer.putUint8(138);
+      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -598,6 +646,8 @@ class _PigeonCodec extends StandardMessageCodec {
         return CardInfo.decode(readValue(buffer)!);
       case 137:
         return GetCardsForModel.decode(readValue(buffer)!);
+      case 138:
+        return CreateTSCResult.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -729,5 +779,24 @@ class NativeApi {
     )
     ;
     return pigeonVar_replyValue! as GetCardsForModel;
+  }
+
+  Future<CreateTSCResult> createTSC(int modelId, int deckId, String kanji, String kanjiField, String sentence, String sentenceField) async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.kanji_scanner.NativeApi.createTSC$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[modelId, deckId, kanji, kanjiField, sentence, sentenceField]);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return pigeonVar_replyValue! as CreateTSCResult;
   }
 }

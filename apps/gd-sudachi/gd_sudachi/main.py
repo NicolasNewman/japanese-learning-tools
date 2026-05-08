@@ -68,7 +68,13 @@ def create_tokenizer():
 
 
 def process_text_to_html(
-    text, tokenizer_obj, kanji_bank: KanjiBankData, debug=False, styles=False, spoiler=False
+    text,
+    tokenizer_obj,
+    kanji_bank: KanjiBankData,
+    debug=False,
+    styles=False,
+    spoiler=False,
+    font_size=2,
 ):
     """Process text and return HTML with POS tagging"""
     tree = HTMLParser(text)
@@ -240,6 +246,7 @@ def process_text_to_html(
             spoiler_tag = """<style>
 .spoiler {
     background-color: black;
+    color: black;
     padding: 6px;
     width: fit-content;
 }
@@ -249,15 +256,18 @@ def process_text_to_html(
 </style>"""
             result = spoiler_tag + f'<span class="spoiler">{result}</span>'
         if styles:
-            style_tag = """<style>
-.kanji {
+            style_tag = f"""<style>
+.root {{
+    font-size: {font_size}rem;
+}}
+.kanji {{
     color: #FF00AA;
-}
-.vocabulary {
+}}
+.vocabulary {{
     color: #AA00FF;
-}
+}}
 </style>"""
-            result = style_tag + result
+            result = style_tag + f'<span class="root">{result}</span>'
 
         return result
     return ""
@@ -356,12 +366,23 @@ Examples:
     )
 
     parser.add_argument(
+        "--font-size",
+        type=int,
+        action="store",
+        help="Include font size styles in the output HTML (requires --styles, units in rem)",
+    )
+
+    parser.add_argument(
         "--spoiler",
         action="store_true",
         help="Include spoiler tags in the output HTML",
     )
 
     args = parser.parse_args()
+
+    if args.font_size and not args.styles:
+        print("Error: --font-size requires --styles")
+        sys.exit(1)
 
     # If daemon mode is requested, run as daemon
     if args.daemon:
@@ -376,7 +397,13 @@ Examples:
 
     # Process single text input
     result = process_text_to_html(
-        args.text, tokenizer_obj, kanji_bank, args.debug, args.styles, args.spoiler
+        args.text,
+        tokenizer_obj,
+        kanji_bank,
+        args.debug,
+        args.styles,
+        args.spoiler,
+        args.font_size,
     )
     print(result)
 
