@@ -2,7 +2,10 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:kanji_scanner/services/storage/persistence.dart';
 import 'package:kanji_scanner/shared/providers/state.dart';
+import 'package:kanji_scanner/shared/widgets/kanji_bank_text.dart';
+import 'package:kanji_scanner/src/rust/api/sudachi_api.dart';
 
 import 'detector_view.dart';
 import 'painters/text_detector_painter.dart';
@@ -22,6 +25,7 @@ class _TextRecognizerViewState extends ConsumerState<TextRecognizerView> {
   bool _isBusy = false;
   CustomPaint? _customPaint;
   String? _text;
+  List<KanjiBankText>? _tokens;
   var _cameraLensDirection = CameraLensDirection.back;
   TextRecognizerPainter? _currentPainter;
 
@@ -63,6 +67,7 @@ class _TextRecognizerViewState extends ConsumerState<TextRecognizerView> {
             title: 'Text Detector',
             customPaint: _customPaint,
             text: _text,
+            tokens: _tokens,
             onImage: _processImage,
             // initialDetectionMode: DetectorViewMode.gallery,
             initialCameraLensDirection: _cameraLensDirection,
@@ -127,8 +132,16 @@ class _TextRecognizerViewState extends ConsumerState<TextRecognizerView> {
     _isBusy = true;
     setState(() {
       _text = '';
+      _tokens = null;
     });
     final recognizedText = await _textRecognizer.processImage(inputImage);
+    final kanjiBank = await ref.read(kanjiBankProvider.future);
+    _tokens = (await sudachiRs(text: recognizedText.text))
+        .map(
+          (token) => KanjiBankText(text: token.surface, kanjiBank: kanjiBank),
+        )
+        .toList();
+
     if (inputImage.metadata?.size != null &&
         inputImage.metadata?.rotation != null) {
       final painter = TextRecognizerPainter(

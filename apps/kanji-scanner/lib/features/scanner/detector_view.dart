@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
+import 'package:kanji_scanner/shared/widgets/kanji_bank_text.dart';
 
 import 'camera_view.dart';
 import 'gallery_view.dart';
@@ -14,6 +15,7 @@ class DetectorView extends StatefulWidget {
     required this.onImage,
     this.customPaint,
     this.text,
+    this.tokens,
     this.initialDetectionMode = DetectorViewMode.liveFeed,
     this.initialCameraLensDirection = CameraLensDirection.back,
     this.onCameraFeedReady,
@@ -25,6 +27,7 @@ class DetectorView extends StatefulWidget {
   final String title;
   final CustomPaint? customPaint;
   final String? text;
+  final List<KanjiBankText>? tokens;
   final DetectorViewMode initialDetectionMode;
   final Function(InputImage inputImage) onImage;
   final Function()? onCameraFeedReady;
@@ -60,6 +63,7 @@ class _DetectorViewState extends State<DetectorView> {
         : GalleryView(
             title: widget.title,
             text: widget.text,
+            tokens: widget.tokens,
             onImage: widget.onImage,
             onDetectorViewModeChanged: _onDetectorViewModeChanged,
           );
