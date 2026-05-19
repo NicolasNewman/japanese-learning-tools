@@ -136,9 +136,19 @@ class _TextRecognizerViewState extends ConsumerState<TextRecognizerView> {
     });
     final recognizedText = await _textRecognizer.processImage(inputImage);
     final kanjiBank = await ref.read(kanjiBankProvider.future);
+    final backend = await ref.read(dictionaryBackendProvider.future);
     _tokens = (await sudachiRs(text: recognizedText.text))
         .map(
-          (token) => KanjiBankText(text: token.surface, kanjiBank: kanjiBank),
+          (token) => KanjiBankText(
+            text: token.surface,
+            kanjiBank: kanjiBank,
+            linkConfig: KanjiBankTextLinkConfig(
+              backend: backend,
+              linkKnown: true,
+              linkUnknown: true,
+              addSpace: true,
+            ),
+          ),
         )
         .toList();
 

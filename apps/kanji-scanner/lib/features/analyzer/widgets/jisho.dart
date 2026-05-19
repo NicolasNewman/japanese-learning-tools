@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kanji_scanner/services/storage/persistence.dart';
 import 'package:kanji_scanner/shared/models/enums.dart';
+import 'package:kanji_scanner/shared/url.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class JishoFrame extends ConsumerStatefulWidget {
@@ -51,25 +52,6 @@ class _JishoFrameState extends ConsumerState<JishoFrame> {
       ..enableZoom(false);
   }
 
-  Future<void> _setCookies(
-    String domain,
-    DictionaryBackendType backend,
-    ThemeMode themeMode,
-  ) async {
-    // Set the theme cookie
-    if (backend == DictionaryBackendType.takoboto) {
-      final themeValue = themeMode == ThemeMode.light ? 'light' : 'dark';
-      await cookieManager.setCookie(
-        WebViewCookie(
-          name: 'theme',
-          value: themeValue,
-          domain: domain,
-          path: '/',
-        ),
-      );
-    }
-  }
-
   Future<void> _loadUrl(
     String url,
     DictionaryBackendType backend,
@@ -81,7 +63,7 @@ class _JishoFrameState extends ConsumerState<JishoFrame> {
       final uri = Uri.parse(url);
       final domain = uri.host;
 
-      await _setCookies(domain, backend, themeMode);
+      await setCookiesForDomain(domain, backend, themeMode, cookieManager);
 
       controller.loadRequest(Uri.parse(url));
     }
