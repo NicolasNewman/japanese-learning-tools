@@ -17,6 +17,7 @@ class GalleryView extends StatefulWidget {
     this.tokens,
     required this.onImage,
     required this.onDetectorViewModeChanged,
+    this.capturedImagePath,
   });
 
   final String title;
@@ -24,6 +25,7 @@ class GalleryView extends StatefulWidget {
   final List<KanjiBankText>? tokens;
   final Function(InputImage inputImage) onImage;
   final Function()? onDetectorViewModeChanged;
+  final String? capturedImagePath;
 
   @override
   State<GalleryView> createState() => _GalleryViewState();
@@ -39,6 +41,12 @@ class _GalleryViewState extends State<GalleryView> {
     super.initState();
 
     _imagePicker = ImagePicker();
+
+    if (widget.capturedImagePath != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _processFile(widget.capturedImagePath!);
+      });
+    }
   }
 
   @override

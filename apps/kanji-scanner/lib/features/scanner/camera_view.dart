@@ -4,6 +4,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 class CameraView extends StatefulWidget {
   const CameraView({
@@ -15,6 +17,7 @@ class CameraView extends StatefulWidget {
     this.onCameraLensDirectionChanged,
     this.initialCameraLensDirection = CameraLensDirection.back,
     this.onTap,
+    this.onCaptureImage,
   });
 
   final CustomPaint? customPaint;
@@ -24,6 +27,7 @@ class CameraView extends StatefulWidget {
   final Function(CameraLensDirection direction)? onCameraLensDirectionChanged;
   final CameraLensDirection initialCameraLensDirection;
   final Function(Offset position, Size size)? onTap;
+  final Function(String imagePath)? onCaptureImage;
 
   @override
   State<CameraView> createState() => _CameraViewState();
@@ -41,6 +45,10 @@ class _CameraViewState extends State<CameraView> {
   double _currentExposureOffset = 0.0;
   // bool _changingCameraLens = false;
   bool _isPaused = false;
+  // Tempory file created when the camera view is paused.
+  // It is used to store & display the captured frame when pausing the live feed,
+  // and as the source for capture when the user clicks the capture button while paused.
+  XFile? _pausedFrame;
 
   @override
   void initState() {
@@ -66,6 +74,13 @@ class _CameraViewState extends State<CameraView> {
 
   @override
   void dispose() {
+    if (_pausedFrame != null) {
+      try {
+        File(_pausedFrame!.path).delete();
+      } catch (e) {
+        print('Error deleting paused frame on dispose: $e');
+      }
+    }
     _stopLiveFeed();
     super.dispose();
   }
@@ -92,11 +107,23 @@ class _CameraViewState extends State<CameraView> {
                   widget.onTap!(details.localPosition, size);
                 }
               },
-              child: CameraPreview(_controller!, child: widget.customPaint),
+              child: _isPaused && _pausedFrame != null
+                  ? Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.file(
+                          File(_pausedFrame!.path),
+                          fit: BoxFit.contain,
+                        ),
+                        if (widget.customPaint != null) widget.customPaint!,
+                      ],
+                    )
+                  : CameraPreview(_controller!, child: widget.customPaint),
             ),
           ),
           _backButton(),
           _pauseButton(),
+          if (_isPaused) _captureButton(),
           _detectionViewModeToggle(),
           _zoomControl(),
           _exposureControl(),
@@ -270,6 +297,23 @@ class _CameraViewState extends State<CameraView> {
     ),
   );
 
+  Widget _captureButton() => Positioned(
+    bottom: 64, // (8+50+4)
+    right: 8,
+    child: Center(
+      child: SizedBox(
+        height: 50.0,
+        width: 50.0,
+        child: FloatingActionButton(
+          heroTag: Object(),
+          onPressed: _captureFrame,
+          backgroundColor: Colors.black54,
+          child: Icon(Icons.camera_alt, size: 25),
+        ),
+      ),
+    ),
+  );
+
   Future _startLiveFeed() async {
     final camera = _cameras[_cameraIndex];
     _controller = CameraController(
@@ -334,8 +378,43 @@ class _CameraViewState extends State<CameraView> {
     }
   }
 
+  Future<void> _captureFrame() async {
+    if (_controller == null || !_controller!.value.isInitialized) {
+      return;
+    }
+
+    try {
+      // Get temporary directory for storing the captured image
+      final Directory tempDir = await getTemporaryDirectory();
+      final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      final String filePath = path.join(tempDir.path, 'capture_$timestamp.jpg');
+
+      // Use the paused frame if available, otherwise take a new picture
+      if (_pausedFrame != null) {
+        // Copy the paused frame to permanent location
+        await File(_pausedFrame!.path).copy(filePath);
+      } else {
+        // Fallback: capture a new image
+        final XFile imageFile = await _controller!.takePicture();
+        await imageFile.saveTo(filePath);
+      }
+
+      // Call the callback with the captured image path
+      if (widget.onCaptureImage != null) {
+        widget.onCaptureImage!(filePath);
+      }
+    } catch (e) {
+      print('Error capturing frame: $e');
+    }
+  }
+
   Future _pauseLiveFeed() async {
     if (_controller?.value.isStreamingImages == true) {
+      try {
+        _pausedFrame = await _controller?.takePicture();
+      } catch (e) {
+        print('Error capturing pause frame: $e');
+      }
       await _controller?.stopImageStream();
       setState(() => _isPaused = true);
     }
@@ -343,6 +422,15 @@ class _CameraViewState extends State<CameraView> {
 
   Future _resumeLiveFeed() async {
     if (_controller?.value.isStreamingImages == false) {
+      // Clean up paused frame
+      if (_pausedFrame != null) {
+        try {
+          await File(_pausedFrame!.path).delete();
+        } catch (e) {
+          print('Error deleting paused frame: $e');
+        }
+        _pausedFrame = null;
+      }
       await _controller?.startImageStream(_processCameraImage);
       setState(() => _isPaused = false);
     }

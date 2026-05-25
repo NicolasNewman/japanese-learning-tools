@@ -41,6 +41,7 @@ class DetectorView extends StatefulWidget {
 
 class _DetectorViewState extends State<DetectorView> {
   late DetectorViewMode _mode;
+  String? _capturedImagePath;
 
   @override
   void initState() {
@@ -59,6 +60,7 @@ class _DetectorViewState extends State<DetectorView> {
             initialCameraLensDirection: widget.initialCameraLensDirection,
             onCameraLensDirectionChanged: widget.onCameraLensDirectionChanged,
             onTap: widget.onTap,
+            onCaptureImage: _handleCaptureImage,
           )
         : GalleryView(
             title: widget.title,
@@ -66,6 +68,7 @@ class _DetectorViewState extends State<DetectorView> {
             tokens: widget.tokens,
             onImage: widget.onImage,
             onDetectorViewModeChanged: _onDetectorViewModeChanged,
+            capturedImagePath: _capturedImagePath,
           );
   }
 
@@ -74,10 +77,22 @@ class _DetectorViewState extends State<DetectorView> {
       _mode = DetectorViewMode.gallery;
     } else {
       _mode = DetectorViewMode.liveFeed;
+      _capturedImagePath =
+          null; // Clear captured image when returning to live feed
     }
     if (widget.onDetectorViewModeChanged != null) {
       widget.onDetectorViewModeChanged!(_mode);
     }
     setState(() {});
+  }
+
+  void _handleCaptureImage(String imagePath) {
+    setState(() {
+      _capturedImagePath = imagePath;
+      _mode = DetectorViewMode.gallery;
+    });
+    if (widget.onDetectorViewModeChanged != null) {
+      widget.onDetectorViewModeChanged!(_mode);
+    }
   }
 }

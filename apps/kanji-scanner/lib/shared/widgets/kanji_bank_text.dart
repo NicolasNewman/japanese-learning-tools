@@ -57,7 +57,9 @@ class KanjiBankText extends StatelessWidget {
 
     if (containsKanji && inKanjiBank && isVocabulary) {
       return TextSpan(
-        text: linkConfig?.addSpace == true ? "$text " : text,
+        text: linkConfig?.addSpace == true && !text.endsWith(" ")
+            ? "$text "
+            : text,
         style: const TextStyle(color: Colors.purple),
         recognizer: linkConfig?.linkKnown == true
             ? _getTapRecognizer(text)
@@ -65,7 +67,9 @@ class KanjiBankText extends StatelessWidget {
       );
     } else if (containsKanji && inKanjiBank) {
       return TextSpan(
-        text: linkConfig?.addSpace == true ? "$text " : text,
+        text: linkConfig?.addSpace == true && !text.endsWith(" ")
+            ? "$text "
+            : text,
 
         style: const TextStyle(color: Colors.pink),
         recognizer: linkConfig?.linkUnknown == true
@@ -85,7 +89,11 @@ class KanjiBankText extends StatelessWidget {
               : Theme.of(context).colorScheme.onSurface;
 
           return TextSpan(
-            text: i < splitText.length - 1 ? char : "$char ",
+            text: i < splitText.length - 1
+                ? char
+                : (linkConfig?.addSpace == true && !char.endsWith(" ")
+                      ? "$char "
+                      : char),
             style: TextStyle(color: color),
             recognizer:
                 (entry != null && linkConfig?.linkKnown == true) ||
@@ -97,7 +105,9 @@ class KanjiBankText extends StatelessWidget {
       );
     }
     return TextSpan(
-      text: linkConfig?.addSpace == true ? "$text " : text,
+      text: linkConfig?.addSpace == true && !text.endsWith(" ")
+          ? "$text "
+          : text,
       style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       recognizer: (linkConfig?.linkUnknown == true)
           ? _getTapRecognizer(text)
