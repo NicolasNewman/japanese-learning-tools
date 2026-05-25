@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
+import 'package:kanji_scanner/shared/widgets/kanji_bank_text.dart';
 
 import 'camera_view.dart';
 import 'gallery_view.dart';
@@ -14,6 +15,7 @@ class DetectorView extends StatefulWidget {
     required this.onImage,
     this.customPaint,
     this.text,
+    this.tokens,
     this.initialDetectionMode = DetectorViewMode.liveFeed,
     this.initialCameraLensDirection = CameraLensDirection.back,
     this.onCameraFeedReady,
@@ -25,6 +27,7 @@ class DetectorView extends StatefulWidget {
   final String title;
   final CustomPaint? customPaint;
   final String? text;
+  final List<KanjiBankText>? tokens;
   final DetectorViewMode initialDetectionMode;
   final Function(InputImage inputImage) onImage;
   final Function()? onCameraFeedReady;
@@ -38,6 +41,7 @@ class DetectorView extends StatefulWidget {
 
 class _DetectorViewState extends State<DetectorView> {
   late DetectorViewMode _mode;
+  String? _capturedImagePath;
 
   @override
   void initState() {
@@ -56,12 +60,15 @@ class _DetectorViewState extends State<DetectorView> {
             initialCameraLensDirection: widget.initialCameraLensDirection,
             onCameraLensDirectionChanged: widget.onCameraLensDirectionChanged,
             onTap: widget.onTap,
+            onCaptureImage: _handleCaptureImage,
           )
         : GalleryView(
             title: widget.title,
             text: widget.text,
+            tokens: widget.tokens,
             onImage: widget.onImage,
             onDetectorViewModeChanged: _onDetectorViewModeChanged,
+            capturedImagePath: _capturedImagePath,
           );
   }
 
@@ -70,10 +77,22 @@ class _DetectorViewState extends State<DetectorView> {
       _mode = DetectorViewMode.gallery;
     } else {
       _mode = DetectorViewMode.liveFeed;
+      _capturedImagePath =
+          null; // Clear captured image when returning to live feed
     }
     if (widget.onDetectorViewModeChanged != null) {
       widget.onDetectorViewModeChanged!(_mode);
     }
     setState(() {});
+  }
+
+  void _handleCaptureImage(String imagePath) {
+    setState(() {
+      _capturedImagePath = imagePath;
+      _mode = DetectorViewMode.gallery;
+    });
+    if (widget.onDetectorViewModeChanged != null) {
+      widget.onDetectorViewModeChanged!(_mode);
+    }
   }
 }

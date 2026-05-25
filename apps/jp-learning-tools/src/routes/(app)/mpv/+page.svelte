@@ -17,6 +17,7 @@
     destroy,
   } from "tauri-plugin-libmpv-api";
   import HowTo from "$lib/components/mpv/how-to.svelte";
+  import { toMpvScriptOpt, get } from "$lib/persistence/mpvStore";
   const OBSERVED_PROPERTIES = [
     ["pause", "flag"],
     ["time-pos", "double", "none"],
@@ -36,7 +37,7 @@
     try {
       const resourcePath = await resourceDir();
       const mpvPath = `${resourcePath}${sep()}resources${sep()}mpv${sep()}`;
-
+      console.log(toMpvScriptOpt((await get("script-opts")) ?? []));
       const mpvConfig: MpvConfig = {
         initialOptions: {
           alang: "ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US",
@@ -55,6 +56,9 @@
           "keep-open": "yes",
           "force-window": "yes",
           "load-scripts": "no",
+          "script-opts": toMpvScriptOpt((await get("script-opts")) ?? []),
+          // "script-opts":
+          // "subs2srs-autoclip_method=clipboard,subs2srs-autoclip=yes,subs2srs-deck_name=Active::Japanese::subs2srs,subs2srs-note_tag=subs2srs kanji-first",
           include: `${mpvPath}input.conf`,
           "osd-fonts-dir": `${mpvPath}fonts${sep()}`,
           "osd-font": "Material Design Iconic Font",
@@ -67,6 +71,10 @@
       await command("load-script", [
         `${mpvPath}scripts${sep()}mpvacious${sep()}`,
       ]);
+      await command("load-config-file", [
+        `${mpvPath}script-opts${sep()}subs2srs.conf`,
+      ]);
+
       await command("load-script", [
         `${mpvPath}scripts${sep()}ModernZ${sep()}`,
       ]);

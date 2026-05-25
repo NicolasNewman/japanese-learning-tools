@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kanji_scanner/shared/widgets/kanji_bank_text.dart';
 
 import '../../core/utils.dart';
 
@@ -13,14 +14,18 @@ class GalleryView extends StatefulWidget {
     super.key,
     required this.title,
     this.text,
+    this.tokens,
     required this.onImage,
     required this.onDetectorViewModeChanged,
+    this.capturedImagePath,
   });
 
   final String title;
   final String? text;
+  final List<KanjiBankText>? tokens;
   final Function(InputImage inputImage) onImage;
   final Function()? onDetectorViewModeChanged;
+  final String? capturedImagePath;
 
   @override
   State<GalleryView> createState() => _GalleryViewState();
@@ -36,6 +41,12 @@ class _GalleryViewState extends State<GalleryView> {
     super.initState();
 
     _imagePicker = ImagePicker();
+
+    if (widget.capturedImagePath != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _processFile(widget.capturedImagePath!);
+      });
+    }
   }
 
   @override
@@ -97,9 +108,15 @@ class _GalleryViewState extends State<GalleryView> {
         if (_image != null)
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(
-              '${_path == null ? '' : 'Image path: $_path'}\n\n${widget.text ?? ''}',
-            ),
+            child: widget.tokens != null
+                ? SelectableText.rich(
+                    TextSpan(
+                      children: widget.tokens!
+                          .map((token) => token.toTextSpan(context))
+                          .toList(),
+                    ),
+                  )
+                : Text(widget.text ?? ''),
           ),
       ],
     );
