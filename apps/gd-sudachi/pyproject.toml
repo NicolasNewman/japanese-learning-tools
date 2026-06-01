@@ -32,6 +32,7 @@ python = ">=3.9"
 sudachipy = "^0.6.10"
 sudachidict-core = "^20250515"
 selectolax = "^0.3.30"
+typing-extensions = "^4.15.0"
 
 [tool.poetry.scripts]
 gd-sudachi = "gd_sudachi:main"

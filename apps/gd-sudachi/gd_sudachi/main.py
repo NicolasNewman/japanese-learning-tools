@@ -3,6 +3,7 @@ import locale
 import sys
 
 from kanji_bank import KanjiBankData
+from typing_extensions import Literal
 
 if sys.platform == "win32":
     # Force UTF-8 encoding on Windows
@@ -32,7 +33,7 @@ except ImportError:
     from sudachi_helper import encode_to_b64, get_english_pos, get_english_pos_string
 
 from selectolax.parser import HTMLParser, Node
-from sudachipy import Dictionary
+from sudachipy import Dictionary, Tokenizer
 
 
 def create_logger(enabled: bool = False):
@@ -52,7 +53,7 @@ def create_panic(enabled: bool = False):
     return panic
 
 
-def create_tokenizer():
+def create_tokenizer() -> Tokenizer:
     """Create and return a SudachiPy tokenizer object"""
     # Get the bundle directory for resources
     if "__compiled__" in globals():
@@ -69,12 +70,13 @@ def create_tokenizer():
 
 def process_text_to_html(
     text,
-    tokenizer_obj,
+    tokenizer_obj: Tokenizer,
     kanji_bank: KanjiBankData,
     debug=False,
     styles=False,
     spoiler=False,
     font_size=2,
+    mode: Literal["default", "raw", "table"] = "default",
 ):
     """Process text and return HTML with POS tagging"""
     tree = HTMLParser(text)
@@ -92,7 +94,6 @@ def process_text_to_html(
                 log(f"Text: {node.text(False)}")
 
     tokens = tokenizer_obj.tokenize(text_content)
-
     # Initialize the HTML char index accumulator and the current HTML node index
     html_accumulator = 0
     html_node_index = 0
@@ -100,8 +101,13 @@ def process_text_to_html(
     updated_html = html_text
     updated_html_start_shift = 0
     updated_html_end_shift = 0
+    table_data: list[dict] = []
 
     # Loop through each token from the SudachiPy tokenizer
+    if mode == "raw":
+        print(
+            "Surface\tPOS\tPOS Subcategory 1\tPOS Subcategory 2\tPOS Subcategory 3\tNormalized Form\tReading Form\tDictionary Form\tConjugation Type\tConjugation Form"
+        )
     for token in tokens:
         # The current SudachiPy token
         sudachi_text = token.surface()
@@ -109,7 +115,34 @@ def process_text_to_html(
         reading_form = token.reading_form()
         dictionary_form = token.dictionary_form()
         bank_data = kanji_bank.get(normalized_form)
-        (pos, pos_sub, _, _, conj_type, conj_form) = get_english_pos(token).values()
+        (pos, pos_sub, pos_sub2, pos_sub3, conj_type, conj_form) = get_english_pos(
+            token
+        ).values()
+
+        # if the mode is raw, print the token info without modifying the HTML and continue to the next token
+        if mode == "raw":
+            print(
+                f"{sudachi_text}\t{pos}\t{pos_sub}\t{pos_sub2}\t{pos_sub3}\t{normalized_form}\t{reading_form}\t{dictionary_form}\t{conj_type}\t{conj_form}"
+            )
+            continue
+        if mode == "table":
+            bank_data_class = ""
+            if bank_data:
+                bank_data_class = f'{bank_data.get("source")} {bank_data.get("type")} stage-{bank_data.get("level").lower()}'
+            table_data.append(
+                {
+                    "surface": sudachi_text,
+                    "pos": pos,
+                    "pos_sub": pos_sub,
+                    "pos_sub2": pos_sub2,
+                    "pos_sub3": pos_sub3,
+                    "normalized_form": normalized_form,
+                    "reading_form": reading_form,
+                    "dictionary_form": f'<span class="spoiler_col {pos} {bank_data_class}">{dictionary_form}</span>',
+                    "conj_type": conj_type,
+                    "conj_form": conj_form,
+                }
+            )
 
         log(
             sudachi_text,
@@ -242,6 +275,30 @@ def process_text_to_html(
                 break
     if tree.body and tree.body.html:
         result = tree.body.html.replace("<body>", "").replace("</body>", "")
+        table_result = ""
+        # TODO clean up logic
+        if mode == "table":
+            table_result += """<style>
+table {
+    margin-top: 16px;
+    border-collapse: collapse;
+    width: 100%;
+}
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+</style>
+"""
+            table_result += "<table><tr><th>Surface</th><th>POS</th><th>POS Subcategory 1</th><th>POS Subcategory 2</th><th>POS Subcategory 3</th><th>Normalized Form</th><th>Reading Form</th><th>Dictionary Form</th><th>Conjugation Type</th><th>Conjugation Form</th></tr>"
+            for row in table_data:
+                table_result += f"<tr><td>{row['surface']}</td><td>{row['pos']}</td><td>{row['pos_sub']}</td><td>{row['pos_sub2']}</td><td>{row['pos_sub3']}</td><td>{row['normalized_form']}</td><td>{row['reading_form']}</td><td>{row['dictionary_form']}</td><td>{row['conj_type']}</td><td>{row['conj_form']}</td></tr>"
+            table_result += "</table>"
+
         if spoiler:
             spoiler_tag = """<style>
 .spoiler {
@@ -253,6 +310,17 @@ def process_text_to_html(
 .spoiler:hover {
     background-color: white;
 }
+
+.spoiler:not(:hover) .vocabulary,
+.spoiler:not(:hover) .kanji {
+    color: black;
+}
+
+table:not(:hover) .spoiler_col {
+    color: black;
+    background-color: black;
+}
+
 </style>"""
             result = spoiler_tag + f'<span class="spoiler">{result}</span>'
         if styles:
@@ -263,13 +331,38 @@ def process_text_to_html(
 .kanji {{
     color: #FF00AA;
 }}
+
+span.vocabulary {{
+    position: relative;
+}}
+
 .vocabulary {{
     color: #AA00FF;
 }}
-</style>"""
-            result = style_tag + f'<span class="root">{result}</span>'
 
-        return result
+.vocabulary::after {{
+    content: "Source: " attr(data-source) "\\AMeaning: " attr(data-meaning);
+    position: absolute;
+    width: max-content;
+    white-space: pre-wrap;
+    color: #000;
+    top: 100%;
+    transform: translateX(-24px);
+    background-color: #d9d9d9;
+    padding: 6px 10px;
+    border-radius: 4px;
+    visibility: hidden;
+    opacity: 0;
+}}
+
+.vocabulary:hover::after {{
+    opacity: 1;
+    visibility: visible;
+}}
+</style>"""
+            result = style_tag + f'<span class="root">{result}{table_result}</span>'
+
+        return f"{result}{table_result if not styles else ""}"
     return ""
 
 
@@ -378,6 +471,14 @@ Examples:
         help="Include spoiler tags in the output HTML",
     )
 
+    parser.add_argument(
+        "--mode",
+        type=str,
+        choices=["default", "raw", "table"],
+        default="default",
+        help="Output mode: 'default' for HTML output, 'raw' for raw token info, 'table' for HTML table output (default: 'default')",
+    )
+
     args = parser.parse_args()
 
     if args.font_size and not args.styles:
@@ -404,8 +505,11 @@ Examples:
         args.styles,
         args.spoiler,
         args.font_size,
+        args.mode,
     )
-    print(result)
+
+    if args.mode != "raw":
+        print(result)
 
 
 if __name__ == "__main__":
