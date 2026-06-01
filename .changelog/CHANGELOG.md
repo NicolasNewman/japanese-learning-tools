@@ -1,18 +1,11 @@
-# v0.20.0
+# v0.21.0
+
+## jp-learning-tools
+
+- fix: partial fix for subs2srs config not loading
 
 ## kanji-scanner
 
-- feat: implemented exporting kanji to anki
-
-## repo
-
-- chore: mpvacious default changes
-
-## gd-sudachi
-
-- chore: changed font-size units to rem
-- feat: added font-size setting
-
-## subs2clipboard
-
-- chore: added dictionary links to popup
+- feat: added button for capturing current frame and bringing it to gallery view
+- feat: apply sudachi to images uploaded from gallery
+- feat: apply token highlighting when uploading image from gallery
