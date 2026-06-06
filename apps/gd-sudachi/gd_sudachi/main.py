@@ -139,7 +139,7 @@ def process_text_to_html(
                     "pos_sub3": pos_sub3,
                     "normalized_form": normalized_form,
                     "reading_form": reading_form,
-                    "dictionary_form": f'<span class="spoiler_col {pos} {bank_data_class}">{dictionary_form}</span>',
+                    "dictionary_form": f'<span class="spoiler_col {pos} {bank_data_class}"><a target="_blank" href="https://jisho.org/search/{dictionary_form}">{dictionary_form}</a></span>',
                     "conj_type": conj_type,
                     "conj_form": conj_form,
                 }
@@ -303,10 +303,10 @@ table th {
 """
             for row in table_data:
                 pos = row["pos"]
-                pos = pos.replace("noun", "<span style='color: #0077FF'>noun</span>")
+                pos = re.sub(r"^noun$", "<span style='color: #0077FF'>noun</span>", pos)
                 pos = re.sub(r"^verb$", "<span style='color: #FF0000'>verb</span>", pos)
-                pos = pos.replace(
-                    "adjective", "<span style='color: #00AA00'>adjective</span>"
+                pos = re.sub(
+                    r"^adjective$", "<span style='color: #00AA00'>adjective</span>", pos
                 )
                 table_result += f"<tr><td>{row['surface']}</td><td>{pos}</td><td>{row['pos_sub']}</td><td>{row['pos_sub2']}</td><td>{row['pos_sub3']}</td><td>{row['normalized_form']}</td><td>{row['reading_form']}</td><td>{row['dictionary_form']}</td><td>{row['conj_type']}</td><td>{row['conj_form']}</td></tr>"
             table_result += "</table>"
@@ -333,6 +333,14 @@ table:not(:hover) .spoiler_col {
     background-color: black;
 }
 
+table:not(:hover) .spoiler_col a {
+    color: black;
+    text-decoration: none;
+}
+
+table .spoiler_col a {
+    color: inherit;
+}
 </style>"""
             result = spoiler_tag + f'<span class="spoiler">{result}</span>'
         if styles:
@@ -352,7 +360,7 @@ span.vocabulary {{
     color: #AA00FF;
 }}
 
-.vocabulary::after {{
+.vocabulary:not(.spoiler_col)::after {{
     content: "Source: " attr(data-source) "\\AMeaning: " attr(data-meaning);
     position: absolute;
     width: max-content;
@@ -367,7 +375,7 @@ span.vocabulary {{
     opacity: 0;
 }}
 
-.vocabulary:hover::after {{
+.vocabulary:not(.spoiler_col):hover::after {{
     opacity: 1;
     visibility: visible;
 }}
