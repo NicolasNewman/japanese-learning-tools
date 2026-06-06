@@ -8,3 +8,8 @@ The following packages are required for building locally:
 ```sh
 sudo apt-get install patchelf
 ```
+
+To test locally:
+```sh
+poetry run python gd_sudachi/run.py --help
+```
