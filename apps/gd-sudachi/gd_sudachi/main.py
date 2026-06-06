@@ -1,5 +1,6 @@
 import contextlib
 import locale
+import re
 import sys
 
 from kanji_bank import KanjiBankData
@@ -294,9 +295,20 @@ table th {
 }
 </style>
 """
-            table_result += "<table><tr><th>Surface</th><th>POS</th><th>POS Subcategory 1</th><th>POS Subcategory 2</th><th>POS Subcategory 3</th><th>Normalized Form</th><th>Reading Form</th><th>Dictionary Form</th><th>Conjugation Type</th><th>Conjugation Form</th></tr>"
+            table_result += f"""<table>
+<tr><th colspan="{len(table_data[0])}" style="text-align: center;">
+    <a target="_blank" href="https://jisho.org/search/{text}">{text}</a>
+</th></tr>
+<tr><th>Surface</th><th>POS</th><th>POS Subcategory 1</th><th>POS Subcategory 2</th><th>POS Subcategory 3</th><th>Normalized Form</th><th>Reading Form</th><th>Dictionary Form</th><th>Conjugation Type</th><th>Conjugation Form</th></tr>
+"""
             for row in table_data:
-                table_result += f"<tr><td>{row['surface']}</td><td>{row['pos']}</td><td>{row['pos_sub']}</td><td>{row['pos_sub2']}</td><td>{row['pos_sub3']}</td><td>{row['normalized_form']}</td><td>{row['reading_form']}</td><td>{row['dictionary_form']}</td><td>{row['conj_type']}</td><td>{row['conj_form']}</td></tr>"
+                pos = row["pos"]
+                pos = pos.replace("noun", "<span style='color: #0077FF'>noun</span>")
+                pos = re.sub(r"^verb$", "<span style='color: #FF0000'>verb</span>", pos)
+                pos = pos.replace(
+                    "adjective", "<span style='color: #00AA00'>adjective</span>"
+                )
+                table_result += f"<tr><td>{row['surface']}</td><td>{pos}</td><td>{row['pos_sub']}</td><td>{row['pos_sub2']}</td><td>{row['pos_sub3']}</td><td>{row['normalized_form']}</td><td>{row['reading_form']}</td><td>{row['dictionary_form']}</td><td>{row['conj_type']}</td><td>{row['conj_form']}</td></tr>"
             table_result += "</table>"
 
         if spoiler:
