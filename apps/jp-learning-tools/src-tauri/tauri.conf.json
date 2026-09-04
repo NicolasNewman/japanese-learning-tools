@@ -52,6 +52,7 @@
       "../../../packages/mpv-scripts/ModernZ/modernz.conf": "resources/mpv/scripts/script-opts/modernz.conf",
       "../../../packages/mpv-scripts/script-opts/subs2srs.conf": "resources/mpv/scripts/script-opts/subs2srs.conf",
       "../../../packages/mpv-scripts/mpv.conf": "resources/mpv/mpv.conf",
+      "../../../packages/mpv-scripts/input.conf": "resources/mpv/input.conf",
       "../../../packages/mpv-scripts/ModernZ/modernz-icons.ttf": "resources/mpv/fonts/modernz-icons.ttf"
     },
     "externalBin": [
@@ -73,12 +74,8 @@
       },
       "nsis": null,
       "wix": {
-        "fragmentPaths": [
-          "./windows/fragments/registry.wxs"
-        ],
-        "componentRefs": [
-          "JPLearningToolsRegistryEntries"
-        ]
+        "fragmentPaths": ["./windows/fragments/registry.wxs"],
+        "componentRefs": ["JPLearningToolsRegistryEntries"]
       }
     }
   }
