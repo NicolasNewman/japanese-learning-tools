@@ -18,6 +18,7 @@
   } from "tauri-plugin-libmpv-api";
   import HowTo from "$lib/components/mpv/how-to.svelte";
   import { toMpvScriptOpt, get } from "$lib/persistence/mpvStore";
+  import Control from "$lib/components/mpv/control.svelte";
   const OBSERVED_PROPERTIES = [
     ["pause", "flag"],
     ["time-pos", "double", "none"],
@@ -57,6 +58,7 @@
           "force-window": "yes",
           "load-scripts": "no",
           "script-opts": toMpvScriptOpt((await get("script-opts")) ?? []),
+          // "input-conf": `${mpvPath}input.conf`,
           // "script-opts":
           // "subs2srs-autoclip_method=clipboard,subs2srs-autoclip=yes,subs2srs-deck_name=Active::Japanese::subs2srs,subs2srs-note_tag=subs2srs kanji-first",
           include: `${mpvPath}input.conf`,
@@ -78,6 +80,8 @@
       await command("load-script", [
         `${mpvPath}scripts${sep()}ModernZ${sep()}`,
       ]);
+
+      await command("load-input-conf", [`${mpvPath}input.conf`]);
 
       if (mediaFile) {
         await command("loadfile", [mediaFile]);
@@ -129,12 +133,15 @@
   };
 </script>
 
-<div class="flex flex-col p-4 h-[calc(100vh-30px)]">
+<div class="flex flex-col p-4 h-[calc(100vh-30px)] justify-between">
   <div class="overflow-y-scroll mb-2">
     <Tabs.Root bind:value={activeTab}>
       <Tabs.List class="mb-2">
         <Tabs.Trigger value="home">Home</Tabs.Trigger>
         <Tabs.Trigger value="how-to">How-to</Tabs.Trigger>
+        <Tabs.Trigger value="control" disabled={!isRunning}
+          >Control</Tabs.Trigger
+        >
       </Tabs.List>
       <Tabs.Content value="home">
         <h2 class="text-2xl font-bold mb-4">MPV Player Control</h2>
@@ -142,6 +149,9 @@
       </Tabs.Content>
       <Tabs.Content value="how-to">
         <HowTo />
+      </Tabs.Content>
+      <Tabs.Content value="control">
+        <Control {isRunning} />
       </Tabs.Content>
     </Tabs.Root>
   </div>

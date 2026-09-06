@@ -14,6 +14,8 @@ KanjiBank.getAll().then((data) => {
 type KanjiState = {
   total: number;
   totalSource: Record<KanjiSource, number>;
+  totalVocabSource: Record<KanjiSource, number>;
+  totalKanjiSource: Record<KanjiSource, number>;
   kanji: [key: string, value: KanjiBankEntry<unknown>][];
   vocab: [key: string, value: KanjiBankEntry<unknown>][];
 };
@@ -24,9 +26,11 @@ let kanjiState: KanjiState = $derived(
       if (curr[1].type === "kanji") {
         prev.kanji.push(curr);
         prev.totalSource[curr[1].source] += 1;
+        prev.totalKanjiSource[curr[1].source] += 1;
       } else if (curr[1].type === "vocabulary") {
         prev.vocab.push(curr);
         prev.totalSource[curr[1].source] += 1;
+        prev.totalVocabSource[curr[1].source] += 1;
       }
       prev.total += 1;
       return prev;
@@ -37,11 +41,21 @@ let kanjiState: KanjiState = $derived(
         anki: 0,
         wanikani: 0,
       },
+      totalVocabSource: {
+        anki: 0,
+        wanikani: 0,
+      },
+      totalKanjiSource: {
+        anki: 0,
+        wanikani: 0,
+      },
       kanji: [],
       vocab: [],
     } as {
       total: number;
       totalSource: Record<KanjiSource, number>;
+      totalVocabSource: Record<KanjiSource, number>;
+      totalKanjiSource: Record<KanjiSource, number>;
       kanji: [key: string, value: KanjiBankEntry<unknown>][];
       vocab: [key: string, value: KanjiBankEntry<unknown>][];
     },

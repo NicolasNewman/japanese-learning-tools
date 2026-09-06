@@ -29,10 +29,10 @@
 <div class="mt-[30px] h-[calc(100vh-30px)] overflow-y-hidden">
   <Sidebar.Provider
     style="--sidebar-width: 8rem; --sidebar-width-mobile: 8rem;"
-    class="h-[calc(100vh-30px)]"
+    class="h-[calc(100vh-30px)] min-h-0"
   >
     <AppSidebar />
-    <main class="relative w-full">
+    <main class="relative w-full h-full min-h-0 overflow-hidden">
       <Alert />
       <!-- <Sidebar.Trigger /> -->
       {@render children?.()}
