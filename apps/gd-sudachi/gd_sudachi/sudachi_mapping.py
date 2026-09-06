@@ -25,6 +25,7 @@ pos1_mapping = {
 # 2. POS2 subcategory
 pos2_mapping = {
     "普通名詞": "common noun",
+    "地名": "place name",
     "一般": "general",
     "格助詞": "case particle",
     "接続助詞": "conjunctive particle",

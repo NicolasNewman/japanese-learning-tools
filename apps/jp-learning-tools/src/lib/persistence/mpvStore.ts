@@ -39,6 +39,15 @@ const DEFAULT_SCRIPT_OPTS: ScriptOpt[] = [
 
 type MPVSettingsStore = {
   "script-opts": ScriptOpt[];
+  "watch-history": Record<
+    number,
+    { path: string; timestamp: number; subOffset: number }
+  >;
+};
+
+const DEFAULT_STORE: MPVSettingsStore = {
+  "script-opts": DEFAULT_SCRIPT_OPTS,
+  "watch-history": {},
 };
 
 const store = new LazyStore(STORE_KEY);
@@ -58,9 +67,13 @@ export const get = async <T extends keyof MPVSettingsStore>(
   const value = (await store.get(key)) as MPVSettingsStore[T] | undefined;
   console.log(`Getting ${key} from store:`, value);
   if (key === "script-opts" && !value) {
-    await store.set(key, DEFAULT_SCRIPT_OPTS);
+    await store.set(key, DEFAULT_STORE["script-opts"]);
     await store.save();
-    return DEFAULT_SCRIPT_OPTS as MPVSettingsStore[T];
+    return DEFAULT_STORE["script-opts"] as MPVSettingsStore[T];
+  } else if (key === "watch-history" && !value) {
+    await store.set(key, DEFAULT_STORE["watch-history"]);
+    await store.save();
+    return DEFAULT_STORE["watch-history"] as MPVSettingsStore[T];
   }
 
   return (value as MPVSettingsStore[T]) ?? null;
@@ -71,6 +84,32 @@ export const set = async <T extends keyof MPVSettingsStore>(
   value: MPVSettingsStore[T],
 ): Promise<void> => {
   await store.set(key, value);
+};
+
+export const addToWatchHistory = async (path: string) => {
+  const history = (await get("watch-history")) ?? {};
+  const id = new Date().getTime();
+  await set("watch-history", {
+    ...history,
+    [id]: { path, timestamp: 0, subOffset: 0 },
+  });
+
+  return id;
+};
+
+export const updateWatchHistory = async (
+  id: number,
+  updates: Partial<{ path: string; timestamp: number; subOffset: number }>,
+) => {
+  const history = (await get("watch-history")) ?? {};
+  if (!history[id]) {
+    return;
+  }
+
+  await set("watch-history", {
+    ...history,
+    [id]: { ...history[id], ...updates },
+  });
 };
 
 export const save = async (): Promise<void> => {

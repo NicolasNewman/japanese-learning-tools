@@ -3,7 +3,6 @@
   import { open } from "@tauri-apps/plugin-dialog";
   import { Spinner } from "$lib/components/ui/spinner";
   import IconFile from "@lucide/svelte/icons/file";
-  import type { UnlistenFn } from "@tauri-apps/api/event";
   import { resourceDir, sep } from "@tauri-apps/api/path";
   import MPVacious from "$lib/components/mpv/mpvacious-instructions.svelte";
   import { alertState } from "../../../stores/alertState.svelte";
@@ -15,26 +14,32 @@
     observeProperties,
     command,
     destroy,
+    listenEvents,
   } from "tauri-plugin-libmpv-api";
   import HowTo from "$lib/components/mpv/how-to.svelte";
-  import { toMpvScriptOpt, get } from "$lib/persistence/mpvStore";
+  import {
+    toMpvScriptOpt,
+    get,
+    addToWatchHistory,
+    updateWatchHistory,
+  } from "$lib/persistence/mpvStore";
   import Control from "$lib/components/mpv/control.svelte";
   const OBSERVED_PROPERTIES = [
     ["pause", "flag"],
     ["time-pos", "double", "none"],
     ["duration", "double", "none"],
     ["filename", "string", "none"],
+    ["sub-delay", "double", "none"],
   ] as const satisfies MpvObservableProperty[];
+  import { mpvState } from "../../../stores/mpvState.svelte";
+  import History from "$lib/components/mpv/history.svelte";
 
   let activeTab: "home" | "how-to" = $state("home");
-  let isRunning: boolean = $state(false);
-  let isLoading: boolean = $state(false);
-  let mediaFile: string | null = $state(null);
-
-  let unlisten: null | UnlistenFn = $state(null);
+  let subOffset: number = 0;
+  let timestamp: number = 0;
 
   const startMPV = async () => {
-    isLoading = true;
+    mpvState.isLoading = true;
     try {
       const resourcePath = await resourceDir();
       const mpvPath = `${resourcePath}${sep()}resources${sep()}mpv${sep()}`;
@@ -83,22 +88,35 @@
 
       await command("load-input-conf", [`${mpvPath}input.conf`]);
 
-      if (mediaFile) {
-        await command("loadfile", [mediaFile]);
+      if (mpvState.mediaFile) {
+        await command("loadfile", [mpvState.mediaFile]);
+        // watch history id may have been set if the user clicked on a history item
+        if (mpvState.watchHistoryId === null) {
+          addToWatchHistory(mpvState.mediaFile ?? "").then((id) => {
+            mpvState.watchHistoryId = id;
+          });
+        }
       }
-
-      unlisten = await observeProperties(
+      mpvState.unlisten = await observeProperties(
         OBSERVED_PROPERTIES,
-        ({ name, data }) => {
+        async ({ name, data }) => {
           switch (name) {
             case "pause":
               console.log("Playback paused state:", data);
               break;
             case "time-pos":
-              console.log("Current time position:", data);
+              if (data) {
+                timestamp = data;
+              }
               break;
             case "duration":
               console.log("Duration:", data);
+              break;
+            case "sub-delay":
+              console.log("Subtitle delay:", data);
+              if (data) {
+                subOffset = data;
+              }
               break;
             case "filename":
               console.log("Current playing file:", data);
@@ -107,8 +125,28 @@
         },
       );
 
-      isRunning = true;
-      isLoading = false;
+      mpvState.unlistenEvents = await listenEvents(async (e) => {
+        switch (e.event) {
+          case "file-loaded":
+            console.log("File loaded:");
+            if (mpvState.restorePoint) {
+              await command("seek", [
+                Math.round(mpvState.restorePoint.timestamp),
+                "absolute+keyframes",
+              ]);
+              await command("set", [
+                "sub-delay",
+                mpvState.restorePoint.subOffset,
+              ]);
+              mpvState.restorePoint = null;
+            }
+
+            break;
+        }
+      });
+
+      mpvState.isRunning = true;
+      mpvState.isLoading = false;
     } catch (error) {
       alertState.alert = {
         alertTitle: "Failed to initialize MPV",
@@ -117,18 +155,30 @@
       };
 
       console.error("mpv initialization failed:", error);
-      isRunning = false;
-      isLoading = false;
+      await stopMPV(true);
     }
   };
 
-  const stopMPV = async () => {
-    if (isRunning) {
-      if (unlisten) {
-        unlisten();
+  const stopMPV = async (failure: boolean = false) => {
+    if (mpvState.isRunning || mpvState.isLoading) {
+      if (mpvState.unlisten) {
+        mpvState.unlisten();
+        mpvState.unlisten = null;
+      }
+      if (mpvState.unlistenEvents) {
+        mpvState.unlistenEvents();
+        mpvState.unlistenEvents = null;
       }
       await destroy();
-      isRunning = false;
+      mpvState.isRunning = false;
+      mpvState.isLoading = false;
+      if (mpvState.watchHistoryId !== null && !failure) {
+        updateWatchHistory(mpvState.watchHistoryId, {
+          timestamp,
+          subOffset,
+        });
+        mpvState.watchHistoryId = null;
+      }
     }
   };
 </script>
@@ -139,9 +189,10 @@
       <Tabs.List class="mb-2">
         <Tabs.Trigger value="home">Home</Tabs.Trigger>
         <Tabs.Trigger value="how-to">How-to</Tabs.Trigger>
-        <Tabs.Trigger value="control" disabled={!isRunning}
+        <Tabs.Trigger value="control" disabled={!mpvState.isRunning}
           >Control</Tabs.Trigger
         >
+        <Tabs.Trigger value="history">History</Tabs.Trigger>
       </Tabs.List>
       <Tabs.Content value="home">
         <h2 class="text-2xl font-bold mb-4">MPV Player Control</h2>
@@ -151,16 +202,19 @@
         <HowTo />
       </Tabs.Content>
       <Tabs.Content value="control">
-        <Control {isRunning} />
+        <Control isRunning={mpvState.isRunning} />
+      </Tabs.Content>
+      <Tabs.Content value="history">
+        <History />
       </Tabs.Content>
     </Tabs.Root>
   </div>
   <div class="flex gap-4 mt-2 items-center">
     <Button
       placeholder="Select video file..."
-      disabled={isLoading}
+      disabled={mpvState.isLoading}
       onclick={async () => {
-        mediaFile = await open({
+        mpvState.mediaFile = await open({
           multiple: false,
           directory: false,
           filters: [
@@ -170,32 +224,37 @@
             },
           ],
         });
-        if (isRunning && mediaFile) {
-          await command("loadfile", [mediaFile]);
+        mpvState.watchHistoryId = null;
+        mpvState.restorePoint = null;
+        if (mpvState.isRunning && mpvState.mediaFile) {
+          await command("loadfile", [mpvState.mediaFile]);
         }
       }}
       ><IconFile /> Select Video
     </Button>
-    {#if !isRunning}
-      <Button onclick={startMPV} disabled={isRunning || isLoading}>
-        {#if isLoading}
+    {#if !mpvState.isRunning}
+      <Button
+        onclick={startMPV}
+        disabled={mpvState.isRunning || mpvState.isLoading}
+      >
+        {#if mpvState.isLoading}
           <Spinner />{/if}
         Start mpv
       </Button>
     {:else}
       <Button
-        onclick={stopMPV}
-        disabled={!isRunning || isLoading}
+        onclick={() => stopMPV()}
+        disabled={!mpvState.isRunning || mpvState.isLoading}
         variant="destructive"
       >
-        {#if isLoading}
+        {#if mpvState.isLoading}
           <Spinner />{/if}
         Stop mpv
       </Button>
     {/if}
     <div class="text-sm text-muted-foreground">
-      {#if mediaFile}
-        Selected file: {mediaFile.split("/").pop()}
+      {#if mpvState.mediaFile}
+        Selected file: {mpvState.mediaFile.split("/").pop()}
       {:else}
         No file selected
       {/if}

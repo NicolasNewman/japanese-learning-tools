@@ -11,18 +11,6 @@
     type KanjiTableRow,
   } from "./kanji-table/kanji-table-columns";
 
-  let kanji = $derived.by(() =>
-    kanjiState().kanji.reduce(
-      (prev, curr) => {
-        return {
-          ...prev,
-          [curr[0]]: true,
-        };
-      },
-      {} as Record<string, boolean>,
-    ),
-  );
-
   let data: KanjiTableRow<KanjiSource>[] = $derived.by(() =>
     kanjiState().vocab.reduce<KanjiTableRow<KanjiSource>[]>(
       (prev, [key, value]) => {
@@ -35,7 +23,9 @@
             ...prev,
             {
               value: key,
-              kanjiKnown: key.split("").map((k) => kanji[k] || false),
+              kanjiKnown: key
+                .split("")
+                .map((k) => kanjiState().kanjiLookup[k] || false),
               source,
               meaning,
               level,
@@ -48,7 +38,9 @@
           ...prev,
           {
             value: key,
-            kanjiKnown: key.split("").map((k) => kanji[k] || false),
+            kanjiKnown: key
+              .split("")
+              .map((k) => kanjiState().kanjiLookup[k] || false),
             source,
             meaning,
             level,

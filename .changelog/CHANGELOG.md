@@ -1,18 +1,10 @@
-# v0.22.0
-
-## gd-sudachi
-
-- feat: updated pos translations
-- feat: more table enhancements
-- docs: added example local command
-- feat: table mode improvements
-- feat: added more sudachi output mappings
-- feat: added table and raw mode for dumping parse data
+# v0.23.0
 
 ## jp-learning-tools
 
-- feat: added searchable table of known vocab
-- fix: fixed kanji not being properly imported
-- feat: added shadcdn tables
-- feat: mpv input.conf and sub timing control
-- feat: improved home page
+- feat: improved mpv handling, history tab
+- fix: fixed opening browser links via href
+
+## gd-sudachi
+
+- chore: added more pos mappings
