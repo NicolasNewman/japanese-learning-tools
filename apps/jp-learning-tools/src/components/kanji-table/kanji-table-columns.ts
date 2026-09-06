@@ -76,20 +76,6 @@ PoS: ${vocabularyData?.partsOfSpeech.join(", ")}<br>
 Reading: ${vocabularyData?.readings.map((r) => r.reading).join(", ")}<br>
 Level: ${level}
           </div>`,
-            // render: () =>
-            //   `<div class="text-sm text-gray-500">
-            // ${JSON.stringify(
-            //     {
-            //       kanjiData,
-            //       partOfSpeech: vocabularyData?.partsOfSpeech.join(", "),
-            //       vocabReadings: vocabularyData?.readings
-            //         .map((r) => r.reading)
-            //         .join(", "),
-            //       level,
-            //     },
-            //     null,
-            //     2,
-            //   )}</div>`,
           };
         } else {
           const {
@@ -108,19 +94,6 @@ Model: ${modelName}<br>
 Card ID: ${cardId}
 </div>`,
           };
-          //   render: () =>
-          //     `<pre class="text-sm text-gray-500">${JSON.stringify(
-          //       {
-          //         deckName,
-          //         stats: `I: ${interval}, L: ${lapses}, R: ${reps}`,
-          //         // fields,
-          //         modelName,
-          //         cardId,
-          //       },
-          //       null,
-          //       2,
-          //     )}</pre>`,
-          // };
         }
       });
       return renderSnippet(metadataCellSnippet, {
@@ -137,7 +110,7 @@ Card ID: ${cardId}
           const formatted = source.charAt(0).toUpperCase() + source.slice(1);
           const url =
             row.original.source === "wanikani"
-              ? `<a class="underline text-blue-500" href="${row.original.metadata.url}" target="_blank">${formatted}</a>`
+              ? `<a class="underline text-blue-500" href="${row.original.metadata.url}" target="_blank" rel="noopener noreferrer">${formatted}</a>`
               : formatted;
           return {
             render: () => url,
