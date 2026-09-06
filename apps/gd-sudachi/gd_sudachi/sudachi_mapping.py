@@ -29,6 +29,9 @@ pos2_mapping = {
     "格助詞": "case particle",
     "接続助詞": "conjunctive particle",
     "名詞的": "nominal",
+    "形容詞的": "adjectival",
+    "形状詞的": "predicative",
+    "動詞的": "verbal",
     "数詞": "numeral",
     "非自立可能": "auxiliary",
     "句点": "period",
@@ -101,6 +104,7 @@ conj_type_mapping = {
 
 # 6. Conjugation form
 conj_form_mapping = {
+    "語幹-一般": "stem-general",
     "連用形-促音便": "continuative-geminated",
     "連用形-融合": "continuative-fused",
     "連用形-一般": "continuative-normal",
