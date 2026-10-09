@@ -1,7 +1,5 @@
 import type {
   AnkiMetadata,
-  KanjiBankData,
-  KanjiBankEntry,
   KanjiSource,
   WaniKaniMetadata,
 } from "@nicolasnewman/kanji-bank-types";

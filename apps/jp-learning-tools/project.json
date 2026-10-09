@@ -6,7 +6,7 @@
         "setup-deps": {
             "executor": "nx:run-commands",
             "options": {
-                "command": "npx tauri-plugin-libmpv-api setup-lib",
+                "command": "cd {projectRoot} && pnpm exec tauri-plugin-libmpv-api setup-lib",
                 "cwd": "{workspaceRoot}"
             }
         },

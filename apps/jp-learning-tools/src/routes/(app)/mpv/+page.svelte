@@ -35,8 +35,8 @@
   import History from "$lib/components/mpv/history.svelte";
 
   let activeTab: "home" | "how-to" = $state("home");
-  let subOffset: number = 0;
-  let timestamp: number = 0;
+  // let subOffset: number = 0;
+  // let timestamp: number = 0;
 
   const startMPV = async () => {
     mpvState.isLoading = true;
@@ -106,7 +106,7 @@
               break;
             case "time-pos":
               if (data) {
-                timestamp = data;
+                mpvState.timestamp = data;
               }
               break;
             case "duration":
@@ -115,7 +115,7 @@
             case "sub-delay":
               console.log("Subtitle delay:", data);
               if (data) {
-                subOffset = data;
+                mpvState.subOffset = data;
               }
               break;
             case "filename":
@@ -174,8 +174,8 @@
       mpvState.isLoading = false;
       if (mpvState.watchHistoryId !== null && !failure) {
         updateWatchHistory(mpvState.watchHistoryId, {
-          timestamp,
-          subOffset,
+          timestamp: mpvState.timestamp,
+          subOffset: mpvState.subOffset,
         });
         mpvState.watchHistoryId = null;
       }
