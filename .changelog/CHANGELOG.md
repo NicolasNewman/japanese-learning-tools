@@ -1,5 +1,5 @@
-# v0.23.1
+# v0.23.2
 
-## repo
+## jp-learning-tools
 
-- chore: re-enable win builds
+- fix: windows build fixes
