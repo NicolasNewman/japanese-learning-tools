@@ -92,7 +92,7 @@
         ], windowLabel);
   
         await command("load-script", [
-          `${mpvPath}scripts${sep()}ModernZ${sep()}`,
+          `${mpvPath}scripts${sep()}ModernZ${sep()}modernz.lua`,
         ], windowLabel);
   
         await command("load-input-conf", [`${mpvPath}input.conf`], windowLabel);
@@ -222,6 +222,9 @@
         mpvState.unlistenEvents = null;
       }
       await destroy(windowLabel);
+      if (windowLabel === "mpv-player") {
+        await (await WebviewWindow.getByLabel(windowLabel))?.close();
+      }
       mpvState.isRunning = false;
       mpvState.isLoading = false;
       if (mpvState.watchHistoryId !== null && !failure) {

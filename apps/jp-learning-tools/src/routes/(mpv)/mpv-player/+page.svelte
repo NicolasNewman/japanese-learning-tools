@@ -70,7 +70,7 @@
             ]);
 
             await command("load-script", [
-                `${mpvPath}scripts${sep()}ModernZ${sep()}`,
+                `${mpvPath}scripts${sep()}ModernZ${sep()}modernz.lua`,
             ]);
 
             await command("load-input-conf", [`${mpvPath}input.conf`]);
