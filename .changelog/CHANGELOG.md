@@ -1,10 +1,5 @@
-# v0.23.0
+# v0.23.2
 
 ## jp-learning-tools
 
-- feat: improved mpv handling, history tab
-- fix: fixed opening browser links via href
-
-## gd-sudachi
-
-- chore: added more pos mappings
+- fix: windows build fixes
