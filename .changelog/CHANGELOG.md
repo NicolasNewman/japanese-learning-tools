@@ -1,9 +1,5 @@
-# v0.24.1
-
-## gd-tools
-
-- fix: path issues on Windows
+# v0.24.2
 
 ## jp-learning-tools
 
-- fix: fixed fullscreen
+- fix: final linux fixes
