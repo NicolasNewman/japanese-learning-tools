@@ -33,6 +33,7 @@
     ["duration", "double", "none"],
     ["filename", "string", "none"],
     ["sub-delay", "double", "none"],
+    ["fullscreen", "flag"],
   ] as const satisfies MpvObservableProperty[];
   import { mpvState } from "../../../stores/mpvState.svelte";
   import History from "$lib/components/mpv/history.svelte";
@@ -129,10 +130,17 @@
               case "filename":
                 console.log("Current playing file:", data);
                 break;
+              case "fullscreen":
+                // mpv ignores fullscreen for embedded (--wid) windows, so mirror it onto the Tauri window
+                if (windowLabel === "mpv-player") {
+                  await (await WebviewWindow.getByLabel(windowLabel))?.setFullscreen(!!data);
+                }
+                break;
             }
           },
+          windowLabel,
         );
-  
+
         mpvState.unlistenEvents = await listenEvents(async (e) => {
           switch (e.event) {
             case "file-loaded":
@@ -151,7 +159,7 @@
   
               break;
           }
-        });
+        }, windowLabel);
   
         mpvState.isRunning = true;
         mpvState.isLoading = false;
