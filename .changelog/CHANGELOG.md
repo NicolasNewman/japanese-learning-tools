@@ -1,3 +1,5 @@
-# v0.23.3
+# v0.24.0
 
+## jp-learning-tools
 
+- feat: window fixes for mpv
