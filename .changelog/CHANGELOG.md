@@ -1,5 +1,9 @@
-# v0.24.0
+# v0.24.1
+
+## gd-tools
+
+- fix: path issues on Windows
 
 ## jp-learning-tools
 
-- feat: window fixes for mpv
+- fix: fixed fullscreen
