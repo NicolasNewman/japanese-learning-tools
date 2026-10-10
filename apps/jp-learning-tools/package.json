@@ -27,6 +27,7 @@
     "@tauri-apps/plugin-os": "~2.2.1",
     "@tauri-apps/plugin-shell": "~2.3.1",
     "@tauri-apps/plugin-store": "~2.2.0",
+    "@tauri-apps/plugin-window": "2.0.0-alpha.1",
     "custom-tauri-titlebar": "^0.3.2",
     "mode-watcher": "^1.1.0",
     "tailwindcss": "^4.1.10",

@@ -1,5 +1,8 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
+  import {
+    type
+} from "@tauri-apps/plugin-os";
   import { open } from "@tauri-apps/plugin-dialog";
   import { Spinner } from "$lib/components/ui/spinner";
   import IconFile from "@lucide/svelte/icons/file";
@@ -33,6 +36,7 @@
   ] as const satisfies MpvObservableProperty[];
   import { mpvState } from "../../../stores/mpvState.svelte";
   import History from "$lib/components/mpv/history.svelte";
+    import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
   let activeTab: "home" | "how-to" = $state("home");
   let subOffset: number = 0;
@@ -40,9 +44,86 @@
 
   const startMPV = async () => {
     mpvState.isLoading = true;
+
     try {
       const resourcePath = await resourceDir();
       const mpvPath = `${resourcePath}${sep()}resources${sep()}mpv${sep()}`;
+   
+      const _startMPV = async (windowLabel: string) => {
+        await command("load-script", [
+          `${mpvPath}scripts${sep()}mpvacious${sep()}`,
+        ], windowLabel);
+        await command("load-config-file", [
+          `${mpvPath}script-opts${sep()}subs2srs.conf`,
+        ], windowLabel);
+  
+        await command("load-script", [
+          `${mpvPath}scripts${sep()}ModernZ${sep()}`,
+        ], windowLabel);
+  
+        await command("load-input-conf", [`${mpvPath}input.conf`], windowLabel);
+  
+        if (mpvState.mediaFile) {
+          await command("loadfile", [mpvState.mediaFile], windowLabel);
+          // watch history id may have been set if the user clicked on a history item
+          if (mpvState.watchHistoryId === null) {
+            addToWatchHistory(mpvState.mediaFile ?? "").then((id) => {
+              mpvState.watchHistoryId = id;
+            });
+          }
+        }
+        mpvState.unlisten = await observeProperties(
+          OBSERVED_PROPERTIES,
+          async ({ name, data }) => {
+            switch (name) {
+              case "pause":
+                console.log("Playback paused state:", data);
+                break;
+              case "time-pos":
+                if (data) {
+                  timestamp = data;
+                }
+                break;
+              case "duration":
+                console.log("Duration:", data);
+                break;
+              case "sub-delay":
+                console.log("Subtitle delay:", data);
+                if (data) {
+                  subOffset = data;
+                }
+                break;
+              case "filename":
+                console.log("Current playing file:", data);
+                break;
+            }
+          },
+        );
+  
+        mpvState.unlistenEvents = await listenEvents(async (e) => {
+          switch (e.event) {
+            case "file-loaded":
+              console.log("File loaded:");
+              if (mpvState.restorePoint) {
+                await command("seek", [
+                  Math.round(mpvState.restorePoint.timestamp),
+                  "absolute+keyframes",
+                ], windowLabel);
+                await command("set", [
+                  "sub-delay",
+                  mpvState.restorePoint.subOffset,
+                ], windowLabel);
+                mpvState.restorePoint = null;
+              }
+  
+              break;
+          }
+        });
+  
+        mpvState.isRunning = true;
+        mpvState.isLoading = false;
+  
+      }
       console.log(toMpvScriptOpt((await get("script-opts")) ?? []));
       const mpvConfig: MpvConfig = {
         initialOptions: {
@@ -73,80 +154,35 @@
         },
         observedProperties: OBSERVED_PROPERTIES,
       };
-
-      await init(mpvConfig);
-      await command("load-script", [
-        `${mpvPath}scripts${sep()}mpvacious${sep()}`,
-      ]);
-      await command("load-config-file", [
-        `${mpvPath}script-opts${sep()}subs2srs.conf`,
-      ]);
-
-      await command("load-script", [
-        `${mpvPath}scripts${sep()}ModernZ${sep()}`,
-      ]);
-
-      await command("load-input-conf", [`${mpvPath}input.conf`]);
-
-      if (mpvState.mediaFile) {
-        await command("loadfile", [mpvState.mediaFile]);
-        // watch history id may have been set if the user clicked on a history item
-        if (mpvState.watchHistoryId === null) {
-          addToWatchHistory(mpvState.mediaFile ?? "").then((id) => {
-            mpvState.watchHistoryId = id;
+      let windowLabel = WebviewWindow.getCurrent().label;
+      if (type() === "windows") {
+        console.log("Running on Windows");
+        if (!(await WebviewWindow.getByLabel('mpv'))) {
+          console.log("MPV window not found, creating a new one");
+          windowLabel = 'mpv-player';
+          const mpvWindow = new WebviewWindow(windowLabel, {
+            url: "/mpv-player",
+            title: 'mpv',
+            width: 1280,
+            height: 720,
+            transparent: true,
+            center: true,
+          });
+          // TODO: (mpv) route?
+          mpvWindow.once("tauri://created", async () => {
+            console.log("MPV window created");
+            await init(mpvConfig, windowLabel);
+            await _startMPV(windowLabel);
+          });
+          mpvWindow.once("tauri://error", (e) => {
+            console.error("MPV window error:", e);
           });
         }
+      } else {
+          await init(mpvConfig, windowLabel);
+          await _startMPV(windowLabel);
       }
-      mpvState.unlisten = await observeProperties(
-        OBSERVED_PROPERTIES,
-        async ({ name, data }) => {
-          switch (name) {
-            case "pause":
-              console.log("Playback paused state:", data);
-              break;
-            case "time-pos":
-              if (data) {
-                timestamp = data;
-              }
-              break;
-            case "duration":
-              console.log("Duration:", data);
-              break;
-            case "sub-delay":
-              console.log("Subtitle delay:", data);
-              if (data) {
-                subOffset = data;
-              }
-              break;
-            case "filename":
-              console.log("Current playing file:", data);
-              break;
-          }
-        },
-      );
 
-      mpvState.unlistenEvents = await listenEvents(async (e) => {
-        switch (e.event) {
-          case "file-loaded":
-            console.log("File loaded:");
-            if (mpvState.restorePoint) {
-              await command("seek", [
-                Math.round(mpvState.restorePoint.timestamp),
-                "absolute+keyframes",
-              ]);
-              await command("set", [
-                "sub-delay",
-                mpvState.restorePoint.subOffset,
-              ]);
-              mpvState.restorePoint = null;
-            }
-
-            break;
-        }
-      });
-
-      mpvState.isRunning = true;
-      mpvState.isLoading = false;
     } catch (error) {
       alertState.alert = {
         alertTitle: "Failed to initialize MPV",
@@ -160,6 +196,8 @@
   };
 
   const stopMPV = async (failure: boolean = false) => {
+    const windowLabel = (await WebviewWindow.getByLabel('mpv-player')) ? 'mpv-player' : WebviewWindow.getCurrent().label;
+    console.log("Stopping MPV window with label:", windowLabel);
     if (mpvState.isRunning || mpvState.isLoading) {
       if (mpvState.unlisten) {
         mpvState.unlisten();
@@ -169,7 +207,7 @@
         mpvState.unlistenEvents();
         mpvState.unlistenEvents = null;
       }
-      await destroy();
+      await destroy(windowLabel);
       mpvState.isRunning = false;
       mpvState.isLoading = false;
       if (mpvState.watchHistoryId !== null && !failure) {

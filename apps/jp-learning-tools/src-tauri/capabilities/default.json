@@ -2,11 +2,12 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "Capability for the main window",
-  "windows": ["main"],
+  "windows": ["main", "mpv-player"],
   "permissions": [
     "core:default",
     "opener:default",
     "os:default",
+    "core:webview:allow-create-webview-window",
     "store:default",
     "fs:default",
     "core:window:allow-start-dragging",
