@@ -1,5 +1,3 @@
-# v0.23.2
+# v0.23.3
 
-## jp-learning-tools
 
-- fix: windows build fixes
