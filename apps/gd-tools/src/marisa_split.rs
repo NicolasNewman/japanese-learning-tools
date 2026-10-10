@@ -100,7 +100,10 @@ fn get_resource_dir() -> PathBuf {
     // TODO: proper path for macOS app bundle
     let resource_dir = exe_dir.parent().unwrap().join("Resources");
 
-    #[cfg(not(target_os = "macos"))]
+    #[cfg(windows)]
+    let resource_dir = exe_dir.join("resources");
+
+    #[cfg(not(any(target_os = "macos", windows)))]
     let resource_dir = exe_dir
         .parent()
         .unwrap()
