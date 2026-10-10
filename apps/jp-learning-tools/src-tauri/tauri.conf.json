@@ -48,7 +48,7 @@
       "ocr/**/*": "resources/ocr",
       "lib/**/*": "",
       "../../../packages/mpv-scripts/mpvacious/mpvacious/": "resources/mpv/scripts/mpvacious/",
-      "../../../packages/mpv-scripts/ModernZ/modernz.lua": "resources/mpv/scripts/ModernZ/main.lua",
+      "../../../packages/mpv-scripts/ModernZ/modernz.lua": "resources/mpv/scripts/ModernZ/modernz.lua",
       "../../../packages/mpv-scripts/ModernZ/modernz.conf": "resources/mpv/script-opts/modernz.conf",
       "../../../packages/mpv-scripts/script-opts/subs2srs.conf": "resources/mpv/script-opts/subs2srs.conf",
       "../../../packages/mpv-scripts/mpv.conf": "resources/mpv/mpv.conf",
