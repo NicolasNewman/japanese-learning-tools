@@ -149,6 +149,129 @@ async fn translate_jp_en<R: Runtime>(text: String, app: AppHandle<R>) -> Result<
     }
 }
 
+#[cfg(windows)]
+mod win_mpv {
+    use std::ffi::c_void;
+
+    type Hwnd = *mut c_void;
+
+    #[link(name = "user32")]
+    extern "system" {
+        fn EnumChildWindows(
+            parent: Hwnd,
+            func: unsafe extern "system" fn(Hwnd, isize) -> i32,
+            lparam: isize,
+        ) -> i32;
+        fn GetClassNameW(hwnd: Hwnd, buf: *mut u16, max: i32) -> i32;
+        fn EnableWindow(hwnd: Hwnd, enable: i32) -> i32;
+        fn SetFocus(hwnd: Hwnd) -> Hwnd;
+        fn GetFocus() -> Hwnd;
+        fn GetCurrentThreadId() -> u32;
+        fn GetForegroundWindow() -> Hwnd;
+        fn IsWindow(hwnd: Hwnd) -> i32;
+        fn GetWindowThreadProcessId(hwnd: Hwnd, pid: *mut u32) -> u32;
+        fn AttachThreadInput(attach: u32, attach_to: u32, enable: i32) -> i32;
+        fn SetWindowPos(
+            hwnd: Hwnd,
+            after: Hwnd,
+            x: i32,
+            y: i32,
+            cx: i32,
+            cy: i32,
+            flags: u32,
+        ) -> i32;
+    }
+
+    const SWP_NOSIZE: u32 = 0x0001;
+    const SWP_NOMOVE: u32 = 0x0002;
+    const SWP_NOACTIVATE: u32 = 0x0010;
+    const HWND_TOP: Hwnd = std::ptr::null_mut();
+
+    unsafe extern "system" fn find_mpv(hwnd: Hwnd, out: isize) -> i32 {
+        let mut buf = [0u16; 16];
+        let len = GetClassNameW(hwnd, buf.as_mut_ptr(), buf.len() as i32);
+        if len > 0 && String::from_utf16_lossy(&buf[..len as usize]) == "mpv" {
+            *(out as *mut Hwnd) = hwnd;
+            return 0;
+        }
+        1
+    }
+
+    pub fn is_window(hwnd: isize) -> bool {
+        unsafe { IsWindow(hwnd as Hwnd) != 0 }
+    }
+
+    /// Enables and raises mpv's child window, and gives it keyboard focus while
+    /// the parent window is in the foreground.
+    pub fn prepare_mpv_child(parent: isize) {
+        unsafe {
+            let mut mpv: Hwnd = std::ptr::null_mut();
+            EnumChildWindows(parent as Hwnd, find_mpv, &mut mpv as *mut Hwnd as isize);
+            if mpv.is_null() {
+                return;
+            }
+
+            // mpv disables its own child window in --wid mode, so it never receives input.
+            EnableWindow(mpv, 1);
+            SetWindowPos(
+                mpv,
+                HWND_TOP,
+                0,
+                0,
+                0,
+                0,
+                SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE,
+            );
+
+            if GetForegroundWindow() != parent as Hwnd {
+                return;
+            }
+
+            // mpv runs its window on another thread, and WebView2 keeps keyboard
+            // focus; SetFocus only works across threads with attached input.
+            let mpv_thread = GetWindowThreadProcessId(mpv, std::ptr::null_mut());
+            let this_thread = GetCurrentThreadId();
+            AttachThreadInput(this_thread, mpv_thread, 1);
+            if GetFocus() != mpv {
+                SetFocus(mpv);
+            }
+            AttachThreadInput(this_thread, mpv_thread, 0);
+        }
+    }
+}
+
+/// On Windows, mpv disables its embedded child window (`--wid` mode) and
+/// WebView2 keeps keyboard focus, so mpv scripts (ModernZ, mpvacious) get no
+/// input. Watch the window and keep mpv's child enabled, raised and focused
+/// until the window is closed.
+#[tauri::command]
+fn raise_mpv_window<R: Runtime>(app: AppHandle<R>, label: String) -> Result<(), String> {
+    #[cfg(windows)]
+    {
+        static WATCHED: Mutex<Vec<isize>> = Mutex::new(Vec::new());
+
+        let window = app
+            .get_webview_window(&label)
+            .ok_or_else(|| format!("Window '{}' not found", label))?;
+        let hwnd = window.hwnd().map_err(|e| e.to_string())?.0 as isize;
+
+        let mut watched = WATCHED.lock().unwrap();
+        if !watched.contains(&hwnd) {
+            watched.push(hwnd);
+            std::thread::spawn(move || {
+                while win_mpv::is_window(hwnd) {
+                    win_mpv::prepare_mpv_child(hwnd);
+                    std::thread::sleep(std::time::Duration::from_millis(100));
+                }
+                WATCHED.lock().unwrap().retain(|h| *h != hwnd);
+            });
+        }
+    }
+    #[cfg(not(windows))]
+    let _ = (app, label);
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -168,7 +291,8 @@ pub fn run() {
             open_tmp_log,
             translate_jp_en,
             start_region_select,
-            capture
+            capture,
+            raise_mpv_window
         ])
         .setup(|app| {
             let monitor = Monitor::all()
