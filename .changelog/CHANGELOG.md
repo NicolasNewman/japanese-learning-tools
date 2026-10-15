@@ -1,5 +1,5 @@
-# v0.24.2
+# v0.25.0
 
 ## jp-learning-tools
 
-- fix: final linux fixes
+- feat: min-max titlebar buttons
