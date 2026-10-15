@@ -1,5 +1,5 @@
-# v0.23.2
+# v0.24.2
 
 ## jp-learning-tools
 
-- fix: windows build fixes
+- fix: final linux fixes

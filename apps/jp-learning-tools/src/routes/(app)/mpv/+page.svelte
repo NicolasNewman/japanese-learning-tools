@@ -33,10 +33,12 @@
     ["duration", "double", "none"],
     ["filename", "string", "none"],
     ["sub-delay", "double", "none"],
+    ["fullscreen", "flag"],
   ] as const satisfies MpvObservableProperty[];
   import { mpvState } from "../../../stores/mpvState.svelte";
   import History from "$lib/components/mpv/history.svelte";
     import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+  import { invoke } from "@tauri-apps/api/core";
 
   let activeTab: "home" | "how-to" = $state("home");
   // let subOffset: number = 0;
@@ -45,9 +47,41 @@
   const startMPV = async () => {
     mpvState.isLoading = true;
 
+    
+
     try {
       const resourcePath = await resourceDir();
       const mpvPath = `${resourcePath}${sep()}resources${sep()}mpv${sep()}`;
+
+      const mpvConfig: MpvConfig = {
+        initialOptions: {
+          alang: "ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US",
+          slang: "ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US",
+          // TODO: make these configurable
+          "screenshot-directory": "~/Pictures/Screenshots/",
+          "screenshot-template": "%F_%wHh%wMm%wSs%wTms",
+          "sub-auto": "fuzzy",
+          "subs-with-matching-audio": "yes",
+          "screenshot-format": "jpg",
+          "screenshot-jpeg-quality": 90,
+          "screenshot-high-bit-depth": "yes",
+          "sub-font-size": 40,
+          vo: "gpu-next",
+          hwdec: "auto-safe",
+          "keep-open": "yes",
+          "force-window": "yes",
+          "load-scripts": "no",
+          "script-opts": toMpvScriptOpt((await get("script-opts")) ?? []),
+          // "input-conf": `${mpvPath}input.conf`,
+          // "script-opts":
+          // "subs2srs-autoclip_method=clipboard,subs2srs-autoclip=yes,subs2srs-deck_name=Active::Japanese::subs2srs,subs2srs-note_tag=subs2srs kanji-first",
+          include: `${mpvPath}input.conf`,
+          "osd-fonts-dir": `${mpvPath}fonts${sep()}`,
+          "osd-font": "Material Design Iconic Font",
+          osc: "no",
+        },
+        observedProperties: OBSERVED_PROPERTIES,
+      };
    
       const _startMPV = async (windowLabel: string) => {
         await command("load-script", [
@@ -58,7 +92,7 @@
         ], windowLabel);
   
         await command("load-script", [
-          `${mpvPath}scripts${sep()}ModernZ${sep()}`,
+          `${mpvPath}scripts${sep()}ModernZ${sep()}modernz.lua`,
         ], windowLabel);
   
         await command("load-input-conf", [`${mpvPath}input.conf`], windowLabel);
@@ -96,10 +130,17 @@
               case "filename":
                 console.log("Current playing file:", data);
                 break;
+              case "fullscreen":
+                // mpv ignores fullscreen for embedded (--wid) windows, so mirror it onto the Tauri window
+                if (windowLabel === "mpv-player") {
+                  await (await WebviewWindow.getByLabel(windowLabel))?.setFullscreen(!!data);
+                }
+                break;
             }
           },
+          windowLabel,
         );
-  
+
         mpvState.unlistenEvents = await listenEvents(async (e) => {
           switch (e.event) {
             case "file-loaded":
@@ -118,46 +159,18 @@
   
               break;
           }
-        });
+        }, windowLabel);
   
         mpvState.isRunning = true;
         mpvState.isLoading = false;
   
       }
       console.log(toMpvScriptOpt((await get("script-opts")) ?? []));
-      const mpvConfig: MpvConfig = {
-        initialOptions: {
-          alang: "ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US",
-          slang: "ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US",
-          // TODO: make these configurable
-          "screenshot-directory": "~/Pictures/Screenshots/",
-          "screenshot-template": "%F_%wHh%wMm%wSs%wTms",
-          "sub-auto": "fuzzy",
-          "subs-with-matching-audio": "yes",
-          "screenshot-format": "jpg",
-          "screenshot-jpeg-quality": 90,
-          "screenshot-high-bit-depth": "yes",
-          "sub-font-size": 40,
-          vo: "gpu-next",
-          hwdec: "auto-safe",
-          "keep-open": "yes",
-          "force-window": "yes",
-          "load-scripts": "no",
-          "script-opts": toMpvScriptOpt((await get("script-opts")) ?? []),
-          // "input-conf": `${mpvPath}input.conf`,
-          // "script-opts":
-          // "subs2srs-autoclip_method=clipboard,subs2srs-autoclip=yes,subs2srs-deck_name=Active::Japanese::subs2srs,subs2srs-note_tag=subs2srs kanji-first",
-          include: `${mpvPath}input.conf`,
-          "osd-fonts-dir": `${mpvPath}fonts${sep()}`,
-          "osd-font": "Material Design Iconic Font",
-          osc: "no",
-        },
-        observedProperties: OBSERVED_PROPERTIES,
-      };
+      
       let windowLabel = WebviewWindow.getCurrent().label;
       if (type() === "windows") {
         console.log("Running on Windows");
-        if (!(await WebviewWindow.getByLabel('mpv'))) {
+        if (!(await WebviewWindow.getByLabel('mpv-player'))) {
           console.log("MPV window not found, creating a new one");
           windowLabel = 'mpv-player';
           const mpvWindow = new WebviewWindow(windowLabel, {
@@ -172,6 +185,7 @@
           mpvWindow.once("tauri://created", async () => {
             console.log("MPV window created");
             await init(mpvConfig, windowLabel);
+            await invoke("raise_mpv_window", { label: windowLabel });
             await _startMPV(windowLabel);
           });
           mpvWindow.once("tauri://error", (e) => {
@@ -208,6 +222,9 @@
         mpvState.unlistenEvents = null;
       }
       await destroy(windowLabel);
+      if (windowLabel === "mpv-player") {
+        await (await WebviewWindow.getByLabel(windowLabel))?.close();
+      }
       mpvState.isRunning = false;
       mpvState.isLoading = false;
       if (mpvState.watchHistoryId !== null && !failure) {
