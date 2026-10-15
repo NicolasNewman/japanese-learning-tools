@@ -35,8 +35,28 @@ export default async () => {
     { type: "html", data: "<p>X</p>" },
     async () => {
       await getCurrentWindow().close();
-    }
+    },
   );
+  titlebar.addButton(
+    "btn-maximize",
+    { type: "html", data: "<p>+</p>" },
+    async () => {
+      const window = getCurrentWindow();
+      if (await window.isMaximized()) {
+        await window.unmaximize();
+      } else {
+        await window.maximize();
+      }
+    },
+  );
+  titlebar.addButton(
+    "btn-minimize",
+    { type: "html", data: "<p>-</p>" },
+    async () => {
+      await getCurrentWindow().minimize();
+    },
+  );
+
   await titlebar.addMenu({
     label: "File",
     items: [
